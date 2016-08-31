@@ -1,0 +1,29 @@
+{
+    "name": "maigoxin/ksyun_sdk",
+    "description": "ksyun openapi unoffical sdk",
+    "type": "library",
+    "homepage": "https://github.com/maigoxin/ksyun_sdk",
+    "keywords": [
+        "openapi",
+        "ksyun",
+        "maigoxin",
+        "huangxin"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Huang Xin",
+            "email": "maigoxin@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "guzzlehttp/guzzle":"~6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ksyun\\": "src/",
+            "Test\\": "tests/"
+        }
+    }
+}
