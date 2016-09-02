@@ -2,18 +2,18 @@
     "name": "kscsdk/ksyun_sdk",
     "description": "ksyun openapi unoffical sdk",
     "type": "library",
-    "homepage": "https://github.com/maigoxin/ksyun_sdk",
+    "homepage": "https://github.com/KscSDK/ksyun_sdk",
     "keywords": [
         "openapi",
         "ksyun",
         "maigoxin",
         "huangxin"
     ],
-    "license": "MIT",
+    "license": "KSC",
     "authors": [
         {
             "name": "Huang Xin",
-            "email": "maigoxin@gmail.com"
+            "email": "ksc_sdk@kingsoft.com"
         }
     ],
     "require": {
