@@ -1,10 +1,7 @@
-# SDK
->此SDK不作为官方SDK，仅作为技术交流使用。相关同学感兴趣可以随时联系QQ:360275482。美女优先添加。
-
 ##使用方式
 ####composer引用
 ```
-composer require maigoxin/ksyun_sdk
+composer require kscsdk/ksyun_sdk
 ```
 ####ak|sk配置
 >获取到用户的aksk后配置在文件
@@ -62,6 +59,4 @@ $sk = 'this is sk';
 $response = Iam::getInstance()->request('ListUsers', ['v4_credentials' => ['ak' => $ak, 'sk' => $sk]]);
 echo (string)$response->getBody();
 ```
-##联合开发方案
->欢迎大家加入联合开发，开发原则是添加Service对应class并且补充齐全对应的tests相关代码。
->原则提交merge request后我会尽快处理，并且回复大家问题
+
