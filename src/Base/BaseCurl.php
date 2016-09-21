@@ -24,8 +24,7 @@ abstract class BaseCurl extends Singleton
 
     protected function __construct()
     {
-        $this->stack = new HandlerStack();
-        $this->stack->setHandler(new CurlHandler());
+        $this->stack = HandlerStack::create();
         $this->stack->push($this->replaceUri());
 
         $config = $this->getConfig();
