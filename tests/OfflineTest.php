@@ -15,6 +15,7 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
         'TopTaskByReqID',	// 置顶任务
         'GetTaskList',		// 获取任务列表
         'GetTaskByReqID',	// 获取任务详情
+        'GetTaskMetaInfo',  // 获取任务META列表
     );
 
     public function testAllAPI()
@@ -82,6 +83,12 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     public function testGetTaskByTaskID()
     {
         $response = Offline::getInstance()->request('GetTaskByTaskID');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testGetTaskMetaInfo()
+    {
+        $response = Offline::getInstance()->request('GetTaskMetaInfo');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 }

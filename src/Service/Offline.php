@@ -133,5 +133,15 @@ class Offline extends V4Curl
                 ]
             ],
         ],
+        'GetTaskMetaInfo' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetTaskMetaInfo',
+                    'Version' => '2016-09-19'
+                ]
+            ],
+        ],
     ];
 }
