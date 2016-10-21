@@ -16,6 +16,7 @@ $arrMethod = array(
     'TopTaskByTaskID',	// 置顶任务
     'GetTaskList',		// 获取任务列表
     'GetTaskByTaskID',	// 获取任务详情
+    'GetTaskMetaInfo',  // 获取任务META列表
 
 );
 if (!in_array($method, $arrMethod)) {
@@ -63,9 +64,13 @@ $task_data = [
         ]
     ],
     'dstBucket' => 'wangshuai9',
-    'dstObjectKey' => 'ksyun_1.flv',
     'dstDir' => '',
+    'dstObjectKey' => 'ksyun_1.flv',
+    'dstAcl' => 'public-read',
     'isTop' => 0,
+    'cbUrl' => '',
+    'cbMethod' => '',
+    'extParam' => ''
 ];
 
 // 任务ID
@@ -82,6 +87,7 @@ switch($method) {
         break;
     case 'GetPresetList':
     case 'GetTaskList':
+    case 'GetTaskMetaInfo':
         $response = Offline::getInstance()->request($method);
         break;
     case 'CreateTask':
