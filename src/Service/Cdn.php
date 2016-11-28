@@ -11,22 +11,24 @@ class Cdn extends V4Curl
 	protected function getConfig()
 	{
 		return [
-			'host' => '',
-            'timeout' => 5,  //此处设置无用，BaseCurl 没有设置
+			'host' => 'http://cdn.api.ksyun.com',
+            'timeout' => 60,  //此处设置无用，BaseCurl 没有设置
             'config' => [
-                'headers' => [
-                    'Accept' => 'application/json'
+                'v4_credentials' => [
+                    'region' => 'cn-shanghai-1',
+                    'service' => 'cdn',
                 ],
             ],
 		];
 	}
 	protected $apiList =[
 		'GetCdnDomains' => [
-            'url' => '',
+            'url' => '/2016-09-01/domain/GetCdnDomains',
             'method' => 'get',
             'config' => [
-                'query' => [
-                   
+                'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'GetCdnDomains',
                 ],
             ],
         ],
