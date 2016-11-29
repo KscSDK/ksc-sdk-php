@@ -179,6 +179,51 @@ class Cdn extends V4Curl
                 ],
 			],
 		],
+        
+        //查询带宽 
+        'GetBandwidthData' => [
+			'url' => '/2016-09-01/statistics/GetBandwidthData',
+			'method' => 'get',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'GetBandwidthData',
+                ],
+			],
+		],
+        //查询流量
+        'GetFlowData' => [
+			'url' => '/2016-09-01/statistics/GetFlowData',
+			'method' => 'get',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'GetFlowData',
+                ],
+			],
+		],
+        //请求数查询
+        'GetPvData' => [
+			'url' => '/2016-09-01/statistics/GetPvData',
+			'method' => 'get',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'GetPvData',
+                ],
+			],
+		],
+        //命中率详情查询
+        'GetHitRateDetailedData' => [
+			'url' => '/2016-09-01/statistics/GetHitRateDetailedData',
+			'method' => 'get',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'GetHitRateDetailedData',
+                ],
+			],
+		],
 	];
 }
 

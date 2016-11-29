@@ -155,18 +155,17 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 		$origin_variable = array(
             'DomainId'=>'2D09RHK',
 			'Enable'=>'on',
-			'OriginPort'=>80,
-			'OriginPolicy'=>'rr',
+			'OriginPolicy'=>'quality',
 			'OriginPolicyBestCount'=>1,
-			'OriginType'=>'ipaddr',
+			'OriginType'=>'domain',
 			'OriginAdvancedItems'=> array(
 				array(
 					'OriginLine'=>'default',
-					'Origin'=>'www.baidu2.com'
+					'Origin'=>'www.b.qunar.com'
 				),
 				array(
-					'OriginLine'=>'un',
-					'Origin'=>'www.baidu2.com'
+					'OriginLine'=>'cm',
+					'Origin'=>'www.c.qunar.com'
 				),
 			),
         );
@@ -176,7 +175,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			'body'=>$data,
 		];
 		$response = Cdn::getInstance()->request('SetOriginAdvancedConfig', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+		return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	
 	//设置备注信息
@@ -191,6 +190,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 		$response = Cdn::getInstance()->request('SetRemarkConfig', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
 	}
+    
+    //
 }
 
 
