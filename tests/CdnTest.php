@@ -14,12 +14,12 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'PageSize'=>'20',
-				'PageNumber'=>'1',
-				'DomainName'=>'',
-				'DomainStatus'=>'online',
-				'CdnType'=>'download',
-				'FuzzyMatch'=>'',
+				'PageSize' => '20',
+				'PageNumber' => '1',
+				'DomainName' => '',
+				'DomainStatus' => 'online',
+				'CdnType' => 'download',
+				'FuzzyMatch' => '',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetCdnDomains', $params);
@@ -30,15 +30,15 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainName'=>'www.qunar.com',
-				'CdnType'=>'download',
-				//'CdnSubType'=>'',
-				'CdnProtocol'=>'http',
-				'Regions'=>'CN',
-				'OriginType'=>'domain',
-				'OriginProtocol'=>'http',
-				'OriginPort'=>'80',
-				'Origin'=>'www.ksyun.com',
+				'DomainName' => 'www.qunar.com',
+				'CdnType' => 'download',
+				//'CdnSubType' => '',
+				'CdnProtocol' => 'http',
+				'Regions' => 'CN',
+				'OriginType' => 'domain',
+				'OriginProtocol' => 'http',
+				'OriginPort' => '80',
+				'Origin' => 'www.ksyun.com',
 			],
 		];
 		$response = Cdn::getInstance()->request('AddCdnDomain', $params);
@@ -49,7 +49,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
+				'DomainId' => '2D09QXK',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetCdnDomainBasic', $params);
@@ -60,11 +60,11 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				'Origin'=>'www.ks-cdn.com',
-				'OriginType'=>'domain',
-				'OriginPort'=>'80',
-				//'Regions'=>'',
+				'DomainId' => '2D09QXK',
+				'Origin' => 'www.ks-cdn.com',
+				'OriginType' => 'domain',
+				'OriginPort' => '80',
+				//'Regions' => '',
 			],
 		];
 		$response = Cdn::getInstance()->request('ModifyCdnDomain', $params);
@@ -75,8 +75,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				'ActionType'=>'start',
+				'DomainId' => '2D09QXK',
+				'ActionType' => 'start',
 			],
 		];
 		$response = Cdn::getInstance()->request('StartStopCdnDomain', $params);
@@ -89,8 +89,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				//'ConfigList'=>'cache_expired,cc,ignore_query_string',   //过滤规则
+				'DomainId' => '2D09QXK',
+				//'ConfigList' => 'cache_expired,cc,ignore_query_string',   //过滤规则
 			],
 		];
 		$response = Cdn::getInstance()->request('GetDomainConfigs', $params);
@@ -101,8 +101,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				'Enable'=>'on',   //  on  或者 off
+				'DomainId' => '2D09QXK',
+				'Enable' => 'on',   //  on  或者 off
 			],
 		];
 		$response = Cdn::getInstance()->request('SetIgnoreQueryStringConfig', $params);
@@ -113,8 +113,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				'BackOriginHost'=>'www.a.qunar.com',   //
+				'DomainId' => '2D09QXK',
+				'BackOriginHost' => 'www.a.qunar.com',   //
 			],
 		];
 		$response = Cdn::getInstance()->request('SetBackOriginHostConfig', $params);
@@ -125,25 +125,49 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				'Enable'=>'on',   //
-				'ReferType'=>'block',
-				'ReferList'=>'www.baidu.com,www.sina.com',
-				//'AllowEmpty'=>'',  //默认 on
+				'DomainId' => '2D09QXK',
+				'Enable' => 'on',   //
+				'ReferType' => 'block',
+				'ReferList' => 'www.baidu.com,www.sina.com',
+				//'AllowEmpty' => '',  //默认 on
 			],
 		];
 		$response = Cdn::getInstance()->request('SetReferProtectionConfig', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
 	}
-	//设置缓存策略  无
+	//设置缓存策略 post
+    public function testSetCacheRuleConfig()
+	{
+        $cache_rule = array(
+            'DomainId' => '2D09RHK',
+            'CacheRules' => array(
+                array(
+                    'CacheRuleType' => 'file_suffix',
+                    'CacheTime' => 10,
+                    'Value' => 'jpg',
+                ),
+                array(
+                    'CacheRuleType' => 'directory',
+                    'CacheTime' => 10,
+                    'Value' => '/aaa/',
+                ),
+            ),
+        );
+        $data = json_encode($cache_rule);
+		$params = [
+			'body' => $data,
+		];
+		$response = Cdn::getInstance()->request('SetCacheRuleConfig', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}
 	
 	//设置测试url
 	public function testSetTestUrlConfig()
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				'TestUrl'=>'www.qunar.com/index.html',   
+				'DomainId' => '2D09QXK',
+				'TestUrl' => 'www.qunar.com/index.html',   
 			],
 		];
 		$response = Cdn::getInstance()->request('SetTestUrlConfig', $params);
@@ -153,26 +177,26 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	public function testSetOriginAdvancedConfig()
 	{
 		$origin_variable = array(
-            'DomainId'=>'2D09RHK',
-			'Enable'=>'on',
-			'OriginPolicy'=>'quality',
-			'OriginPolicyBestCount'=>1,
-			'OriginType'=>'domain',
+            'DomainId' => '2D09RHK',
+			'Enable' => 'on',
+			'OriginPolicy' => 'quality',
+			'OriginPolicyBestCount' => 1,
+			'OriginType' => 'domain',
 			'OriginAdvancedItems'=> array(
 				array(
-					'OriginLine'=>'default',
-					'Origin'=>'www.b.qunar.com'
+					'OriginLine' => 'default',
+					'Origin' => 'www.b.qunar.com'
 				),
 				array(
-					'OriginLine'=>'cm',
-					'Origin'=>'www.c.qunar.com'
+					'OriginLine' => 'cm',
+					'Origin' => 'www.c.qunar.com'
 				),
 			),
         );
 		$data = json_encode($origin_variable);
 		
 		$params = [
-			'body'=>$data,
+			'body' => $data,
 		];
 		$response = Cdn::getInstance()->request('SetOriginAdvancedConfig', $params);
 		return $this->assertEquals($response->getStatusCode(), 200);
@@ -183,15 +207,78 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId'=>'2D09QXK',
-				'Remark'=>'设置备注信息',   
+				'DomainId' => '2D09QXK',
+				'Remark' => '设置备注信息',   
 			],
 		];
 		$response = Cdn::getInstance()->request('SetRemarkConfig', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
 	}
-    
-    //
+    //*****统计分析*******//
+    //查询带宽
+    public function testGetBandwidthData()
+	{
+		$params = [
+			'query'=>[
+                'StartTime' => '2016-09-19T08:00+0800',
+                'EndTime' => '2016-09-20T08:00+0800',
+                'CdnType' => 'download',
+                'ResultType' => '0',
+                'Regions' => 'CN',
+                'DataType' => 'origin',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetBandwidthData', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}
+    //查询流量
+    public function testGetFlowData()
+	{
+		$params = [
+			'query'=>[
+                'StartTime' => '2016-09-19T08:00+0800',
+                'EndTime' => '2016-09-20T08:00+0800',
+                'CdnType' => 'download',
+                'ResultType' => '0',
+                'Regions' => 'CN',
+                'DataType' => 'edge',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetFlowData', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}
+    //请求数查询
+    public function testGetPvData()
+	{
+		$params = [
+			'query'=>[
+                'StartTime' => '2016-09-19T08:00+0800',
+                'EndTime' => '2016-09-20T08:00+0800',
+                'CdnType' => 'download',
+                'ResultType' => '0',
+                'Regions' => 'CN',
+                'DataType' => 'edge',
+                'Granularity' => '5',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetPvData', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}
+    //命中率详情查询
+     public function testGetHitRateDetailedData()
+	{
+		$params = [
+			'query'=>[
+                'StartTime' => '2016-09-19T08:00+0800',
+                'EndTime' => '2016-09-20T08:00+0800',
+                'CdnType' => 'download',
+                'ResultType' => '0',
+                'HitType' => 'flowhitrate',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetHitRateDetailedData', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}   
 }
 
 

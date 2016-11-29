@@ -30,7 +30,7 @@ class Cdn extends V4Curl
             'config' => [
                 'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'GetCdnDomains',
+				   'X-Action' => 'GetCdnDomains',
                 ],
             ],
         ],
@@ -41,7 +41,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'AddCdnDomain',
+				   'X-Action' => 'AddCdnDomain',
                 ],
 			],
 		],
@@ -52,7 +52,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'GetCdnDomainBasicInfo',
+				   'X-Action' => 'GetCdnDomainBasicInfo',
                 ],
 			],
 		],
@@ -63,7 +63,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'ModifyCdnDomainBasicInfo',
+				   'X-Action' => 'ModifyCdnDomainBasicInfo',
                 ],
 			],
 		],
@@ -74,7 +74,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'StartStopCdnDomain',
+				   'X-Action' => 'StartStopCdnDomain',
                 ],
 			],
 		],
@@ -85,7 +85,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'DeleteCdnDomain',
+				   'X-Action' => 'DeleteCdnDomain',
                 ],
 			],
 		],
@@ -96,7 +96,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'GetDomainConfigs',
+				   'X-Action' => 'GetDomainConfigs',
                 ],
 			],
 		],
@@ -107,7 +107,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'SetIgnoreQueryStringConfig',
+				   'X-Action' => 'SetIgnoreQueryStringConfig',
                 ],
 			],
 		],
@@ -118,7 +118,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'SetBackOriginHostConfig',
+				   'X-Action' => 'SetBackOriginHostConfig',
                 ],
 			],
 		],
@@ -129,19 +129,19 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'SetReferProtectionConfig',
+				   'X-Action' => 'SetReferProtectionConfig',
                 ],
 			],
 		],
-		//设置缓存策略
+		//设置缓存策略 post
 		'SetCacheRuleConfig' => [
 			'url' => '/2016-09-01/domain/SetCacheRuleConfig',
 			'method' => 'post',
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'SetCacheRuleConfig',
-				   'content-type'=>'application/json',
+				   'X-Action' => 'SetCacheRuleConfig',
+				   'content-type' => 'application/json',
                 ],
 			],
 		],
@@ -152,19 +152,19 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'SetTestUrlConfig',
+				   'X-Action' => 'SetTestUrlConfig',
                 ],
 			],
 		],
-		//设置高级回源
+		//设置高级回源 post
 		'SetOriginAdvancedConfig' => [
 			'url' => '/2016-09-01/domain/SetOriginAdvancedConfig',
 			'method' => 'post',
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'SetOriginAdvancedConfig',
-				   'content-type'=>'application/json',
+				   'X-Action' => 'SetOriginAdvancedConfig',
+				   'content-type' => 'application/json',
                 ],
 			],
 		],
@@ -175,7 +175,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'SetRemarkConfig',
+				   'X-Action' => 'SetRemarkConfig',
                 ],
 			],
 		],
@@ -187,7 +187,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'GetBandwidthData',
+				   'X-Action' => 'GetBandwidthData',
                 ],
 			],
 		],
@@ -198,7 +198,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'GetFlowData',
+				   'X-Action' => 'GetFlowData',
                 ],
 			],
 		],
@@ -209,7 +209,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'GetPvData',
+				   'X-Action' => 'GetPvData',
                 ],
 			],
 		],
@@ -220,7 +220,7 @@ class Cdn extends V4Curl
 			'config' => [
 				'header' => [
                    'X-Version' => '2016-09-01',
-				   'X-Action'=>'GetHitRateDetailedData',
+				   'X-Action' => 'GetHitRateDetailedData',
                 ],
 			],
 		],
