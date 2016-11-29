@@ -1,18 +1,19 @@
 <?php
 /**
- *
+ *  creator: dinglei
  */
 
 namespace Ksyun\Service;
 
 use Ksyun\Base\V4Curl;
+
 class Cdn extends V4Curl
 {
 	protected function getConfig()
 	{
 		return [
 			'host' => 'http://cdn.api.ksyun.com',
-            'timeout' => 60,  //此处设置无用，BaseCurl 没有设置
+            'timeout' => 60,  //设置timeout
             'config' => [
                 'v4_credentials' => [
                     'region' => 'cn-shanghai-1',
@@ -24,7 +25,7 @@ class Cdn extends V4Curl
 	protected $apiList =[
 	    //域名列表
 		'GetCdnDomains' => [
-            'url' => '/2016-09-01/domain/GetCdnDomains',
+			'url' => '/2016-09-01/domain/GetCdnDomains',
             'method' => 'get',
             'config' => [
                 'header' => [
@@ -121,7 +122,7 @@ class Cdn extends V4Curl
                 ],
 			],
 		],
-		//设置refer防盗链 SetReferProtectionConfig
+		//设置refer防盗链 
 		'SetReferProtectionConfig' => [
 			'url' => '/2016-09-01/domain/SetReferProtectionConfig',
 			'method' => 'get',
@@ -129,6 +130,52 @@ class Cdn extends V4Curl
 				'header' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action'=>'SetReferProtectionConfig',
+                ],
+			],
+		],
+		//设置缓存策略
+		'SetCacheRuleConfig' => [
+			'url' => '/2016-09-01/domain/SetCacheRuleConfig',
+			'method' => 'post',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'SetCacheRuleConfig',
+				   'content-type'=>'application/json',
+                ],
+			],
+		],
+		//设置测试url
+		'SetTestUrlConfig' => [
+			'url' => '/2016-09-01/domain/SetTestUrlConfig',
+			'method' => 'get',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'SetTestUrlConfig',
+                ],
+			],
+		],
+		//设置高级回源
+		'SetOriginAdvancedConfig' => [
+			'url' => '/2016-09-01/domain/SetOriginAdvancedConfig',
+			'method' => 'post',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'SetOriginAdvancedConfig',
+				   'content-type'=>'application/json',
+                ],
+			],
+		],
+		//设置备注信息
+		'SetRemarkConfig' => [
+			'url' => '/2016-09-01/domain/SetRemarkConfig',
+			'method' => 'get',
+			'config' => [
+				'header' => [
+                   'X-Version' => '2016-09-01',
+				   'X-Action'=>'SetRemarkConfig',
                 ],
 			],
 		],

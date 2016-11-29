@@ -1,5 +1,10 @@
 <?php
+/**
+ *  creator: dinglei
+ */
+ 
 namespace Ksyun\Tests;
+
 use Ksyun\Service\Cdn;
 
 class CdnTest extends \PHPUnit_Framework_TestCase
@@ -115,7 +120,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 		$response = Cdn::getInstance()->request('SetBackOriginHostConfig', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
 	}
-	//
+	//设置refer防盗链 
 	public function testSetReferProtectionConfig()
 	{
 		$params = [
@@ -128,6 +133,62 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('SetReferProtectionConfig', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}
+	//设置缓存策略  无
+	
+	//设置测试url
+	public function testSetTestUrlConfig()
+	{
+		$params = [
+			'query'=>[
+				'DomainId'=>'2D09QXK',
+				'TestUrl'=>'www.qunar.com/index.html',   
+			],
+		];
+		$response = Cdn::getInstance()->request('SetTestUrlConfig', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}
+	//设置高级回源  post 传json
+	public function testSetOriginAdvancedConfig()
+	{
+		$origin_variable = array(
+            'DomainId'=>'2D09RHK',
+			'Enable'=>'on',
+			'OriginPort'=>80,
+			'OriginPolicy'=>'rr',
+			'OriginPolicyBestCount'=>1,
+			'OriginType'=>'ipaddr',
+			'OriginAdvancedItems'=> array(
+				array(
+					'OriginLine'=>'default',
+					'Origin'=>'www.baidu2.com'
+				),
+				array(
+					'OriginLine'=>'un',
+					'Origin'=>'www.baidu2.com'
+				),
+			),
+        );
+		$data = json_encode($origin_variable);
+		
+		$params = [
+			'body'=>$data,
+		];
+		$response = Cdn::getInstance()->request('SetOriginAdvancedConfig', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+	}
+	
+	//设置备注信息
+	public function testSetRemarkConfig()
+	{
+		$params = [
+			'query'=>[
+				'DomainId'=>'2D09QXK',
+				'Remark'=>'设置备注信息',   
+			],
+		];
+		$response = Cdn::getInstance()->request('SetRemarkConfig', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
 	}
 }
