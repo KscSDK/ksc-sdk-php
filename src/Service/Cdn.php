@@ -1,6 +1,6 @@
 <?php
 /**
- *  creator: dinglei
+ *  creator: dinglei 
  */
 
 namespace Ksyun\Service;
