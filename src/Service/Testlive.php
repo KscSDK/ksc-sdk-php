@@ -12,8 +12,8 @@ class Testlive extends V4Curl
     {
         return [
             'host' => 'http://testlive.cn-beijing-6.api.ksyun.com',
-            'timeout' => 5,
             'config' => [
+                'timeout' => 5.0,
                 'headers' => [
                     'Accept' => 'application/json'
                 ],

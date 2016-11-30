@@ -11,8 +11,8 @@ class Vpc extends V4Curl
     {
         return [
             'host' => 'https://vpc.{region}.api.ksyun.com',
-            'timeout' => 5,
             'config' => [
+                'timeout' => 5.0,
                 'headers' => [
                     'Accept' => 'application/json'
                 ],
