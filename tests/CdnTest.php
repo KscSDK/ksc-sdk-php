@@ -1,10 +1,5 @@
-<?php
-/**
- *  creator: dinglei
- */
- 
+﻿<?php
 namespace Ksyun\Tests;
-
 use Ksyun\Service\Cdn;
 
 class CdnTest extends \PHPUnit_Framework_TestCase
@@ -42,7 +37,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('AddCdnDomain', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+                return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//查询域名基础信息
 	public function testGetCdnDomainBasic()
@@ -53,7 +48,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('GetCdnDomainBasic', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//修改域名配置
 	public function testModifyCdnDomain()
@@ -68,7 +63,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('ModifyCdnDomain', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//启用、停用某个加速域名 StartStopCdnDomain
 	public function testStartStopCdnDomain()
@@ -80,7 +75,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('StartStopCdnDomain', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//删除域名,没有测试案例
 
@@ -94,7 +89,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('GetDomainConfigs', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//设置过滤参数
 	public function testSetIgnoreQueryStringConfig()
@@ -106,7 +101,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('SetIgnoreQueryStringConfig', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//设置回源 host
 	public function testSetBackOriginHostConfig()
@@ -118,7 +113,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('SetBackOriginHostConfig', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//设置refer防盗链 
 	public function testSetReferProtectionConfig()
@@ -133,7 +128,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('SetReferProtectionConfig', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//设置缓存策略 post
     public function testSetCacheRuleConfig()
@@ -158,7 +153,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			'body' => $data,
 		];
 		$response = Cdn::getInstance()->request('SetCacheRuleConfig', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	
 	//设置测试url
@@ -171,13 +166,13 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('SetTestUrlConfig', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//设置高级回源  post 传json
 	public function testSetOriginAdvancedConfig()
 	{
 		$origin_variable = array(
-            'DomainId' => '2D09RHK',
+           		'DomainId' => '2D09RHK',
 			'Enable' => 'on',
 			'OriginPolicy' => 'quality',
 			'OriginPolicyBestCount' => 1,
@@ -212,72 +207,72 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('SetRemarkConfig', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
-    //*****统计分析*******//
-    //查询带宽
-    public function testGetBandwidthData()
+        //*****统计分析*******//
+        //查询带宽
+        public function testGetBandwidthData()
 	{
 		$params = [
 			'query'=>[
-                'StartTime' => '2016-09-19T08:00+0800',
-                'EndTime' => '2016-09-20T08:00+0800',
-                'CdnType' => 'download',
-                'ResultType' => '0',
-                'Regions' => 'CN',
-                'DataType' => 'origin',
+                		'StartTime' => '2016-09-19T08:00+0800',
+                		'EndTime' => '2016-09-20T08:00+0800',
+                		'CdnType' => 'download',
+                		'ResultType' => '0',
+                		'Regions' => 'CN',
+                		'DataType' => 'origin',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetBandwidthData', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
-    //查询流量
-    public function testGetFlowData()
+    	//查询流量
+   	public function testGetFlowData()
 	{
 		$params = [
 			'query'=>[
-                'StartTime' => '2016-09-19T08:00+0800',
-                'EndTime' => '2016-09-20T08:00+0800',
-                'CdnType' => 'download',
-                'ResultType' => '0',
-                'Regions' => 'CN',
-                'DataType' => 'edge',
+                		'StartTime' => '2016-09-19T08:00+0800',
+                		'EndTime' => '2016-09-20T08:00+0800',
+                		'CdnType' => 'download',
+                		'ResultType' => '0',
+                		'Regions' => 'CN',
+                		'DataType' => 'edge',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetFlowData', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
-    //请求数查询
-    public function testGetPvData()
+    	//请求数查询
+    	public function testGetPvData()
 	{
 		$params = [
 			'query'=>[
-                'StartTime' => '2016-09-19T08:00+0800',
-                'EndTime' => '2016-09-20T08:00+0800',
-                'CdnType' => 'download',
-                'ResultType' => '0',
-                'Regions' => 'CN',
-                'DataType' => 'edge',
-                'Granularity' => '5',
+                		'StartTime' => '2016-09-19T08:00+0800',
+                		'EndTime' => '2016-09-20T08:00+0800',
+                		'CdnType' => 'download',
+                		'ResultType' => '0',
+                		'Regions' => 'CN',
+                		'DataType' => 'edge',
+                		'Granularity' => '5',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetPvData', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}
-    //命中率详情查询
-     public function testGetHitRateDetailedData()
+    	//命中率详情查询
+     	public function testGetHitRateDetailedData()
 	{
 		$params = [
 			'query'=>[
-                'StartTime' => '2016-09-19T08:00+0800',
-                'EndTime' => '2016-09-20T08:00+0800',
-                'CdnType' => 'download',
-                'ResultType' => '0',
-                'HitType' => 'flowhitrate',
+                		'StartTime' => '2016-09-19T08:00+0800',
+                		'EndTime' => '2016-09-20T08:00+0800',
+                		'CdnType' => 'download',
+                		'ResultType' => '0',
+                		'HitType' => 'flowhitrate',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetHitRateDetailedData', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        	return $this->assertEquals($response->getStatusCode(), 200);
 	}  
 	//命中率查询（饼图）
 	public function testGetHitRateData()
