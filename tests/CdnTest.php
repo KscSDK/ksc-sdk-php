@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 namespace Ksyun\Tests;
 use Ksyun\Service\Cdn;
 
@@ -131,24 +131,24 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         	return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//设置缓存策略 post
-    public function testSetCacheRuleConfig()
+    	public function testSetCacheRuleConfig()
 	{
-        $cache_rule = array(
-            'DomainId' => '2D09RHK',
-            'CacheRules' => array(
-                array(
-                    'CacheRuleType' => 'file_suffix',
-                    'CacheTime' => 10,
-                    'Value' => 'jpg',
-                ),
-                array(
-                    'CacheRuleType' => 'directory',
-                    'CacheTime' => 10,
-                    'Value' => '/aaa/',
-                ),
-            ),
-        );
-        $data = json_encode($cache_rule);
+        	$cache_rule = array(
+            		'DomainId' => '2D09RHK',
+            		'CacheRules' => array(
+                		array(
+                    			'CacheRuleType' => 'file_suffix',
+                    			'CacheTime' => 10,
+                    			'Value' => 'jpg',
+                		),
+                		array(
+                    			'CacheRuleType' => 'directory',
+                    			'CacheTime' => 10,
+                    			'Value' => '/aaa/',
+                		),
+            		),
+        	);
+        	$data = json_encode($cache_rule);
 		$params = [
 			'body' => $data,
 		];
@@ -187,7 +187,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 					'Origin' => 'www.c.qunar.com'
 				),
 			),
-        );
+        	);
 		$data = json_encode($origin_variable);
 		
 		$params = [
