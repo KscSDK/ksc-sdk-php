@@ -28,9 +28,9 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/GetCdnDomains',
             'method' => 'get',
             'config' => [
-                'header' => [
-                   'X-Version' => '2016-09-01',
-				   'X-Action' => 'GetCdnDomains',
+                'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetCdnDomains',
                 ],
             ],
         ],
@@ -39,7 +39,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/AddCdnDomain',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'AddCdnDomain',
                 ],
@@ -50,7 +50,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/GetCdnDomainBasicInfo',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'GetCdnDomainBasicInfo',
                 ],
@@ -61,7 +61,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/ModifyCdnDomainBasicInfo',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'ModifyCdnDomainBasicInfo',
                 ],
@@ -72,7 +72,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/StartStopCdnDomain',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'StartStopCdnDomain',
                 ],
@@ -83,7 +83,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/DeleteCdnDomain',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'DeleteCdnDomain',
                 ],
@@ -94,7 +94,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/GetDomainConfigs',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'GetDomainConfigs',
                 ],
@@ -105,7 +105,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/SetIgnoreQueryStringConfig',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'SetIgnoreQueryStringConfig',
                 ],
@@ -116,7 +116,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/SetBackOriginHostConfig',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'SetBackOriginHostConfig',
                 ],
@@ -127,7 +127,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/SetReferProtectionConfig',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'SetReferProtectionConfig',
                 ],
@@ -138,7 +138,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/SetCacheRuleConfig',
 			'method' => 'post',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'SetCacheRuleConfig',
 				   'content-type' => 'application/json',
@@ -150,7 +150,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/SetTestUrlConfig',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'SetTestUrlConfig',
                 ],
@@ -161,7 +161,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/SetOriginAdvancedConfig',
 			'method' => 'post',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'SetOriginAdvancedConfig',
 				   'content-type' => 'application/json',
@@ -173,7 +173,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/domain/SetRemarkConfig',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'SetRemarkConfig',
                 ],
@@ -185,7 +185,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/statistics/GetBandwidthData',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'GetBandwidthData',
                 ],
@@ -196,7 +196,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/statistics/GetFlowData',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'GetFlowData',
                 ],
@@ -207,7 +207,7 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/statistics/GetPvData',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'GetPvData',
                 ],
@@ -218,12 +218,156 @@ class Cdn extends V4Curl
 			'url' => '/2016-09-01/statistics/GetHitRateDetailedData',
 			'method' => 'get',
 			'config' => [
-				'header' => [
+				'headers' => [
                    'X-Version' => '2016-09-01',
 				   'X-Action' => 'GetHitRateDetailedData',
                 ],
 			],
 		],
+		// 命中率查询（饼图）
+		'GetHitRateData' => [
+			'url' => '/2016-09-01/statistics/GetHitRateData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetHitRateData',
+				],
+			],
+		],
+		//省份+运营商流量查询
+		'GetProvinceAndIspFlowData' => [
+			'url' => '/2016-09-01/statistics/GetProvinceAndIspFlowData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetProvinceAndIspFlowData',
+				],
+			],
+		],
+		//省份+运营商带宽查询
+		'GetProvinceAndIspBandwidthData' => [
+			'url' => '/2016-09-01/statistics/GetProvinceAndIspBandwidthData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetProvinceAndIspBandwidthData',
+				],
+			],
+		],
+		//状态码统计
+		'GetHttpCodeData' => [
+			'url' => '/2016-09-01/statistics/GetHttpCodeData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetHttpCodeData',
+				],
+			],
+		],
+		//状态码详情统计
+		'GetHttpCodeDetailedData' => [
+			'url' => '/2016-09-01/statistics/GetHttpCodeDetailedData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetHttpCodeDetailedData',
+				],
+			],
+		],
+		//top url 查询
+		'GetTopUrlData' => [
+			'url' => '/2016-09-01/statistics/GetTopUrlData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetTopUrlData',
+				],
+			],
+		],
+		//用户区域统计
+		'GetAreaData' => [
+			'url' => '/2016-09-01/statistics/GetAreaData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetAreaData',
+				],
+			],
+		],
+		//运营商占比统计
+		'GetIspData' => [
+			'url' => '/2016-09-01/statistics/GetIspData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetIspData',
+				],
+			],
+		],
+		//直播按流维度查询流量
+		'GetLiveFlowDataByStream' => [
+			'url' => '/2016-09-01/statistics/GetLiveFlowDataByStream',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetLiveFlowDataByStream',
+				],
+			],
+		],
+		//直播按流维度查询带宽
+		'GetLiveBandwidthDataByStream' => [
+			'url' => '/2016-09-01/statistics/GetLiveBandwidthDataByStream',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetLiveBandwidthDataByStream',
+				],
+			],
+		],
+		//直播按域名维度统计在线人数
+		'GetLiveOnlineUserDataByDomain' => [
+			'url' => '/2016-09-01/statistics/GetLiveOnlineUserDataByDomain',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetLiveOnlineUserDataByDomain',
+				],
+			],
+		],
+		//直播按流维度统计在线人数
+		'GetLiveOnlineUserDataByStream' => [
+			'url' => '/2016-09-01/statistics/GetLiveOnlineUserDataByStream',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetLiveOnlineUserDataByStream',
+				],
+			],
+		],
+		//直播TopN按流维度的在线人数排行
+		'GetLiveTopOnlineUserData' => [
+			'url' => '/2016-09-01/statistics/GetLiveTopOnlineUserData',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-09-01',
+					'X-Action' => 'GetLiveTopOnlineUserData',
+				],
+			],
+		],
+
 	];
 }
 

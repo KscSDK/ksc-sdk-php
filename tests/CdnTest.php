@@ -23,7 +23,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 		$response = Cdn::getInstance()->request('GetCdnDomains', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+		return $this->assertEquals($response->getStatusCode(), 200);
 	}
 	//新增域名
 	public function testAddCdnDomain()
@@ -278,7 +278,189 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 		];
 		$response = Cdn::getInstance()->request('GetHitRateDetailedData', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
-	}   
+	}  
+	//命中率查询（饼图）
+	public function testGetHitRateData()
+	{
+		$params = [
+			'query' => [
+				'CdnType' => 'download',
+				'StartTime' => '2016-09-19T08:00+0800',
+				'EndTime' => '2016-09-20T08:00+0800',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetHitRateData', $params);
+		return $this->assertEquals($response->getStatusCode(), 200);
+	}
+	//省份+运营商流量查询
+	public function testGetProvinceAndIspFlowData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-19T00:00+0800',
+				'EndTime' => '2016-09-19T23:00+0800',
+				'CdnType' => 'download',
+				'ResultType' => '0',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetProvinceAndIspFlowData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//省份+运营商带宽查询
+	public function testGetProvinceAndIspBandwidthData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-19T00:00+0800',
+				'EndTime' => '2016-09-19T23:00+0800',
+				'CdnType' => 'download',
+				'ResultType' => '1',
+				'Granularity' => '480',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetProvinceAndIspBandwidthData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//状态码统计
+	public function testGetHttpCodeData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-19T00:00+0800',
+				'EndTime' => '2016-09-19T23:00+0800',
+				'CdnType' => 'download',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetHttpCodeData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//状态码详情统计
+	public function testGetHttpCodeDetailedData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-19T00:00+0800',
+				'EndTime' => '2016-09-19T23:00+0800',
+				'CdnType' => 'download',
+				'ResultType' => '0',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetHttpCodeDetailedData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//top url 查询
+	public function testGetTopUrlData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-19T00:00+0800',
+				'EndTime' => '2016-09-19T23:00+0800',
+				'CdnType' => 'download',
+				'LimitN' => '5',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetTopUrlData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//用户区域统计
+	public function testGetAreaData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-19T00:00+0800',
+				'EndTime' => '2016-09-19T23:00+0800',
+				'CdnType' => 'download',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetAreaData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//运营商占比统计
+	public function testGetIspData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-19T00:00+0800',
+				'EndTime' => '2016-09-19T23:00+0800',
+				'CdnType' => 'download',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetIspData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//直播按流维度查询流量
+	public function testGetLiveFlowDataByStream()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-22T09:14+0800',
+				'EndTime' => '2016-09-24T10:20+0800',
+				'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
+				'ResultType' => '0',
+				'Granularity' => '1440',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetLiveFlowDataByStream', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//直播按流维度查询带宽
+	public function testGetLiveBandwidthDataByStream()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-22T09:14+0800',
+				'EndTime' => '2016-09-24T10:20+0800',
+				'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
+				'ResultType' => '1',
+				'Granularity' => '1440',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetLiveBandwidthDataByStream', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//直播按域名维度统计在线人数
+	public function testGetLiveOnlineUserDataByDomain()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-22T09:14+0800',
+				'EndTime' => '2016-09-24T10:20+0800',
+				'ResultType' => '0',
+				'Granularity' => '1440',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetLiveOnlineUserDataByDomain', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//直播按流维度统计在线人数
+	public function testGetLiveOnlineUserDataByStream()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-22T09:14+0800',
+				'EndTime' => '2016-09-24T10:20+0800',
+				'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
+				'ResultType' => '1',
+				'Granularity' => '1440',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetLiveOnlineUserDataByStream', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+	//直播TopN按流维度的在线人数排行
+	public function testGetLiveTopOnlineUserData()
+	{
+		$params = [
+			'query' => [
+				'StartTime' => '2016-09-22T09:14+0800',
+				'EndTime' => '2016-09-24T10:20+0800',
+				'LimitN' => '5',
+			],
+		];
+		$response = Cdn::getInstance()->request('GetLiveTopOnlineUserData', $params);
+		return $this->assertEquals($response->getStatuscode(), 200);
+	}
+
 }
 
 
