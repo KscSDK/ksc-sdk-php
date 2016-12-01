@@ -215,8 +215,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-                		'StartTime' => '2016-09-19T08:00+0800',
-                		'EndTime' => '2016-09-20T08:00+0800',
+                		'StartTime' => '2016-11-19T08:00+0800',
+                		'EndTime' => '2016-11-20T08:00+0800',
                 		'CdnType' => 'download',
                 		'ResultType' => '0',
                 		'Regions' => 'CN',
@@ -231,8 +231,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-                		'StartTime' => '2016-09-19T08:00+0800',
-                		'EndTime' => '2016-09-20T08:00+0800',
+                		'StartTime' => '2016-11-19T08:00+0800',
+                		'EndTime' => '2016-11-20T08:00+0800',
                 		'CdnType' => 'download',
                 		'ResultType' => '0',
                 		'Regions' => 'CN',
@@ -247,8 +247,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-                		'StartTime' => '2016-09-19T08:00+0800',
-                		'EndTime' => '2016-09-20T08:00+0800',
+                		'StartTime' => '2016-11-19T08:00+0800',
+                		'EndTime' => '2016-11-20T08:00+0800',
                 		'CdnType' => 'download',
                 		'ResultType' => '0',
                 		'Regions' => 'CN',
@@ -264,8 +264,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-                		'StartTime' => '2016-09-19T08:00+0800',
-                		'EndTime' => '2016-09-20T08:00+0800',
+                		'StartTime' => '2016-11-19T08:00+0800',
+                		'EndTime' => '2016-11-20T08:00+0800',
                 		'CdnType' => 'download',
                 		'ResultType' => '0',
                 		'HitType' => 'flowhitrate',
@@ -280,8 +280,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 		$params = [
 			'query' => [
 				'CdnType' => 'download',
-				'StartTime' => '2016-09-19T08:00+0800',
-				'EndTime' => '2016-09-20T08:00+0800',
+				'StartTime' => '2016-11-19T08:00+0800',
+				'EndTime' => '2016-11-20T08:00+0800',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetHitRateData', $params);
@@ -292,8 +292,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-19T00:00+0800',
-				'EndTime' => '2016-09-19T23:00+0800',
+				'StartTime' => '2016-11-19T00:00+0800',
+				'EndTime' => '2016-11-19T23:00+0800',
 				'CdnType' => 'download',
 				'ResultType' => '0',
 			],
@@ -306,8 +306,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-19T00:00+0800',
-				'EndTime' => '2016-09-19T23:00+0800',
+				'StartTime' => '2016-11-19T00:00+0800',
+				'EndTime' => '2016-11-19T23:00+0800',
 				'CdnType' => 'download',
 				'ResultType' => '1',
 				'Granularity' => '480',
@@ -321,8 +321,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-19T00:00+0800',
-				'EndTime' => '2016-09-19T23:00+0800',
+				'StartTime' => '2016-11-19T00:00+0800',
+				'EndTime' => '2016-11-19T23:00+0800',
 				'CdnType' => 'download',
 			],
 		];
@@ -334,8 +334,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-19T00:00+0800',
-				'EndTime' => '2016-09-19T23:00+0800',
+				'StartTime' => '2016-11-19T00:00+0800',
+				'EndTime' => '2016-11-19T23:00+0800',
 				'CdnType' => 'download',
 				'ResultType' => '0',
 			],
@@ -348,8 +348,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-19T00:00+0800',
-				'EndTime' => '2016-09-19T23:00+0800',
+				'StartTime' => '2016-11-19T00:00+0800',
+				'EndTime' => '2016-11-19T23:00+0800',
 				'CdnType' => 'download',
 				'LimitN' => '5',
 			],
@@ -362,8 +362,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-19T00:00+0800',
-				'EndTime' => '2016-09-19T23:00+0800',
+				'StartTime' => '2016-11-19T00:00+0800',
+				'EndTime' => '2016-11-19T23:00+0800',
 				'CdnType' => 'download',
 			],
 		];
@@ -375,8 +375,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-19T00:00+0800',
-				'EndTime' => '2016-09-19T23:00+0800',
+				'StartTime' => '2016-11-19T00:00+0800',
+				'EndTime' => '2016-11-19T23:00+0800',
 				'CdnType' => 'download',
 			],
 		];
@@ -388,8 +388,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-22T09:14+0800',
-				'EndTime' => '2016-09-24T10:20+0800',
+				'StartTime' => '2016-11-22T09:14+0800',
+				'EndTime' => '2016-11-24T10:20+0800',
 				'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
 				'ResultType' => '0',
 				'Granularity' => '1440',
@@ -403,8 +403,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-22T09:14+0800',
-				'EndTime' => '2016-09-24T10:20+0800',
+				'StartTime' => '2016-11-22T09:14+0800',
+				'EndTime' => '2016-11-24T10:20+0800',
 				'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
 				'ResultType' => '1',
 				'Granularity' => '1440',
@@ -418,8 +418,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-22T09:14+0800',
-				'EndTime' => '2016-09-24T10:20+0800',
+				'StartTime' => '2016-11-22T09:14+0800',
+				'EndTime' => '2016-11-24T10:20+0800',
 				'ResultType' => '0',
 				'Granularity' => '1440',
 			],
@@ -432,8 +432,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-22T09:14+0800',
-				'EndTime' => '2016-09-24T10:20+0800',
+				'StartTime' => '2016-11-22T09:14+0800',
+				'EndTime' => '2016-11-24T10:20+0800',
 				'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
 				'ResultType' => '1',
 				'Granularity' => '1440',
@@ -447,8 +447,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
-				'StartTime' => '2016-09-22T09:14+0800',
-				'EndTime' => '2016-09-24T10:20+0800',
+				'StartTime' => '2016-11-22T09:14+0800',
+				'EndTime' => '2016-11-24T10:20+0800',
 				'LimitN' => '5',
 			],
 		];
