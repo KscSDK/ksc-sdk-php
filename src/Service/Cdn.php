@@ -5,6 +5,7 @@
 namespace Ksyun\Service;
 
 use Ksyun\Base\V4Curl;
+use \DOMDocument;
 
 class Cdn extends V4Curl
 {
@@ -21,6 +22,7 @@ class Cdn extends V4Curl
             		],
 		];
 	}
+    
 	protected $apiList =[
 	        //域名列表
 		'GetCdnDomains' => [
@@ -357,7 +359,7 @@ class Cdn extends V4Curl
 		],
 		//直播TopN按流维度的在线人数排行
 		'GetLiveTopOnlineUserData' => [
-			'url' => '/2016-09-01/statistics/GetLiveTopOnlineUserData',
+			'url' => '/2016-09-01/statistics/{domain}/GetLiveTopOnlineUserData',
 			'method' => 'get',
 			'config' => [
 				'headers' => [
@@ -365,9 +367,166 @@ class Cdn extends V4Curl
 					'X-Action' => 'GetLiveTopOnlineUserData',
 				],
 			],
+		],  
+        // 内容管理接口
+        // 日志下载 downloadLogsetting
+        'GetDomainLogs' => [
+			'url' => '/2016-05-20/log/{domain}/logs',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-05-20',
+					'X-Action' => 'GetLog',
+				],
+			],
+		], 
+        //刷新文件或目录   post
+        'RefreshCaches' => [
+			'url' => '/2016-07-11/distribution/invalidation',
+			'method' => 'post',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2016-07-11',
+					'X-Action' => 'CreateInvalidation',
+                    'content-type' => 'application/json',
+				],
+			],
+		], 
+        
+        //preloadFiles   post xml
+        'PreloadCache' => [
+			'url' => '/2015-09-17/distribution/{domain}/preload',
+			'method' => 'post',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2015-09-17',
+					'X-Action' => 'CreatePreload',
+                    'content-type' => 'text/xml',
+				],
+			],
 		],
-
+        
+        //查询当前配额 
+        'GetQuotaConfig' => [
+			'url' => '/2015-09-17/quota/config',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2015-09-17',
+					'X-Action' => 'GetQuotaConfig',
+				],
+			],
+		], 
+        //获取当前已用配额用量 
+        'GetQuotaUsageAmount' => [
+			'url' => '/2015-09-17/quota/usage-amount',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2015-09-17',
+					'X-Action' => 'GetQuotaUsageAmount',
+				],
+			],
+		], 
+        //查询刷新及预加载结果
+        'ListInvalidationsByContentPath' => [
+			'url' => '/2015-09-17/distribution/content-path',
+			'method' => 'get',
+			'config' => [
+				'headers' => [
+					'X-Version' => '2015-09-17',
+					'X-Action' => 'ListInvalidationsByContentPath',
+				],
+			],
+		], 
+        
 	];
+    
+    //特殊封装  request
+    public function request($api, array $config = [])
+    {
+        if($api === 'GetDomainLogs'){
+            $domain = $config['query']['domain'];
+            $config['query'] = $this->array_remove($config['query'] , 'domain');               
+            $config['replace']['domain'] = base64_encode($domain);
+            
+        }else if($api === 'PreloadCache'){
+            $files = isset($config['files']) ? $config['files'] : false;
+            $config = $this->array_remove($config, 'files'); //清空参数
+            $this->proloadpost($files, $api, $config);
+            return ;
+        }
+        
+        return parent::request($api, $config);
+    }
+    
+    // PreloadCache 封装xml 发送
+    private function proloadpost($files, $api, $config){
+        
+        foreach($files as $url){
+            $tempu=parse_url($url);  
+            $strdomain = $tempu['host'];  
+            $strPath = $tempu['path'];
+            isset($domains[$strdomain]) ?  $domains[$strdomain][]=$strPath: $domains[$strdomain]=[$strPath,];
+        } 
+        $keys = array_keys($domains);
+
+        foreach($keys as $key){
+            $distributionId = base64_encode($key);
+       
+            $dom = new DOMDocument(); 
+            $root = $dom->createElement("PreloadBatch"); 
+            $dom->appendChild($root); 
+            $paths = $dom->createElement("Paths"); 
+            $root->appendChild($paths); 
+            $items = $dom->createElement("Items");
+            $paths->appendChild($items);
+            foreach($domains[$key] as $path){
+                $item = $dom->createElement("Path");
+                $items->appendChild($item);
+                $text = $dom->createTextNode($path); 
+                $item->appendChild($text);
+            }
+            $quantity = $dom->createElement("Quantity");
+            $paths->appendChild($quantity);
+            $q = $dom->createTextNode(sizeof($domains[$key]));
+            $quantity->appendChild($q);
+            $Caller = $dom->createElement("CallerReference");
+            $paths->appendChild($Caller);
+            $uuid = $dom->createTextNode($this->create_guid());
+            $Caller->appendChild($uuid);
+            $config['body'] = $dom->saveXML();
+            $config['replace']['domain'] = $distributionId;
+            //var_dump($config);
+            $response = parent::request($api, $config); // 发送
+            //echo $response->getStatusCode();
+            //echo "\n";
+            //echo (string)$response->getBody();
+        }    
+    }
+    //删除指定key 数组元素
+     private function array_remove($data, $key){  
+        if(!array_key_exists($key, $data)){  
+            return $data;  
+        }  
+        $keys = array_keys($data);  
+        $index = array_search($key, $keys);  
+        if($index !== FALSE){  
+            array_splice($data, $index, 1);  
+        }  
+        return $data;  
+    }
+    private function create_guid() {
+        $charid = strtoupper(md5(uniqid(mt_rand(), true)));
+        $hyphen = chr(45);
+        $uuid = ''.substr($charid, 0, 8).$hyphen
+            .substr($charid, 8, 4).$hyphen
+            .substr($charid,12, 4).$hyphen
+            .substr($charid,16, 4).$hyphen
+            .substr($charid,20,12);
+        return $uuid;
+    }
+    
 }
 
 
