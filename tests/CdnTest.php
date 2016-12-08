@@ -25,7 +25,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainName' => 'www.qunar.com',
+				'DomainName' => 'www.cnnic.cn',
 				'CdnType' => 'download',
 				//'CdnSubType' => '',
 				'CdnProtocol' => 'http',
@@ -44,7 +44,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetCdnDomainBasic', $params);
@@ -55,7 +55,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				'Origin' => 'www.ks-cdn.com',
 				'OriginType' => 'domain',
 				'OriginPort' => '80',
@@ -70,7 +70,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				'ActionType' => 'start',
 			],
 		];
@@ -84,7 +84,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				//'ConfigList' => 'cache_expired,cc,ignore_query_string',   //过滤规则
 			],
 		];
@@ -96,7 +96,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				'Enable' => 'on',   //  on  或者 off
 			],
 		];
@@ -108,7 +108,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				'BackOriginHost' => 'www.a.qunar.com',   //
 			],
 		];
@@ -120,7 +120,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				'Enable' => 'on',   //
 				'ReferType' => 'block',
 				'ReferList' => 'www.baidu.com,www.sina.com',
@@ -134,7 +134,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     	public function testSetCacheRuleConfig()
 	{
         	$cache_rule = array(
-            		'DomainId' => '2D09RHK',
+            		'DomainId' => '2D09NXG',
             		'CacheRules' => array(
                 		array(
                     			'CacheRuleType' => 'file_suffix',
@@ -161,7 +161,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				'TestUrl' => 'www.qunar.com/index.html',   
 			],
 		];
@@ -172,7 +172,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	public function testSetOriginAdvancedConfig()
 	{
 		$origin_variable = array(
-           		'DomainId' => '2D09RHK',
+           		'DomainId' => '2D09NXG',
 			'Enable' => 'on',
 			'OriginPolicy' => 'quality',
 			'OriginPolicyBestCount' => 1,
@@ -202,7 +202,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query'=>[
-				'DomainId' => '2D09QXK',
+				'DomainId' => '2D09NXG',
 				'Remark' => '设置备注信息',   
 			],
 		];
@@ -449,13 +449,98 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 			'query' => [
 				'StartTime' => '2016-11-22T09:14+0800',
 				'EndTime' => '2016-11-24T10:20+0800',
+                'ResultType'=>'0',
 				'LimitN' => '5',
 			],
 		];
 		$response = Cdn::getInstance()->request('GetLiveTopOnlineUserData', $params);
 		return $this->assertEquals($response->getStatuscode(), 200);
 	}
-
+    	//内容管理接口
+    	// 日志下载接口
+    	public function testDownloadLog()
+    	{
+        	$params = [
+            		'query' => [
+                		'domain' => 'test.dxz.ksyun.8686c.com',
+                		'startTime' => '',
+                		'endTime' => '',
+                		'pageIndex' => '',
+                		'pageSize' => '',
+            		],
+        	];
+        	$response = Cdn::getInstance()->request('GetDomainLogs', $params);
+        	return $this->assertEquals($response->getStatuscode(), 200);
+    	}
+    	//查询当前配额
+    	public function testgetQuotaConfig()
+    	{
+        	$params = [
+                'query' => [],
+            ];
+            $response = Cdn::getInstance()->request('GetQuotaConfig', $params);
+            //echo (string)$response->getBody();
+        	return $this->assertEquals($response->getStatuscode(), 200);
+    	}
+    	//获取当前已用配额用量
+    	public function testGetQuotaUsageAmount()
+    	{
+        	$params = [
+            		'query' => [],
+        	];
+        	$response = Cdn::getInstance()->request('GetQuotaUsageAmount', $params);
+        	return $this->assertEquals($response->getStatuscode(), 200);
+    	}
+    	//查询刷新及预加载结果
+    	public function testListInvalidationsByContentPath()
+    	{
+        	$params = [
+            		'query' => [
+                		'StartTime'=>'1480476366935',
+                		'EndTime'=>'1480694340000',
+                		'PageIndex'=>'0',
+                		'PageSize'=>'10',
+                		'Type'=>'refreshFile',
+            	],
+        	];
+        	$response = Cdn::getInstance()->request('ListInvalidationsByContentPath', $params);
+        	return $this->assertEquals($response->getStatuscode(), 200);
+    	}
+    	//刷新  post
+    	public function testRefreshCaches()
+    	{
+        	$content = array(
+           		'callerReference' => '',
+			'files' => array(
+                		'http://www.cnic.cn/2.html',
+             		),
+             		'dirs'=> array(
+                		'http://www.cnic.cn/2/',
+             		),
+        	);
+		$data = json_encode($content);
+        	$params = [
+            		'body' => $data,
+        	];
+        	$response = Cdn::getInstance()->request('RefreshCaches', $params);
+        	return $this->assertEquals($response->getStatuscode(), 200);
+    	}
+    
+    	//预热  post
+    	public function testPreloadCache()
+    	{
+        	$files = array(
+            		'http://appinstall2.ks3-cn-beijing.ksyun.com/l.html',
+            		'http://www.cnic.cn/1.html',
+            		'http://appinstall2.ks3-cn-beijing.ksyun.com/2.html',
+            		'http://www.cnic.cn/2.html',
+        	);
+        	$params = [
+            		'files' => $files,
+        	];
+        	Cdn::getInstance()->request('PreloadCache', $params); //无返回
+        	//return $this->assertEquals($response->getStatuscode(), 200);
+    	}
 }
 
 
