@@ -238,10 +238,10 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     }
     /**
     *   设置高级回源策略。
-        注意：
-        OriginLine为default默认源的线路，是必填项，其他几个源都是选填项。OriginLine不能
-        重复填写。
-        开启高级回源策略后，会关闭掉基础配置中的回源配置。
+    *   注意：
+    *   OriginLine为default默认源的线路，是必填项，其他几个源都是选填项。OriginLine不能
+    *   重复填写。
+    *    开启高级回源策略后，会关闭掉基础配置中的回源配置。
     *   request($api, $httpConfig)提交请求
     *       $api 为  'SetOriginAdvancedConfig'
     *       $httpConfig 中通过body字段设置提交的json格式缓存规则
@@ -482,7 +482,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	
     /**
     *   top url 查询，获取单个域名或多个域名某天内某一时段的TOP Url访问数据，仅包含Top200且访问次数大于5次的 Url的访问次数、
-        访问流量，并按次数排序
+    *   访问流量，并按次数排序
     *   request($api, $httpConfig)提交请求
     *       $api 为  'GetTopUrlData'
     *       $httpConfig 中通过query字段设置请求参数
@@ -503,7 +503,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	
     /**
     *   用户区域统计，获取国内各省份及运营商流量、访问次数、流量占比，请求数占比，海外地区的流量、访问
-        次数、流量占比、请求数占比。
+    *   次数、流量占比、请求数占比。
     *   request($api, $httpConfig)提交请求
     *       $api 为  'GetAreaData'
     *       $httpConfig 中通过query字段设置请求参数
