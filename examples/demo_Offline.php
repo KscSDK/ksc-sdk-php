@@ -1,7 +1,9 @@
 <?php
+/**
+ * 离线转码demo
+ */
 require('./vendor/autoload.php');
 use Ksyun\Service\Offline;
-
 
 $method = $argv[1];
 
@@ -19,6 +21,7 @@ $arrMethod = array(
     'GetTaskMetaInfo',  // 获取任务META列表
 
 );
+
 if (!in_array($method, $arrMethod)) {
     echo "method error!\n";
     exit;
