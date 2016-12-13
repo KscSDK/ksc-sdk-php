@@ -359,7 +359,7 @@ class Cdn extends V4Curl
         ],
         //直播TopN按流维度的在线人数排行
         'GetLiveTopOnlineUserData' => [
-            'url' => '/2016-09-01/statistics/{domain}/GetLiveTopOnlineUserData',
+            'url' => '/2016-09-01/statistics/GetLiveTopOnlineUserData',
             'method' => 'get',
             'config' => [
                 'headers' => [
