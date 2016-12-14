@@ -23,6 +23,7 @@ if (!in_array($method, $arrMethod)) {
 }
 
 $app = 'live'; // 频道名
+$uniqname = 'test'; // 用户名
 $preset = 'preset_demo'; // 模板名
 $streamid = 'stream20170101'; // 流名
 
@@ -66,6 +67,7 @@ $preset_data = [
 
 // 发起外网拉流数组
 $outpull_data = [
+    'app' => $app,
     'streamid' => $streamid,
     'srcurl' => 'rtmp://test.rtmplive.ks-cdn.com/live/streamdemo',
     'params' => ''
@@ -73,23 +75,23 @@ $outpull_data = [
 
 switch($method) {
     case 'Preset':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => 'test'], 'json' => $preset_data]);
+        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname], 'json' => $preset_data]);
         break;
     case 'DelPreset':
     case 'GetPresetDetail':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => 'test', 'app' => 'live', 'preset' => $preset]]);
+        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname, 'app' => $app, 'preset' => $preset]]);
         break;
     case 'GetPresetList':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => 'test', 'app' => 'live']]);
+        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname, 'app' => $app]]);
         break;
     case 'GetStreamTranList':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => 'test', 'app' => 'live']]);
+        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname, 'app' => $app]]);
         break;
     case 'StartStreamPull':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => 'test'], 'json' => $outpull_data ]);
+        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname], 'json' => $outpull_data ]);
         break;
     case 'StopStreamPull':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => 'test'], 'json' => ['streamid' => $streamid]]);
+        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname], 'json' => ['app' => $app, 'streamid' => $streamid]]);
         break;
 }
 
