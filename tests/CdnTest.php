@@ -30,7 +30,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             'query'=>[
                 'PageSize' => '20',  //分页大小
                 'PageNumber' => '1', //取第几页
-                'DomainName' => '', //按域名过滤
+                'DomainName' => '',  //按域名过滤  默认为空，代表当前用户下所有域名
                 'DomainStatus' => 'online', //按域名状态过滤
                 'CdnType' => 'download', //产品类型
                 'FuzzyMatch' => '', //域名过滤是否使用模糊匹配
@@ -51,14 +51,14 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $params = [
             'query'=>[
                 'DomainName' => 'www.cnnic.cn',     //加速域名
-                'CdnType' => 'download',    //加速类型
-                //'CdnSubType' => '', //加速业务子类型 默认不填写
+                'CdnType' => 'download',    //加速类型             
                 'CdnProtocol' => 'http',    //客户访问边缘节点的协议。默认http
                 'Regions' => 'CN', //加速区域，默认CN， 可以输入多个，以逗号间隔。
                 'OriginType' => 'domain',   //源站类型
-                'OriginProtocol' => 'http', //回源协议
-                'OriginPort' => '80', //源站域名端口号
+                'OriginProtocol' => 'http', //回源协议              
                 'Origin' => 'www.ksyun.com',    //源站域名
+                'OriginPort' => '80', //源站域名端口号
+                //'CdnSubType' => '', //加速业务子类型 默认不填写
             ],
         ];
         $response = Cdn::getInstance()->request('AddCdnDomain', $params);
@@ -130,10 +130,30 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     */
     public function testGetDomainConfigs()
     {
+        /*ConfigList参数说明
+            cache_expired    缓存策略
+            cc               IP防盗链配置
+            error_page       自定义404错误页面跳转，当前不支持
+            http_header      设置http头
+            optimize         页面优化，当前不支持
+            page_compress    智能压缩
+            ignore_query_string  过滤参数
+            range            设置range回源
+            referer          Refer防盗链功能
+            req_auth         设置URL鉴权
+            src_host         设置回源host
+            video_seek       设置拖拽
+            waf              Waf防护功能，当前不支持
+            notify_url       视频直播notify url ，当前不支持
+            redirect_type    强制访问跳转方式, 取值: Off, Http, Https，当前不支持
+            src_advanced     设置高级回源
+            src_probe        设置回源探测
+            test_url         设置测试URL
+        */
         $params = [
             'query'=>[
                 'DomainId' => '2D09NXG', //域名id
-                //'ConfigList' => 'cache_expired,cc,ignore_query_string',   //查某几项配置,不填代表查询所有
+                'ConfigList' => 'cache_expired,cc,ignore_query_string',   //查某几项配置,不填代表查询所有
             ],
         ];
         $response = Cdn::getInstance()->request('GetDomainConfigs', $params);
@@ -322,8 +342,10 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query'=>[
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
                 'StartTime' => '2016-11-19T08:00+0800', //查询开始时间
                 'EndTime' => '2016-11-20T08:00+0800', //查询结束时间
+                'Granularity'=>'240', //统计粒度，取值为 5（默认）：5分钟粒度
                 'CdnType' => 'download', //加速类型 download:下载类加速,；live:直播加速
                 'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
                 'Regions' => 'CN', //查询区域
@@ -349,8 +371,10 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query'=>[
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
                 'StartTime' => '2016-11-19T08:00+0800', //查询开始时间
                 'EndTime' => '2016-11-20T08:00+0800', //查询结束时间
+                'Granularity'=>'240', //统计粒度，取值为 5（默认）：5分钟粒度
                 'CdnType' => 'download', //加速类型 download:下载类加速,；live:直播加速
                 'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
                 'Regions' => 'CN', //查询区域
@@ -381,8 +405,10 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query'=>[
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
                 'StartTime' => '2016-11-19T08:00+0800',
                 'EndTime' => '2016-11-20T08:00+0800',
+                'Granularity'=>'240', //统计粒度，取值为 5（默认）：5分钟粒度
                 'CdnType' => 'download',
                 'ResultType' => '0',
                 'Regions' => 'CN',
@@ -416,8 +442,10 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query'=>[
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
                 'StartTime' => '2016-11-19T08:00+0800',
                 'EndTime' => '2016-11-20T08:00+0800',
+                'Granularity'=>'240', //统计粒度，取值为 5（默认）：5分钟粒度
                 'CdnType' => 'download',
                 'ResultType' => '0',
                 'HitType' => 'flowhitrate', //数据类型,按流量或者请求数统计 flowhitrate:流量命中率;reqhitrate:请求数命中率;
@@ -446,6 +474,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
                 'CdnType' => 'download',
                 'StartTime' => '2016-11-19T08:00+0800',
                 'EndTime' => '2016-11-20T08:00+0800',
@@ -473,8 +502,12 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+                //'Provinces'=>'', //省份区域名称 多个省份区域用逗号（半角）分隔，缺省为全部省份区域
+                //'Isps'=>'', //运营商名称 多个运营商用逗号（半角）分隔，缺省为全部运营商
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
+                'Granularity'=>'240', //统计粒度，取值为 5（默认）：5分钟粒度
                 'CdnType' => 'download',
                 'ResultType' => '0',
             ],
@@ -501,11 +534,15 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+                //'Provinces'=>'', //省份区域名称 多个省份区域用逗号（半角）分隔，缺省为全部省份区域
+                //'Isps'=>'', //运营商名称 多个运营商用逗号（半角）分隔，缺省为全部运营商                
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
+                'Granularity' => '480',                
                 'CdnType' => 'download',
                 'ResultType' => '1',
-                'Granularity' => '480',
+
             ],
         ];
         $response = Cdn::getInstance()->request('GetProvinceAndIspBandwidthData', $params);
@@ -526,6 +563,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
                 'CdnType' => 'download',
@@ -550,8 +588,10 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
+                'Granularity'=>'240', //统计粒度，取值为 5（默认）：5分钟粒度
                 'CdnType' => 'download',
                 'ResultType' => '0', //返回类型为合并返回
             ],
@@ -574,6 +614,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
                 'CdnType' => 'download',
@@ -601,6 +642,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
                 'CdnType' => 'download',
@@ -626,6 +668,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
+                'DomainIds'=>'2D09NXV', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
                 'CdnType' => 'download',
@@ -654,6 +697,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'StartTime' => '2016-11-22T09:14+0800',
                 'EndTime' => '2016-11-24T10:20+0800',
                 'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092', //流名，支持批量查询，多个流名用逗号（半角）分隔
+                'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType' => '0',
                 'Granularity' => '1440',
             ],
@@ -681,6 +725,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'StartTime' => '2016-11-22T09:14+0800',
                 'EndTime' => '2016-11-24T10:20+0800',
                 'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
+                'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType' => '1',
                 'Granularity' => '1440',
             ],
@@ -706,6 +751,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 	{
 		$params = [
 			'query' => [
+                //'DomainIds'=>'2D09STT', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+                'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
 				'StartTime' => '2016-11-22T09:14+0800',
 				'EndTime' => '2016-11-24T10:20+0800',
 				'ResultType' => '0',
@@ -737,6 +784,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'StartTime' => '2016-11-22T09:14+0800',
                 'EndTime' => '2016-11-24T10:20+0800',
                 'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
+                'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType' => '1',
                 'Granularity' => '1440',
             ],
@@ -762,7 +810,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $params = [
             'query' => [
                 'StartTime' => '2016-11-22T09:14+0800',
-                'EndTime' => '2016-11-24T10:20+0800',
+                //'DomainIds'=>'2D09STT', //域名ID，支持批量域名过滤查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+                'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType'=>'0',
                 'LimitN' => '5',
             ],
@@ -800,7 +849,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     *       $api 为  'GetQuotaConfig'
     *       $httpConfig 中通过query字段设置请求参数
     */
-    public function testgetQuotaConfig()
+    public function testGetQuotaConfig()
     {
         $params = [
             'query' => [],
@@ -840,6 +889,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'PageIndex'=>'0', //页码,从0开始
                 'PageSize'=>'10', //每页大小
                 'Type'=>'refreshFile', //查询类型, refreshFile:刷新文件  refreshDir:刷新目录 preloadFile：预加载
+                //'QueryName'=>'', //支持模糊查询,查询条件
             ],
         ];
         $response = Cdn::getInstance()->request('ListInvalidationsByContentPath', $params);
