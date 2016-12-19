@@ -57,7 +57,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-        //修改域名配置
+        //修改域名基本配置
         'ModifyCdnDomain' => [
             'url' => '/2016-09-01/domain/ModifyCdnDomainBasicInfo',
             'method' => 'get',
@@ -101,7 +101,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-        //设置过滤参数
+        //设置过滤参数功能
         'SetIgnoreQueryStringConfig' => [
             'url' => '/2016-09-01/domain/SetIgnoreQueryStringConfig',
             'method' => 'get',
@@ -112,7 +112,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-        //设置回源 host
+        //设置回源host功能
         'SetBackOriginHostConfig' => [
             'url' => '/2016-09-01/domain/SetBackOriginHostConfig',
             'method' => 'get',
@@ -417,7 +417,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ], 
-        //获取当前已用配额用量 
+        //查询当前配额已使用量
         'GetQuotaUsageAmount' => [
             'url' => '/2015-09-17/quota/usage-amount',
             'method' => 'get',
