@@ -13,8 +13,8 @@ class Cdn extends V4Curl
     {
         return [
             'host' => 'http://cdn.api.ksyun.com',
-            'timeout' => 60,  //设置timeout
             'config' => [
+                'timeout' => 60,  //设置timeout
                 'v4_credentials' => [
                     'region' => 'cn-shanghai-1',
                     'service' => 'cdn',
