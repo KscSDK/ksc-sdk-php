@@ -22,6 +22,7 @@ composer require kscsdk/ksyun_sdk
 - [EIP](http://www.ksyun.com/doc/art/id/1659)
 - [VPC](http://www.ksyun.com/doc/art/id/1661)
 - [SLB](http://www.ksyun.com/doc/art/id/1662)
+- [CDN]()
 
 >敬请期待
 
@@ -60,3 +61,21 @@ $response = Iam::getInstance()->request('ListUsers', ['v4_credentials' => ['ak' 
 echo (string)$response->getBody();
 ```
 
+```
+<?php
+require('./vendor/autoload.php');
+use Ksyun\Service\Cdn;
+  // CDN API调用详细示例 位于 ./tests/CdnTest.php
+$params = [
+    'query'=>[
+        'PageSize' => '20',  //分页大小
+        'PageNumber' => '1', //取第几页
+        'DomainName' => '',  //按域名过滤  默认为空，代表当前用户下所有域名
+        'DomainStatus' => 'online', //按域名状态过滤
+        'CdnType' => 'download', //产品类型
+        'FuzzyMatch' => '', //域名过滤是否使用模糊匹配
+    ],
+];
+$response = Cdn::getInstance()->request('GetCdnDomains', $params);
+echo (string)$response->getBody();
+```
