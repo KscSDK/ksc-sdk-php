@@ -22,7 +22,7 @@ composer require kscsdk/ksyun_sdk
 - [EIP](http://www.ksyun.com/doc/art/id/1659)
 - [VPC](http://www.ksyun.com/doc/art/id/1661)
 - [SLB](http://www.ksyun.com/doc/art/id/1662)
-- [CDN](https://github.com/KscSDK/ksc-sdk-php/blob/master/tests/CdnTest.php)
+- [CDN](https://docs.ksyun.com/read/latest/107/_book/index.html)
 
 >敬请期待
 
