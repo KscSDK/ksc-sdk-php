@@ -1,8 +1,8 @@
 <?php
 namespace Ksyun\Tests;
-use Ksyun\Service\Livetran;
+use Ksyun\Service\Ket;
 
-class LivetranTest extends \PHPUnit_Framework_TestCase
+class KetTest extends \PHPUnit_Framework_TestCase
 {
     private $arrMethod = array(
         'Preset',			// 设置模板
@@ -12,6 +12,7 @@ class LivetranTest extends \PHPUnit_Framework_TestCase
         'GetStreamTranList',// 获取任务列表
         'StartStreamPull',  // 发起外网拉流
         'StopStreamPull',	// 停止外网拉流
+        'GetQuotaUsed',     // 查询配额信息
     );
 
     public function testAllAPI()
@@ -61,6 +62,12 @@ class LivetranTest extends \PHPUnit_Framework_TestCase
     public function testStopStreamPull()
     {
         $response = Livetran::getInstance()->request('StartStreamPull');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testGetQuotaUsed()
+    {
+        $response = Livetran::getInstance()->request('GetQuotaUsed');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 }

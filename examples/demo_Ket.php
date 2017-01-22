@@ -3,7 +3,7 @@
  * 直播转码demo
  */
 require('./vendor/autoload.php');
-use Ksyun\Service\Livetran;
+use Ksyun\Service\Ket;
 
 $method = $argv[1];
 
@@ -15,6 +15,7 @@ $arrMethod = array(
     'GetStreamTranList',// 获取任务列表
     'StartStreamPull',  // 发起外网拉流
     'StopStreamPull',	// 停止外网拉流
+    'GetQuotaUsed',     // 查询配额信息
 );
 
 if (!in_array($method, $arrMethod)) {
@@ -29,10 +30,10 @@ $streamid = 'stream20170101'; // 流名
 
 // 创建模板数组
 $preset_data = [
-    'preset' => $preset,
-    'app' => $app,
-    'description' => 'desc: preset demo',
-    'output' => [
+    'Preset' => $preset,
+    'App' => $app,
+    'Description' => 'desc: preset demo',
+    'Output' => [
         [
             'format' => [
                 'output_format' => 256,
@@ -52,7 +53,7 @@ $preset_data = [
             ]
         ]
     ],
-    'video' => [
+    'Video' => [
         'logo' => [
             [
                 'pic' => 'wangshuai9/ksyun.png',
@@ -62,36 +63,40 @@ $preset_data = [
                 'offsetY' => -20
             ]
         ]
-    ]
+    ],
+    'Audio' => [],
 ];
 
 // 发起外网拉流数组
 $outpull_data = [
-    'app' => $app,
-    'streamid' => $streamid,
-    'srcurl' => 'rtmp://test.rtmplive.ks-cdn.com/live/streamdemo',
-    'params' => ''
+    'App' => $app,
+    'StreamID' => $streamid,
+    'SrcUrl' => 'rtmp://test.rtmplive.ks-cdn.com/live/streamdemo',
+    'Params' => ''
 ];
 
 switch($method) {
     case 'Preset':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname], 'json' => $preset_data]);
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => $preset_data]);
         break;
     case 'DelPreset':
     case 'GetPresetDetail':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname, 'app' => $app, 'preset' => $preset]]);
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname, 'App' => $app, 'Preset' => $preset]]);
         break;
     case 'GetPresetList':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname, 'app' => $app]]);
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname, 'App' => $app]]);
         break;
     case 'GetStreamTranList':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname, 'app' => $app]]);
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname, 'App' => $app]]);
         break;
     case 'StartStreamPull':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname], 'json' => $outpull_data ]);
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => $outpull_data ]);
         break;
     case 'StopStreamPull':
-        $response = Livetran::getInstance()->request($method, ['query' => ['uniqname' => $uniqname], 'json' => ['app' => $app, 'streamid' => $streamid]]);
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => ['App' => $app, 'StreamID' => $streamid]]);
+        break;
+    case 'GetQuotaUsed':
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname]]);
         break;
 }
 

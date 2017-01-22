@@ -12,14 +12,14 @@ class Livetran extends V4Curl
     protected function getConfig()
     {
         return [
-            'host' => 'http://livetran.cn-beijing-6.api.ksyun.com',
+            'host' => 'http://ket.cn-beijing-6.api.ksyun.com',
             'timeout' => 5,
             'config' => [
                 'headers' => [
                     'Accept' => 'application/json'
                 ],
                 'v4_credentials' => [
-                    'service' => 'livetran',
+                    'service' => 'ket',
                 ],
             ],
         ];
@@ -99,6 +99,16 @@ class Livetran extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'StopStreamPull',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'GetQuotaUsed' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetQuotaUsed',
                     'Version' => '2017-01-01'
                 ]
             ],
