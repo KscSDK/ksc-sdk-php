@@ -1,25 +1,25 @@
 <?php
 /**
- * @desc 直播转码
+ * @desc 离线转码
  * @author wangshuai<wangshuai9@kingsoft.com>
- * @date 2016/12/12
+ * @date 2017/01/22
  */
 namespace Ksyun\Service;
 
 use Ksyun\Base\V4Curl;
-class Ket extends V4Curl
+class Kvs extends V4Curl
 {
     protected function getConfig()
     {
         return [
-            'host' => 'http://ket.cn-beijing-6.api.ksyun.com',
+            'host' => 'http://kvs.cn-beijing-6.api.ksyun.com',
             'timeout' => 5,
             'config' => [
                 'headers' => [
                     'Accept' => 'application/json'
                 ],
                 'v4_credentials' => [
-                    'service' => 'ket',
+                    'service' => 'kvs',
                 ],
             ],
         ];
@@ -39,6 +39,16 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'Preset',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'UpdatePreset' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'UpdatePreset',
                     'Version' => '2017-01-01'
                 ]
             ],
@@ -73,42 +83,62 @@ class Ket extends V4Curl
                 ]
             ],
         ],
-        'GetStreamTranList' => [
+        'CreateTask' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'CreateTask',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'DelTaskByTaskID' => [
             'url' => '/',
             'method' => 'get',
             'config' => [
                 'query' => [
-                    'Action' => 'GetStreamTranList',
+                    'Action' => 'DelTaskByTaskID',
                     'Version' => '2017-01-01'
                 ]
             ],
         ],
-        'StartStreamPull' => [
+        'TopTaskByTaskID' => [
             'url' => '/',
-            'method' => 'post',
+            'method' => 'get',
             'config' => [
                 'query' => [
-                    'Action' => 'StartStreamPull',
+                    'Action' => 'TopTaskByTaskID',
                     'Version' => '2017-01-01'
                 ]
             ],
         ],
-        'StopStreamPull' => [
+        'GetTaskList' => [
             'url' => '/',
-            'method' => 'post',
+            'method' => 'get',
             'config' => [
                 'query' => [
-                    'Action' => 'StopStreamPull',
+                    'Action' => 'GetTaskList',
                     'Version' => '2017-01-01'
                 ]
             ],
         ],
-        'GetQuotaUsed' => [
+        'GetTaskByTaskID' => [
             'url' => '/',
-            'method' => 'post',
+            'method' => 'get',
             'config' => [
                 'query' => [
-                    'Action' => 'GetQuotaUsed',
+                    'Action' => 'GetTaskByTaskID',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'GetTaskMetaInfo' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetTaskMetaInfo',
                     'Version' => '2017-01-01'
                 ]
             ],
