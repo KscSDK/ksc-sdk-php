@@ -18,56 +18,56 @@ class KetTest extends \PHPUnit_Framework_TestCase
     public function testAllAPI()
     {
         foreach ($this->arrMethod as $method) {
-            $response = Livetran::getInstance()->request($method);
+            $response = Ket::getInstance()->request($method);
             return $this->assertEquals($response->getStatusCode(), 200);
         }
     }
 
     public function testPreset()
     {
-        $response = Livetran::getInstance()->request('Preset');
+        $response = Ket::getInstance()->request('Preset');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testDelPreset()
     {
-        $response = Livetran::getInstance()->request('DelPreset');
+        $response = Ket::getInstance()->request('DelPreset');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetPresetList()
     {
-        $response = Livetran::getInstance()->request('GetPresetList');
+        $response = Ket::getInstance()->request('GetPresetList');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetPresetDetail()
     {
-        $response = Livetran::getInstance()->request('GetPresetDetail');
+        $response = Ket::getInstance()->request('GetPresetDetail');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetStreamTranList()
     {
-        $response = Livetran::getInstance()->request('GetStreamTranList');
+        $response = Ket::getInstance()->request('GetStreamTranList');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testStartStreamPull()
     {
-        $response = Livetran::getInstance()->request('StartStreamPull');
+        $response = Ket::getInstance()->request('StartStreamPull');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testStopStreamPull()
     {
-        $response = Livetran::getInstance()->request('StartStreamPull');
+        $response = Ket::getInstance()->request('StartStreamPull');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetQuotaUsed()
     {
-        $response = Livetran::getInstance()->request('GetQuotaUsed');
+        $response = Ket::getInstance()->request('GetQuotaUsed');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 }
