@@ -695,7 +695,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             'query' => [
                 'StartTime' => '2016-11-22T09:14+0800',
                 'EndTime' => '2016-11-24T10:20+0800',
-                'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092', //流名，支持批量查询，多个流名用逗号（半角）分隔
+                'StreamUrls' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092', //流名，支持批量查询，多个流名用逗号（半角）分隔
                 'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType' => '0',
                 'Granularity' => '1440',
@@ -723,7 +723,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             'query' => [
                 'StartTime' => '2016-11-22T09:14+0800',
                 'EndTime' => '2016-11-24T10:20+0800',
-                'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
+                'StreamUrls' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
                 'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType' => '1',
                 'Granularity' => '1440',
@@ -782,7 +782,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             'query' => [
                 'StartTime' => '2016-11-22T09:14+0800',
                 'EndTime' => '2016-11-24T10:20+0800',
-                'StreamUrl' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
+                'StreamUrls' => 'rtmp://realflv3.plu.cn/live/ffea40ea2f8e4a5e95096e0f89227092',
                 'Regions'=>'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType' => '1',
                 'Granularity' => '1440',
