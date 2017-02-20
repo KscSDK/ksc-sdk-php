@@ -105,7 +105,7 @@ class Ket extends V4Curl
         ],
         'GetQuotaUsed' => [
             'url' => '/',
-            'method' => 'post',
+            'method' => 'get',
             'config' => [
                 'query' => [
                     'Action' => 'GetQuotaUsed',
