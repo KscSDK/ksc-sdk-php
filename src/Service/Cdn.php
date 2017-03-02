@@ -367,78 +367,201 @@ class Cdn extends V4Curl
                     'X-Action' => 'GetLiveTopOnlineUserData',
                 ],
             ],
-        ],  
-        // 内容管理接口
-        // 日志下载 downloadLogsetting
-        'GetDomainLogs' => [
-            'url' => '/2016-05-20/log/{domain}/logs',
+        ],
+        //独立ip的请求个数
+        'GetUvData' => [
+            'url' => '/2016-09-01/statistics/GetUvData',
             'method' => 'get',
             'config' => [
                 'headers' => [
-                    'X-Version' => '2016-05-20',
-                    'X-Action' => 'GetLog',
-                ],
-            ],
-        ], 
-        //刷新文件或目录   post
-        'RefreshCaches' => [
-            'url' => '/2016-07-11/distribution/invalidation',
-            'method' => 'post',
-            'config' => [
-                'headers' => [
-                    'X-Version' => '2016-07-11',
-                    'X-Action' => 'CreateInvalidation',
-                    'content-type' => 'application/json',
-                ],
-            ],
-        ], 
-        
-        //preloadFiles   post xml
-        'PreloadCache' => [
-            'url' => '/2015-09-17/distribution/{domain}/preload',
-            'method' => 'post',
-            'config' => [
-                'headers' => [
-                    'X-Version' => '2015-09-17',
-                    'X-Action' => 'CreatePreload',
-                    'content-type' => 'text/xml',
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetUvData',
                 ],
             ],
         ],
-        
-        //查询当前配额 
-        'GetQuotaConfig' => [
-            'url' => '/2015-09-17/quota/config',
+        //top-rerfer查询
+        'GetTopReferData' => [
+            'url' => '/2016-09-01/statistics/GetTopReferData',
             'method' => 'get',
             'config' => [
                 'headers' => [
-                    'X-Version' => '2015-09-17',
-                    'X-Action' => 'GetQuotaConfig',
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetTopReferData',
                 ],
             ],
-        ], 
-        //查询当前配额已使用量
-        'GetQuotaUsageAmount' => [
-            'url' => '/2015-09-17/quota/usage-amount',
+        ],
+        //省份运营商命中率查询
+        'GetProvinceAndIspHitRateDetailedData' => [
+            'url' => '/2016-09-01/statistics/GetProvinceAndIspHitRateDetailedData',
             'method' => 'get',
             'config' => [
                 'headers' => [
-                    'X-Version' => '2015-09-17',
-                    'X-Action' => 'GetQuotaUsageAmount',
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetProvinceAndIspHitRateDetailedData',
                 ],
             ],
-        ], 
-        //查询刷新及预加载结果
-        'ListInvalidationsByContentPath' => [
-            'url' => '/2015-09-17/distribution/content-path',
+        ],
+        //省份运营商状态码查询
+        'GetProvinceAndIspHttpCodeData' => [
+            'url' => '/2016-09-01/statistics/GetProvinceAndIspHttpCodeData',
             'method' => 'get',
             'config' => [
                 'headers' => [
-                    'X-Version' => '2015-09-17',
-                    'X-Action' => 'ListInvalidationsByContentPath',
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetProvinceAndIspHttpCodeData',
                 ],
             ],
-        ], 
+        ],
+        //省份运营商状态码详情查询
+        'GetProvinceAndIspHttpCodeDetailedData' => [
+            'url' => '/2016-09-01/statistics/GetProvinceAndIspHttpCodeDetailedData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetProvinceAndIspHttpCodeDetailedData',
+                ],
+            ],
+        ],
+        //省份运营商请求数查询
+        'GetProvinceAndIspPvData' => [
+            'url' => '/2016-09-01/statistics/GetProvinceAndIspPvData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetProvinceAndIspPvData',
+                ],
+            ],
+        ],
+        //回源状态码统计
+        'GetSrcHttpCodeData' => [
+            'url' => '/2016-09-01/statistics/GetSrcHttpCodeData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetSrcHttpCodeData',
+                ],
+            ],
+        ],
+        //回源状态码详情统计
+        'GetSrcHttpCodeDetailedData' => [
+            'url' => '/2016-09-01/statistics/GetSrcHttpCodeDetailedData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetSrcHttpCodeDetailedData',
+                ],
+            ],
+        ],
+        //top-ip统计
+        'GetTopIpData' => [
+            'url' => '/2016-09-01/statistics/GetTopIpData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetTopIpData',
+                ],
+            ],
+        ],
+        // 内容管理接口
+        /**
+         * 刷新接口
+         */
+        'RefreshCaches' => [
+            'url' => '/2016-09-01/content/RefreshCaches',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'RefreshCaches',
+                    'content-type' => 'application/json',
+                ],
+            ],
+        ],
+        /**
+         * 预热接口
+         */
+        'PreloadCaches' => [
+            'url' => '/2016-09-01/content/PreloadCaches',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'PreloadCaches',
+                    'content-type' => 'application/json',
+                ],
+            ],
+        ],
+        /**
+         * 刷新预热进度查询接口
+         */
+        'GetRefreshOrPreloadTask' => [
+            'url' => '/2016-09-01/content/GetRefreshOrPreloadTask',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetRefreshOrPreloadTask',
+                ],
+            ],
+        ],
+        /**
+         * 查询操作剩余量
+         */
+        'GetRefreshOrPreloadQuota' => [
+            'url' => '/2016-09-01/content/GetRefreshOrPreloadQuota',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetRefreshOrPreloadQuota',
+                ],
+            ],
+        ],
+        // 日志管理接口
+        /**
+         * 日志下载接口
+         */
+        'GetDomainLogs' => [
+            'url' => '/2016-09-01/log/GetDomainLogs',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetDomainLogs',
+                ],
+            ],
+        ],
+        /**
+         * 启停日志服务接口
+         */
+        'SetDomainLogService' => [
+            'url' => '/2016-09-01/log/SetDomainLogService',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetDomainLogService',
+                ],
+            ],
+        ],
+        /**
+         * 查询日志服务状态
+         */
+        'GetDomainLogServiceStatus' => [
+            'url' => '/2016-09-01/log/GetDomainLogServiceStatus',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetDomainLogServiceStatus',
+                ],
+            ],
+        ],
         
     ];
     
