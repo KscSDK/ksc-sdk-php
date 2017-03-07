@@ -131,7 +131,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         /*ConfigList参数说明
             cache_expired    缓存策略
-            cc               IP防盗链配置
+            ip               IP防盗链配置
             error_page       自定义404错误页面跳转，当前不支持
             http_header      设置http头
             optimize         页面优化，当前不支持
@@ -214,6 +214,26 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         $response = Cdn::getInstance()->request('SetReferProtectionConfig', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    /**
+     *   设置加速域名的Ip防盗链功能，加速域名创建后，默认不开启Ip防盗链功能
+     *   request($api, $httpConfig)提交请求
+     *       $api 为  'SetIpProtectionConfig'
+     *       $httpConfig 中通过query字段设置请求参数
+     */
+    public function testSetIpProtectionConfig()
+    {
+        $params = [
+            'query'=>[
+                'DomainId' => '2D09NS4', //待设置域名id
+                'Enable' => 'on',   //打开配置
+                'IpType' => 'block', ////设置Ip类型 block：黑名单；allow：白名单
+                'IpList' => '1.1.1.1', //逗号隔开的Ip列表
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetIpProtectionConfig', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
     }
     
@@ -818,128 +838,314 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetLiveTopOnlineUserData', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
-    
-    
-    //以下是内容管理接口
+
     /**
-    *   日志下载接口
-    *   request($api, $httpConfig)提交请求
-    *       $api 为  'GetDomainLogs'
-    *       $httpConfig 中通过query字段设置请求参数
-    */
-    public function testDownloadLog()
+     * 获取域名独立请求的IP个数，单位：个
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内31天跨度的数据
+     * 统计粒度：5分钟粒度
+     * 时效性：30分钟延迟
+     */
+    public function testGetUvData()
     {
+        //设置查询条件,可以多个条件组合查询,也可无查询条件查所有
         $params = [
-                'query' => [
-                    'domain' => 'test.dxz.ksyun.8686c.com', //要下载的域名
-                    'startTime' => '', // 日志创建的开始时间（时间戳，以毫秒为单位）（可选，默认为32天前）
-                    'endTime' => '', //结束时间（时间戳，以毫秒为单位）（可选，默认为当前时间）
-                    'pageIndex' => '', //页码（可选，默认为0）
-                    'pageSize' => '', //每页大小（可选，默认为10）
-                ],
-        ];
-        $response = Cdn::getInstance()->request('GetDomainLogs', $params);
-        return $this->assertEquals($response->getStatuscode(), 200);
-    }
-   
-    /**
-    *   查询当前配额
-    *   request($api, $httpConfig)提交请求
-    *       $api 为  'GetQuotaConfig'
-    *       $httpConfig 中通过query字段设置请求参数
-    */
-    public function testGetQuotaConfig()
-    {
-        $params = [
-            'query' => [],
-        ];
-        $response = Cdn::getInstance()->request('GetQuotaConfig', $params);
-        //echo (string)$response->getBody();
-        return $this->assertEquals($response->getStatuscode(), 200);
-    }
-  
-    /**
-    *   查询当前配额使用量
-    *   request($api, $httpConfig)提交请求
-    *       $api 为  'GetQuotaUsageAmount'
-    *       $httpConfig 中通过query字段设置请求参数
-    */
-    public function testGetQuotaUsageAmount()
-    {
-        $params = [
-                'query' => [],
-        ];
-        $response = Cdn::getInstance()->request('GetQuotaUsageAmount', $params);
-        return $this->assertEquals($response->getStatuscode(), 200);
-    }
-   
-    /**
-    *   查询刷新及预加载结果
-    *   request($api, $httpConfig)提交请求
-    *       $api 为  'ListInvalidationsByContentPath'
-    *       $httpConfig 中通过query字段设置请求参数
-    */
-    public function testListInvalidationsByContentPath()
-    {
-        $params = [
-            'query' => [
-                'StartTime'=>'1480476366935', //查询开始时间
-                'EndTime'=>'1480694340000', //查询结束时间
-                'PageIndex'=>'0', //页码,从0开始
-                'PageSize'=>'10', //每页大小
-                'Type'=>'refreshFile', //查询类型, refreshFile:刷新文件  refreshDir:刷新目录 preloadFile：预加载
-                //'QueryName'=>'', //支持模糊查询,查询条件
+            'query'=>[
+                'DomainIds'=>'2D09NK5', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'Granularity'=>'5', //统计粒度，取值为 5（默认）：5分钟粒度
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'ResultType' => '0', //0:多域名多计费区域数据做合并 1：每个域名每个计费区域的数据分别返回
             ],
         ];
-        $response = Cdn::getInstance()->request('ListInvalidationsByContentPath', $params);
+        $response = Cdn::getInstance()->request('GetUvData', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
 
     /**
-    *   刷新  刷新节点上的文件内容。刷新指定URL内容至Cache节点，支持URL、目录批量刷新
-    *   request($api, $httpConfig)提交请求
-    *       $api 为  'RefreshCaches'
-    *       $httpConfig 中通过body字段设置提交的json格式数据
-    */
-    public function testRefreshCaches()
-    {
-        //需要刷新的文件 json格式
-        $content = array(
-            'callerReference' => '',
-            'files' => array(
-                        'http://www.le.com/2.html',   //需要刷新的文件,为具体url   数组
-                    ),
-             'dirs'=> array(
-                        'http://www.le.com/2/',    //需要刷新的目录以/结尾    数组
-                    ),
-        );
-        $data = json_encode($content);
+     * 获取域名某天内某一时段的热门页面访问数据排名，仅包含Top200且访问数大于15次的热门页面的访问次数、访问流量，并按次数排名
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内24小时跨度的数据
+     * 时效性：30分钟延迟
+     */
+    public function testGetTopReferData(){
         $params = [
-                'body' => $data,
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'LimitN' => '5',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetTopReferData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * top-ip 查询
+     * 本接口用于获取域名某天内某一时段的TOP IP访问数据，仅包含Top 200且访问次数大于15次的独立请求的IP的访问次数、访问流量，并按次数排序
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内24小时跨度的数据
+     * 时效性：30分钟延迟
+     */
+    public function testGetTopIpData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'LimitN' => '5',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetTopIpData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取域名一段时间内的回源Http状态码访问次数及占比数据
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内93天跨度的数据
+     * 时效性：5分钟延迟
+     */
+    public function testGetSrcHttpCodeData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'ResultType' => '0',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetSrcHttpCodeData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取域名一段时间内的回源Http状态码访问次数及占比数据
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内93天跨度的数据
+     * 时效性：5分钟延迟
+     *
+     * @throws Exception
+     */
+    public function testGetSrcHttpCodeDetailedData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'ResultType' => '0',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetSrcHttpCodeDetailedData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取域名流量命中率、请求数命中率数据，单位：百分比
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内31天跨度的数据
+     * 统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；
+     * 时效性：5分钟延迟
+     * 接口性能：接口最大吞吐量为10000，即Province个数*Isp个数*DomainId个数*(EndTime-StartTime)\/统计粒度 <= 10000。
+     * 注：多域名多省份多运营商取合并数据时，Province个数、Isp个数、DomainId个数按照1计算。
+     */
+    public function testGetProvinceAndIspHitRateDetailedData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'ResultType' => '0',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetProvinceAndIspHitRateDetailedData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取域名在中国大陆地区各省份及各运营商的Http状态码详细访问次数及占比数据（用于绘制状态码线图）
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内31天跨度的数据
+     * 统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度，以上统计粒度均取该粒度内各状态码的访问次数之和
+     * 时效性：5分钟延迟
+     * 接口性能：接口最大吞吐量为10000，即Province个数*Isp个数*DomainId个数*(EndTime-StartTime)\/统计粒度 <= 10000。
+     * 注：多域名多省份多运营商取合并数据时，Province个数、Isp个数、DomainId个数按照1计算。
+     */
+    public function testGetProvinceAndIspHttpCodeData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'ResultType' => '0',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetProvinceAndIspHttpCodeData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取域名在中国大陆地区各省份及各运营商的Http状态码详细访问次数及占比数据（用于绘制状态码线图）
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内31天跨度的数据
+     * 统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度，以上统计粒度均取该粒度内各状态码的访问次数之和
+     * 时效性：5分钟延迟
+     * 接口性能：接口最大吞吐量为10000，即Province个数*Isp个数*DomainId个数*(EndTime-StartTime)\/统计粒度 <= 10000。
+     * 注：多域名多省份多运营商取合并数据时，Province个数、Isp个数、DomainId个数按照1计算。
+     */
+    public function testGetProvinceAndIspHttpCodeDetailedData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'ResultType' => '0',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetProvinceAndIspHttpCodeDetailedData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取域名在中国大陆地区各省份及各运营商的请求数数据，包括边缘请求数， 单位：次
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量域名查询，多个域名ID用逗号（半角）分隔
+     * 最多可获取最近一年内31天跨度的数据
+     * 统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度均取该粒度时间段的请求数之和
+     * 时效性：5分钟延迟
+     * 接口性能：接口最大吞吐量为10000，即Province个数*Isp个数*DomainId个数*(EndTime-StartTime)\/统计粒度 <= 10000。
+     * 注：在获取多个域名多个省份区域多个运营商合并值时，Province个数、Isp个数和DomainId个数按照1计算
+     */
+    public function testGetProvinceAndIspPvData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+                'CdnType' => 'download', //产品类型只允许输入一种,下载download,直播live
+                'ResultType' => '0',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetProvinceAndIspPvData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    //以下是内容管理接口
+    /**
+     * 刷新节点上的文件内容。刷新指定URL内容至Cache节点，支持URL、目录批量刷新。
+     * 注意：
+     * 每个 Url 必须以http://或者https://开头
+     * 每个 Url 最大长度 1000 字符
+     * 每个 Url 所在的域名必须是该用户在金山云加速的域名。
+     * Url 如果包含中文字符，请使用urlencode方式提交。
+     * 单次调用文件类刷新 Url上限为1000条，目录类刷新 Url 上限为30条
+     * 支持Url及目录刷新，不支持正则
+     */
+    public function testRefreshCaches(){
+        $data = "{\"Files\": [{\"Url\": \"http:\/\/www.zhaofang360.com\/abc.txt\"},{\"Url\": \"http:\/\/www.zhaofang360.com\/test\"}],\"Dirs\": [{\"Url\": \"http:\/\/www.zhaofang360.com\/abc\"},{\"Url\": \"http:\/\/www.zhaofang360.com\/def\"}]}";
+        $params = [
+            'body' => $data,
         ];
         $response = Cdn::getInstance()->request('RefreshCaches', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
-    
+
     /**
-    *   预热  将源站的内容主动预热到Cache节点上，用户首次访问可直接命中缓存，缓解源站压力。
-    *   request($api, $httpConfig)提交请求
-    *       $api 为  'PreloadCache'
-    *       $httpConfig 中通过files字段设置预热的文件，sdk将文件数组封装为xml文件
-    */
-    public function testPreloadCache()
-    {
-        $files = array( 
-                'http://appinstall2.ks3-cn-beijing.ksyun.com/l.html',
-                'http://www.le.com/1.html',
-                'http://appinstall2.ks3-cn-beijing.ksyun.com/2.html',
-                'http://www.le.com/2.html',
-        );
+     * 将源站的内容主动预热到Cache节点上，用户首次访问可直接命中缓存，缓解源站压力。
+     * 注意：
+     * 每个 Url 必须以http://或者https://开头
+     * 每个 Url 最大长度 1000 字符
+     * 每个 Url 所在的域名必须是该用户在金山云加速的域名。
+     * Url 如果包含中文字符
+     * 单次调用 Url 上限为1000条
+     * 预热仅支持Url，不支持目录预热，不支持正则
+     */
+    public function testPreloadCaches(){
+        $data = "{\"Urls\": [{\"Url\": \"http:\/\/www.zhaofang360.com\/abc.txt\"},{\"Url\": \"http:\/\/www.zhaofang360.com\/test\"}]}";
         $params = [
-                'files' => $files,   ////需要预加载的文件  数组
+            'body' => $data,
         ];
-        Cdn::getInstance()->request('PreloadCache', $params); //无返回
-        //return $this->assertEquals($response->getStatuscode(), 200);
+        $response = Cdn::getInstance()->request('PreloadCaches', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 用于获取刷新、预热任务进度百分比及状态，查看任务是否在全网生效。
+     * 支持根据任务ID、URL获取数据
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 所有参数都不指定，默认查7天内，第一页的数据（20条）
+     * 起止时间、TaskId、Url可以同时指定，逻辑与的关系
+     * 最多可获取7天内的数据
+     * 使用场景
+     * 查询用户刷新或预热URL进度百分比及状态，查看是否在全网生效，用于在控制台展示
+     * 客户通过API获取刷新或预热任务或URL进度百分比及状态，查看是否在全网生效
+     */
+    public function testGetRefreshOrPreloadTask(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2016-11-19T08:00+0800',
+                'EndTime' => '2016-11-20T08:00+0800',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetRefreshOrPreloadTask', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取刷新、预热URL及目录的最大限制数量，及当日剩余刷新、预热URL及目录的条数
+     * 说明：
+     * 刷新预热类接口包含 RefreshCaches刷新接口和PreloadCaches 预热接口
+     */
+    public function testGetRefreshOrPreloadQuota(){
+        $response = Cdn::getInstance()->request('GetRefreshOrPreloadQuota');
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取指定域名的原始访问日志的下载地址。
+     */
+    public function testGetDomainLogs(){
+        $params = [
+            'query'=>[
+                'DomainId' => '2D09NK5',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetDomainLogs', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 用于启用、停用某个加速域名的日志服务。
+     */
+    public function testSetDomainLogService(){
+        $params = [
+            'query'=>[
+                'DomainIds' => '2D09NK5',
+                'ActionType' => 'start',
+                'Granularity' => 60,
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetDomainLogService', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取域名日志服务状态
+     */
+    public function testGetDomainLogServiceStatus(){
+        $params = [
+            'query'=>[
+                'DomainIds' => '2D09NK5',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetDomainLogServiceStatus', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
     }
 }
 
