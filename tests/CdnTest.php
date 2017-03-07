@@ -131,7 +131,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         /*ConfigList参数说明
             cache_expired    缓存策略
-            cc               IP防盗链配置
+            ip               IP防盗链配置
             error_page       自定义404错误页面跳转，当前不支持
             http_header      设置http头
             optimize         页面优化，当前不支持
@@ -214,6 +214,26 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         $response = Cdn::getInstance()->request('SetReferProtectionConfig', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    /**
+     *   设置加速域名的Ip防盗链功能，加速域名创建后，默认不开启Ip防盗链功能
+     *   request($api, $httpConfig)提交请求
+     *       $api 为  'SetIpProtectionConfig'
+     *       $httpConfig 中通过query字段设置请求参数
+     */
+    public function testSetIpProtectionConfig()
+    {
+        $params = [
+            'query'=>[
+                'DomainId' => '2D09NS4', //待设置域名id
+                'Enable' => 'on',   //打开配置
+                'IpType' => 'block', ////设置Ip类型 block：黑名单；allow：白名单
+                'IpList' => '1.1.1.1', //逗号隔开的Ip列表
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetIpProtectionConfig', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
     }
     

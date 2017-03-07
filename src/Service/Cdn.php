@@ -134,6 +134,17 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+        //设置Ip防盗链
+        'SetIpProtectionConfig' => [
+            'url' => '/2016-09-01/domain/SetIpProtectionConfig',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetIpProtectionConfig',
+                ],
+            ],
+        ],
         //设置缓存策略 post
         'SetCacheRuleConfig' => [
             'url' => '/2016-09-01/domain/SetCacheRuleConfig',
