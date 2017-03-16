@@ -478,6 +478,28 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+		//查询目录带宽
+        'GetBandwidthDataByDir' => [
+            'url' => '/2016-09-01/statistics/GetBandwidthDataByDir',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBandwidthDataByDir',
+                ],
+            ],
+        ],
+		//查询目录流量
+        'GetFlowDataByDir' => [
+            'url' => '/2016-09-01/statistics/GetFlowDataByDir',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetFlowDataByDir',
+                ],
+            ],
+        ],
         // 内容管理接口
         /**
          * 刷新接口

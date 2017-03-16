@@ -1036,6 +1036,68 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetProvinceAndIspPvData', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
+	
+	/**
+	  *本接口用于获取某段时间内按一级目录为维度下消耗的流量，单位byte
+      *支持按指定的起止时间查询，两者需要同时指定
+      *仅支持下载域名查询
+      *仅支持单个域名查询
+      *支持批量目录过滤查询，多个目录用逗号（半角）分隔
+      *支持统计域名下一级目录所产生的带宽，即请求URL中域名后的第一个“\/”和第二个“\/”之间的内容
+      *当取不到一级目录时，即请求URL中域名后有且仅有一个“\/”时，将统计这部分请求URL产生的带宽并进行求和，以“\/”表示；
+      *最多可获取最近62天内24小时跨度的数据       *统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的带宽值均取该粒度时间段的峰值
+      *时效性：5分钟延迟
+      *接口性能：接口最大吞吐量为10000，即Region个数*Dir个数*(EndTime-StartTime)\/统计粒度 <= 10000。注：在获取多个目录多个区域合并值时，Dir个数和Region个数按照1计算
+      *使用场景：
+      *客户查询一个域名下单个或多个目录的带宽数据汇总，以单独查看或对比同一域名下不同目录的带宽曲线
+      *需配置白名单后方可调用此接口
+     */
+    public function testGetFlowDataByDir(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-03-07T08:00+0800',
+                'EndTime' => '2017-03-07T08:20+0800',
+                'DomainId' => '2D09NMS',
+                'ResultType' => '1',
+				'Regions' => '', 
+				'granularity' => '10', 
+				'Dirs' => '', 
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetFlowDataByDir', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	
+	/**
+	  *本接口用于获取某段时间内按一级目录为维度下消耗的带宽，单位bit\/second
+      *支持按指定的起止时间查询，两者需要同时指定
+      *仅支持下载域名查询
+      *仅支持单个域名查询
+      *支持批量目录过滤查询，多个目录用逗号（半角）分隔
+      *支持统计域名下一级目录所产生的带宽，即请求URL中域名后的第一个“\/”和第二个“\/”之间的内容
+      *当取不到一级目录时，即请求URL中域名后有且仅有一个“\/”时，将统计这部分请求URL产生的带宽并进行求和，以“\/”表示；
+      *最多可获取最近62天内24小时跨度的数据       *统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的带宽值均取该粒度时间段的峰值
+      *时效性：5分钟延迟
+      *接口性能：接口最大吞吐量为10000，即Region个数*Dir个数*(EndTime-StartTime)\/统计粒度 <= 10000。注：在获取多个目录多个区域合并值时，Dir个数和Region个数按照1计算
+      *使用场景：
+      *客户查询一个域名下单个或多个目录的带宽数据汇总，以单独查看或对比同一域名下不同目录的带宽曲线
+      *需配置白名单后方可调用此接口
+     */
+    public function testGetBandwidthDataByDir(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-03-07T08:00+0800',
+                'EndTime' => '2017-03-07T08:20+0800',
+                'DomainId' => '2D09NMS',
+                'ResultType' => '1',
+				'Regions' => '', 
+				'granularity' => '10', 
+				'Dirs' => '', 
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetBandwidthDataByDir', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
     //以下是内容管理接口
     /**
      * 刷新节点上的文件内容。刷新指定URL内容至Cache节点，支持URL、目录批量刷新。
