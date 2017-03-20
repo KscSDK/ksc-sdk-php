@@ -1052,6 +1052,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
       *客户查询一个域名下单个或多个目录的带宽数据汇总，以单独查看或对比同一域名下不同目录的带宽曲线
       *需配置白名单后方可调用此接口
      */
+
     public function testGetFlowDataByDir(){
         $params = [
             'query'=>[
@@ -1067,7 +1068,61 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetFlowDataByDir', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
-	
+
+    /**
+     * 本接口用于获取直播流维度的平均观看时长数据，单位：毫秒（ms）
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量流名查询，多个流名用逗号（半角）分割；多流名合并的方法为“将各流名的总播放时长，除以各流名的总访问次数”
+     * 最大查询范围：最多可获取最近62天内，7天跨度的数据；
+     * 统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的观看时长为该时段的播放时长总和，除以该时段的总访问次数
+     * 时效性：5分钟延迟
+     * 接口性能：接口最大吞吐量为10000，即Region个数*StreamUrl个数*(EndTime-StartTime)/统计粒度 <= 10000。注：在获取多个流名多个区域合并值时，Region个数和StreamUrl个数按照1计算
+     * 使用场景：
+     *      1）客户查询单个流名或多个流名，在一段时间内的合并后的平均观看时长，用于绘制一条曲线；
+     *      2）客户查询单个流名或多个流名，在一段时间内的详细数据，用于画出多条曲线，表征每个流名的详细情况
+     * 说明：只支持RTMP/HDL协议；
+     */
+
+    public function testGetPlayTimeDataByStream(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-02-21T00:00+0800',
+                'EndTime' => '2017-02-21T02:00+0800',
+                'StreamUrls' => 'http://momo.hdllive.ks-cdn.com/live/m_defa5e0dd0d324101472363734966100.flv',
+                'ResultType' => '1',
+                'Regions' => 'CN',
+                'Granularity' => '20',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetPlayTimeDataByStream', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    /**
+     *    本接口用于获取直播域名维度的观看时长数据，单位毫秒（ms）
+     *    支持批量域名查询，批量域名合并的方法为“将各域名下各流名的总播放时长，除以各域名下各流名的总访问次数”；
+     *    最大查询范围：最多可获取最近62天内，7天跨度的数据
+     *    统计粒度：5分钟；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的观看时长为该时段的播放时长总和，除以该时段的总访问次数；
+     *    接口性能：接口最大吞吐量为10000，即Region个数*DomainId个数*(EndTime-StartTime)/统计粒度<= 10000。注：在获取多个域名多个区域合并值时，Region个数和DomainId个数按照1计算
+     *    时效性：5分钟延迟；
+     *    应用场景：
+     *       1）客户查询单个域名或多个域名下的流名，在一段时间内的合并后的观看时长，用于绘制一条曲线；
+     *       2）客户查询单个域名或多个域名下的流名，在一段时间内的详细数据，用于画出多条曲线，表征每个域名的详细情况
+     *    说明：只支持RTMP/HDL协议；
+     */
+    public function testGetPlayTimeDataByDomain(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-02-21T00:00+0800',
+                'EndTime' => '2017-02-21T02:00+0800',
+                'DomainIds' => '2D09QKA,2D09VS9',
+                'ResultType' => '1',
+                'Regions' => 'CN',
+                'Granularity' => '10',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetPlayTimeDataByDomain', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
 	/**
 	  *本接口用于获取某段时间内按一级目录为维度下消耗的带宽，单位bit\/second
       *支持按指定的起止时间查询，两者需要同时指定

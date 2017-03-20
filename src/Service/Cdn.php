@@ -500,6 +500,28 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+        //流名观看时长统计
+        'GetPlayTimeDataByStream' => [
+            'url' => '/2016-09-01/statistics/GetPlayTimeDataByStream',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetPlayTimeDataByStream',
+                ],
+            ],
+        ],
+        //客户域名id观看时长统计
+        'GetPlayTimeDataByDomain' => [
+            'url' => '/2016-09-01/statistics/GetPlayTimeDataByDomain',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetPlayTimeDataByDomain',
+                ],
+            ],
+        ],
         // 内容管理接口
         /**
          * 刷新接口
