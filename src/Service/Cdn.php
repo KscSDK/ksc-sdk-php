@@ -522,6 +522,30 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+
+        //获取用户计费方式接口
+        'GetBillingMode' => [
+            'url' => '/2016-09-01/service/GetBillingMode',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBillingMode',
+                ],
+            ],
+        ],
+        //获取计费数据接口
+        'GetBillingData' => [
+            'url' => '/2016-09-01/statistics/GetBillingData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBillingData',
+                ],
+            ],
+        ],
+
         // 内容管理接口
         /**
          * 刷新接口

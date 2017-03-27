@@ -1264,6 +1264,48 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetDomainLogServiceStatus', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
+
+
+    /**
+     * CdnType：产品类型，只允许输入一种类型，取值为download:下载类加速,；live:直播加速
+     */
+
+    public function testGetBillingMode(){
+        $params = [
+            'query'=>[
+                'CdnType' => 'live',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetBillingMode', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+        获取域名的计费数据
+        支持按指定的起止时间查询，两者需要同时指定
+        支持批量域名查询，多个域名ID用逗号（半角）分隔
+        最多可获取最近一年内93天跨度的数据
+        使用场景：
+            客户查询域名计费数据，用于计费核算
+            客户根据不同计费方式，对比不同计费数据值，用于计费方式调整依据。
+        注意：
+            1、95带宽峰值计费计算方法：，在选定时间段内，取每5分钟有效带宽值进行降序排列，然后把带宽数值前5%的点去掉，剩下的最高带宽就是95带宽峰值即计费值
+            2、日峰值平均值带宽计算方法：在选定时间段内，取每一日的峰值带宽和，除以选择时间段的自然天数，得到一段时间内日峰值带宽的平均值即计费值
+     */
+    public function testGetBillingData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-02-01T00:00+0800',
+                'EndTime' => '2017-02-28T23:56+0800',
+                'CdnType' => 'download',
+                'Regions' => 'CN,AS,NA,AU',
+                'BillingMode' => 'monthflow',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetBillingData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
 }
 
 
