@@ -1036,6 +1036,123 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetProvinceAndIspPvData', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
+	
+	/**
+	  *本接口用于获取某段时间内按一级目录为维度下消耗的流量，单位byte
+      *支持按指定的起止时间查询，两者需要同时指定
+      *仅支持下载域名查询
+      *仅支持单个域名查询
+      *支持批量目录过滤查询，多个目录用逗号（半角）分隔
+      *支持统计域名下一级目录所产生的带宽，即请求URL中域名后的第一个“\/”和第二个“\/”之间的内容
+      *当取不到一级目录时，即请求URL中域名后有且仅有一个“\/”时，将统计这部分请求URL产生的带宽并进行求和，以“\/”表示；
+      *最多可获取最近62天内24小时跨度的数据       *统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的带宽值均取该粒度时间段的峰值
+      *时效性：5分钟延迟
+      *接口性能：接口最大吞吐量为10000，即Region个数*Dir个数*(EndTime-StartTime)\/统计粒度 <= 10000。注：在获取多个目录多个区域合并值时，Dir个数和Region个数按照1计算
+      *使用场景：
+      *客户查询一个域名下单个或多个目录的带宽数据汇总，以单独查看或对比同一域名下不同目录的带宽曲线
+      *需配置白名单后方可调用此接口
+     */
+
+    public function testGetFlowDataByDir(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-03-07T08:00+0800',
+                'EndTime' => '2017-03-07T08:20+0800',
+                'DomainId' => '2D09NMS',
+                'ResultType' => '1',
+				'Regions' => '', 
+				'granularity' => '10', 
+				'Dirs' => '', 
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetFlowDataByDir', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 本接口用于获取直播流维度的平均观看时长数据，单位：毫秒（ms）
+     * 支持按指定的起止时间查询，两者需要同时指定
+     * 支持批量流名查询，多个流名用逗号（半角）分割；多流名合并的方法为“将各流名的总播放时长，除以各流名的总访问次数”
+     * 最大查询范围：最多可获取最近62天内，7天跨度的数据；
+     * 统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的观看时长为该时段的播放时长总和，除以该时段的总访问次数
+     * 时效性：5分钟延迟
+     * 接口性能：接口最大吞吐量为10000，即Region个数*StreamUrl个数*(EndTime-StartTime)/统计粒度 <= 10000。注：在获取多个流名多个区域合并值时，Region个数和StreamUrl个数按照1计算
+     * 使用场景：
+     *      1）客户查询单个流名或多个流名，在一段时间内的合并后的平均观看时长，用于绘制一条曲线；
+     *      2）客户查询单个流名或多个流名，在一段时间内的详细数据，用于画出多条曲线，表征每个流名的详细情况
+     * 说明：只支持RTMP/HDL协议；
+     */
+
+    public function testGetPlayTimeDataByStream(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-02-21T00:00+0800',
+                'EndTime' => '2017-02-21T02:00+0800',
+                'StreamUrls' => 'http://momo.hdllive.ks-cdn.com/live/m_defa5e0dd0d324101472363734966100.flv',
+                'ResultType' => '1',
+                'Regions' => 'CN',
+                'Granularity' => '20',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetPlayTimeDataByStream', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    /**
+     *    本接口用于获取直播域名维度的观看时长数据，单位毫秒（ms）
+     *    支持批量域名查询，批量域名合并的方法为“将各域名下各流名的总播放时长，除以各域名下各流名的总访问次数”；
+     *    最大查询范围：最多可获取最近62天内，7天跨度的数据
+     *    统计粒度：5分钟；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的观看时长为该时段的播放时长总和，除以该时段的总访问次数；
+     *    接口性能：接口最大吞吐量为10000，即Region个数*DomainId个数*(EndTime-StartTime)/统计粒度<= 10000。注：在获取多个域名多个区域合并值时，Region个数和DomainId个数按照1计算
+     *    时效性：5分钟延迟；
+     *    应用场景：
+     *       1）客户查询单个域名或多个域名下的流名，在一段时间内的合并后的观看时长，用于绘制一条曲线；
+     *       2）客户查询单个域名或多个域名下的流名，在一段时间内的详细数据，用于画出多条曲线，表征每个域名的详细情况
+     *    说明：只支持RTMP/HDL协议；
+     */
+    public function testGetPlayTimeDataByDomain(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-02-21T00:00+0800',
+                'EndTime' => '2017-02-21T02:00+0800',
+                'DomainIds' => '2D09QKA,2D09VS9',
+                'ResultType' => '1',
+                'Regions' => 'CN',
+                'Granularity' => '10',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetPlayTimeDataByDomain', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	/**
+	  *本接口用于获取某段时间内按一级目录为维度下消耗的带宽，单位bit\/second
+      *支持按指定的起止时间查询，两者需要同时指定
+      *仅支持下载域名查询
+      *仅支持单个域名查询
+      *支持批量目录过滤查询，多个目录用逗号（半角）分隔
+      *支持统计域名下一级目录所产生的带宽，即请求URL中域名后的第一个“\/”和第二个“\/”之间的内容
+      *当取不到一级目录时，即请求URL中域名后有且仅有一个“\/”时，将统计这部分请求URL产生的带宽并进行求和，以“\/”表示；
+      *最多可获取最近62天内24小时跨度的数据       *统计粒度：5分钟粒度；10分钟粒度；20分钟粒度；1小时粒度；4小时粒度；8小时粒度；1天粒度；以上粒度的带宽值均取该粒度时间段的峰值
+      *时效性：5分钟延迟
+      *接口性能：接口最大吞吐量为10000，即Region个数*Dir个数*(EndTime-StartTime)\/统计粒度 <= 10000。注：在获取多个目录多个区域合并值时，Dir个数和Region个数按照1计算
+      *使用场景：
+      *客户查询一个域名下单个或多个目录的带宽数据汇总，以单独查看或对比同一域名下不同目录的带宽曲线
+      *需配置白名单后方可调用此接口
+     */
+    public function testGetBandwidthDataByDir(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-03-07T08:00+0800',
+                'EndTime' => '2017-03-07T08:20+0800',
+                'DomainId' => '2D09NMS',
+                'ResultType' => '1',
+				'Regions' => '', 
+				'granularity' => '10', 
+				'Dirs' => '', 
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetBandwidthDataByDir', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
     //以下是内容管理接口
     /**
      * 刷新节点上的文件内容。刷新指定URL内容至Cache节点，支持URL、目录批量刷新。
@@ -1147,6 +1264,67 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetDomainLogServiceStatus', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
+
+
+    /**
+	 * 获取计费方式	
+     * CdnType：产品类型，只允许输入一种类型，取值为download:下载类加速,；live:直播加速
+     */
+
+    public function testGetBillingMode(){
+        $params = [
+            'query'=>[
+                'CdnType' => 'live',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetBillingMode', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+        获取域名的计费数据
+        支持按指定的起止时间查询，两者需要同时指定
+        支持批量域名查询，多个域名ID用逗号（半角）分隔
+        最多可获取最近一年内93天跨度的数据
+        使用场景：
+            客户查询域名计费数据，用于计费核算
+            客户根据不同计费方式，对比不同计费数据值，用于计费方式调整依据。
+        注意：
+            1、95带宽峰值计费计算方法：，在选定时间段内，取每5分钟有效带宽值进行降序排列，然后把带宽数值前5%的点去掉，剩下的最高带宽就是95带宽峰值即计费值
+            2、日峰值平均值带宽计算方法：在选定时间段内，取每一日的峰值带宽和，除以选择时间段的自然天数，得到一段时间内日峰值带宽的平均值即计费值
+     */
+    public function testGetBillingData(){
+        $params = [
+            'query'=>[
+                'StartTime' => '2017-02-01T00:00+0800',
+                'EndTime' => '2017-02-28T23:56+0800',
+                'CdnType' => 'download',
+                'Regions' => 'CN,AS,NA,AU',
+                'BillingMode' => 'monthflow',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetBillingData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	
+	
+	/**
+	 * 获取域名当前的服务节点IP列表，用于分析域名服务节点运行状况，便于故障排查
+	 *仅支持单个域名查询，配置黑白名单后才可生效（下期实现）
+	 *使用场景
+	 *客户获取域名当前的服务节点IP，用于故障排查。	
+     * DomainId:域名ID，输入需要查询的域名ID，仅支持单个域名ID
+     */
+	public function testGetServiceIpData(){
+        $params = [
+            'query'=>[
+                'DomainId' => '2D09NK5',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetServiceIpData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	
 }
 
 
