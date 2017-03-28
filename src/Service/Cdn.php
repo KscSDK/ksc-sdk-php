@@ -191,7 +191,19 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-        
+        /**
+         * 获取服务ip
+         */
+        'GetServiceIpData' => [
+            'url' => '/2016-09-01/domain/GetServiceIpData',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetServiceIpData',
+                ],
+            ],
+        ],
         //查询带宽 
         'GetBandwidthData' => [
             'url' => '/2016-09-01/statistics/GetBandwidthData',
@@ -522,7 +534,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-
+	
         //获取用户计费方式接口
         'GetBillingMode' => [
             'url' => '/2016-09-01/service/GetBillingMode',
@@ -641,7 +653,6 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-        
     ];
     
     //特殊封装  request

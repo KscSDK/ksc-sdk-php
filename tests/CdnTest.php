@@ -1267,6 +1267,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 
 
     /**
+	 * 获取计费方式	
      * CdnType：产品类型，只允许输入一种类型，取值为download:下载类加速,；live:直播加速
      */
 
@@ -1305,7 +1306,25 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetBillingData', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
-
+	
+	
+	/**
+	 * 获取域名当前的服务节点IP列表，用于分析域名服务节点运行状况，便于故障排查
+	 *仅支持单个域名查询，配置黑白名单后才可生效（下期实现）
+	 *使用场景
+	 *客户获取域名当前的服务节点IP，用于故障排查。	
+     * DomainId:域名ID，输入需要查询的域名ID，仅支持单个域名ID
+     */
+	public function testGetServiceIpData(){
+        $params = [
+            'query'=>[
+                'DomainId' => '2D09NK5',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetServiceIpData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	
 }
 
 
