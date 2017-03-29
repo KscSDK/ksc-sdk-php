@@ -557,6 +557,17 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+        //获取带宽峰值信息
+        'GetPeakBandwidthData' => [
+            'url' => '/2016-09-01/statistics/GetPeakBandwidthData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetPeakBandwidthData',
+                ],
+            ],
+        ],
 
         // 内容管理接口
         /**
