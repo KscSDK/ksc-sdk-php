@@ -191,7 +191,19 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-        
+        /**
+         * 获取服务ip
+         */
+        'GetServiceIpData' => [
+            'url' => '/2016-09-01/domain/GetServiceIpData',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetServiceIpData',
+                ],
+            ],
+        ],
         //查询带宽 
         'GetBandwidthData' => [
             'url' => '/2016-09-01/statistics/GetBandwidthData',
@@ -478,6 +490,85 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+		//查询目录带宽
+        'GetBandwidthDataByDir' => [
+            'url' => '/2016-09-01/statistics/GetBandwidthDataByDir',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBandwidthDataByDir',
+                ],
+            ],
+        ],
+		//查询目录流量
+        'GetFlowDataByDir' => [
+            'url' => '/2016-09-01/statistics/GetFlowDataByDir',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetFlowDataByDir',
+                ],
+            ],
+        ],
+        //流名观看时长统计
+        'GetPlayTimeDataByStream' => [
+            'url' => '/2016-09-01/statistics/GetPlayTimeDataByStream',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetPlayTimeDataByStream',
+                ],
+            ],
+        ],
+        //客户域名id观看时长统计
+        'GetPlayTimeDataByDomain' => [
+            'url' => '/2016-09-01/statistics/GetPlayTimeDataByDomain',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetPlayTimeDataByDomain',
+                ],
+            ],
+        ],
+	
+        //获取用户计费方式接口
+        'GetBillingMode' => [
+            'url' => '/2016-09-01/service/GetBillingMode',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBillingMode',
+                ],
+            ],
+        ],
+        //获取计费数据接口
+        'GetBillingData' => [
+            'url' => '/2016-09-01/statistics/GetBillingData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBillingData',
+                ],
+            ],
+        ],
+        //获取带宽峰值信息
+        'GetPeakBandwidthData' => [
+            'url' => '/2016-09-01/statistics/GetPeakBandwidthData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetPeakBandwidthData',
+                ],
+            ],
+        ],
+
         // 内容管理接口
         /**
          * 刷新接口
@@ -573,7 +664,6 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-        
     ];
     
     //特殊封装  request
