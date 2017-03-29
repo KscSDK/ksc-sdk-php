@@ -9,6 +9,7 @@ $method = $argv[1];
 
 $arrMethod = array(
     'Preset',			// 设置模板
+    'UpdatePreset',     // 更新模版
     'DelPreset',		// 删除模板
     'GetPresetList',	// 获取模板列表
     'GetPresetDetail',  // 获取模板详情
@@ -77,6 +78,7 @@ $outpull_data = [
 
 switch($method) {
     case 'Preset':
+    case 'UpdatePreset':
         $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => $preset_data]);
         break;
     case 'DelPreset':

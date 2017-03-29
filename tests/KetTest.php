@@ -6,6 +6,7 @@ class KetTest extends \PHPUnit_Framework_TestCase
 {
     private $arrMethod = array(
         'Preset',			// 设置模板
+        'UpdatePreset',     // 更新模版
         'DelPreset',		// 删除模板
         'GetPresetList',	// 获取模板列表
         'GetPresetDetail',  // 获取模板详情
@@ -26,6 +27,12 @@ class KetTest extends \PHPUnit_Framework_TestCase
     public function testPreset()
     {
         $response = Ket::getInstance()->request('Preset');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testUpdatePreset()
+    {
+        $response = Ket::getInstance()->request('UpdatePreset');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 

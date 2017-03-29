@@ -43,6 +43,16 @@ class Ket extends V4Curl
                 ]
             ],
         ],
+        'UpdatePreset' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'UpdatePreset',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
         'DelPreset' => [
             'url' => '/',
             'method' => 'get',
