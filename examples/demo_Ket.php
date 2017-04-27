@@ -17,6 +17,10 @@ $arrMethod = array(
     'StartStreamPull',  // 发起外网拉流
     'StopStreamPull',	// 停止外网拉流
     'GetQuotaUsed',     // 查询配额信息
+    'StartLoop',        // 发起轮播
+    'StopLoop',         // 停止轮播
+    'UpdateLoop',       // 更新轮播时长
+    'GetLoopList',      // 获取轮播列表
 );
 
 if (!in_array($method, $arrMethod)) {
@@ -76,6 +80,21 @@ $outpull_data = [
     'Params' => ''
 ];
 
+// 发起轮播
+$loop_data = [
+    'App' => $app,
+    'Preset' => $preset,
+    'StreamID' => $streamid,
+    'PubDomain' => 'test.uplive.ksyun.com',
+    'DurationHour' => 168,
+    'SrcInfo' => array(
+        array(
+            'Path' => 'http://wangshuai9.ks3-cn-beijing.ksyun.com/ksyun.flv',
+            'Index' => 0,
+        )
+    )
+];
+
 switch($method) {
     case 'Preset':
     case 'UpdatePreset':
@@ -92,13 +111,25 @@ switch($method) {
         $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname, 'App' => $app]]);
         break;
     case 'StartStreamPull':
-        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => $outpull_data ]);
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => $outpull_data]);
         break;
     case 'StopStreamPull':
         $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => ['App' => $app, 'StreamID' => $streamid]]);
         break;
     case 'GetQuotaUsed':
         $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname]]);
+        break;
+    case 'StartLoop':
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => $loop_data]);
+        break;
+    case 'StopLoop':
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => ['App' => $app, 'StreamID' => $streamid]]);
+        break;
+    case 'UpdateLoop':
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname], 'json' => ['App' => $app, 'StreamID' => $streamid, 'DurationHour' => 168]]);
+        break;
+    case 'GetLoopList':
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname, 'App' => $app]]);
         break;
 }
 

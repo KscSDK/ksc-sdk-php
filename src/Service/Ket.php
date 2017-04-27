@@ -123,5 +123,45 @@ class Ket extends V4Curl
                 ]
             ],
         ],
+        'StartLoop' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'StartLoop',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'StopLoop' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'StopLoop',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'UpdateLoop' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'UpdateLoop',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'GetLoopList' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetLoopList',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
     ];
 }

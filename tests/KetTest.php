@@ -14,6 +14,10 @@ class KetTest extends \PHPUnit_Framework_TestCase
         'StartStreamPull',  // 发起外网拉流
         'StopStreamPull',	// 停止外网拉流
         'GetQuotaUsed',     // 查询配额信息
+        'StartLoop',        // 发起轮播
+        'StopLoop',         // 停止轮播
+        'UpdateLoop',       // 更新轮播时长
+        'GetLoopList',      // 获取轮播列表
     );
 
     public function testAllAPI()
@@ -75,6 +79,30 @@ class KetTest extends \PHPUnit_Framework_TestCase
     public function testGetQuotaUsed()
     {
         $response = Ket::getInstance()->request('GetQuotaUsed');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testStartLoop()
+    {
+        $response = Ket::getInstance()->request('StartLoop');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testStopLoop()
+    {
+        $response = Ket::getInstance()->request('StopLoop');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testUpdateLoop()
+    {
+        $response = Ket::getInstance()->request('UpdateLoop');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testGetLoopList()
+    {
+        $response = Ket::getInstance()->request('GetLoopList');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 }
