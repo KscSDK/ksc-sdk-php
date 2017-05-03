@@ -31,7 +31,7 @@ class Tag extends V4Curl
     }
 
     protected $apiList = [
-        'GetLines' => [
+        'CreateTags' => [
             'url' => '/',
             'method' => 'get',
             'config' => [
