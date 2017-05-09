@@ -5,7 +5,7 @@
 namespace Ksyun\Service;
 
 use Ksyun\Base\V4Curl;
-class Tag extends V4Curl 
+class Iam extends V4Curl 
 {
     protected function getConfig()
     {
