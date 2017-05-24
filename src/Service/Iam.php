@@ -18,7 +18,7 @@ class Iam extends V4Curl
                 ],
                 'v4_credentials' => [
                     'region' => 'cn-beijing-6',
-                    'service' => 'tag',
+                    'service' => 'iam',
                 ],
             ],
         ];
