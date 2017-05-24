@@ -10,7 +10,7 @@ class Iam extends V4Curl
     protected function getConfig()
     {
         return [
-            'host' => 'https://tag.api.ksyun.com',
+            'host' => 'https://iam.api.ksyun.com',
             'config' => [
                 'timeout' => 5.0,
                 'headers' => [
