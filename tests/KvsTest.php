@@ -1,8 +1,8 @@
 <?php
 namespace Ksyun\Tests;
-use Ksyun\Service\Offline;
+use Ksyun\Service\Kvs;
 
-class OfflineTest extends \PHPUnit_Framework_TestCase
+class KvsTest extends \PHPUnit_Framework_TestCase
 {
     private $arrMethod = array(
         'Preset',			// 设置模板
@@ -22,80 +22,80 @@ class OfflineTest extends \PHPUnit_Framework_TestCase
     public function testAllAPI()
     {
         foreach ($this->arrMethod as $method) {
-            $response = Offline::getInstance()->request($method);
+            $response = Kvs::getInstance()->request($method);
             return $this->assertEquals($response->getStatusCode(), 200);
         }
     }
 
     public function testPreset()
     {
-        $response = Offline::getInstance()->request('Preset');
+        $response = Kvs::getInstance()->request('Preset');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testUpdatePreset()
     {
-        $response = Offline::getInstance()->request('UpdatePreset');
+        $response = Kvs::getInstance()->request('UpdatePreset');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testDelPreset()
     {
-        $response = Offline::getInstance()->request('DelPreset');
+        $response = Kvs::getInstance()->request('DelPreset');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetPresetList()
     {
-        $response = Offline::getInstance()->request('GetPresetList');
+        $response = Kvs::getInstance()->request('GetPresetList');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetPresetDetail()
     {
-        $response = Offline::getInstance()->request('GetPresetDetail');
+        $response = Kvs::getInstance()->request('GetPresetDetail');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testCreateTaskl()
     {
-        $response = Offline::getInstance()->request('CreateTask');
+        $response = Kvs::getInstance()->request('CreateTask');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testDelTaskByTaskID()
     {
-        $response = Offline::getInstance()->request('DelTaskByTaskID');
+        $response = Kvs::getInstance()->request('DelTaskByTaskID');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testTopTaskByTaskID()
     {
-        $response = Offline::getInstance()->request('TopTaskByTaskID');
+        $response = Kvs::getInstance()->request('TopTaskByTaskID');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetTaskList()
     {
-        $response = Offline::getInstance()->request('GetTaskList');
+        $response = Kvs::getInstance()->request('GetTaskList');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetTaskByTaskID()
     {
-        $response = Offline::getInstance()->request('GetTaskByTaskID');
+        $response = Kvs::getInstance()->request('GetTaskByTaskID');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testGetTaskMetaInfo()
     {
-        $response = Offline::getInstance()->request('GetTaskMetaInfo');
+        $response = Kvs::getInstance()->request('GetTaskMetaInfo');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
     public function testBatchCreateTask()
     {
-        $response = Offline::getInstance()->request('BatchCreateTask');
+        $response = Kvs::getInstance()->request('BatchCreateTask');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 }
