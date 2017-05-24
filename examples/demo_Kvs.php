@@ -19,7 +19,7 @@ $arrMethod = array(
     'GetTaskList',		// 获取任务列表
     'GetTaskByTaskID',	// 获取任务详情
     'GetTaskMetaInfo',  // 获取任务META列表
-
+    'BatchCreateTask',  // 批量创建任务
 );
 
 if (!in_array($method, $arrMethod)) {
@@ -76,6 +76,47 @@ $task_data = [
     'ExtParam' => ''
 ];
 
+// 批量创建任务数组
+$tasks_data = [
+    [
+        'Preset' => $preset,
+        'SrcInfo' => [
+            [
+                'path' => '/wangshuai9/ksyun1.flv',
+                'index' => 0,
+                'type' => 'video'
+            ]
+        ],
+        'DstBucket' => 'wangshuai9',
+        'DstDir' => '',
+        'DstObjectKey' => 'ksyun_1.flv',
+        'DstAcl' => 'public-read',
+        'IsTop' => 0,
+        'CbUrl' => '',
+        'CbMethod' => '',
+        'ExtParam' => ''
+    ],
+    [
+        'Preset' => $preset,
+        'SrcInfo' => [
+            [
+                'path' => '/wangshuai9/ksyun2.flv',
+                'index' => 0,
+                'type' => 'video'
+            ]
+        ],
+        'DstBucket' => 'wangshuai9',
+        'DstDir' => '',
+        'DstObjectKey' => 'ksyun_2.flv',
+        'DstAcl' => 'public-read',
+        'IsTop' => 0,
+        'CbUrl' => '',
+        'CbMethod' => '',
+        'ExtParam' => ''
+    ]
+
+];
+
 // 任务ID
 $taskid = '99df258304633fd3a60b8899b9d726eb20160921';
 
@@ -95,6 +136,9 @@ switch($method) {
         break;
     case 'CreateTask':
         $response = Kvs::getInstance()->request($method, ['json' => $task_data]);
+        break;
+    case 'BatchCreateTask':
+        $response = Kvs::getInstance()->request($method, ['json' => $tasks_data]);
         break;
     case 'GetTaskByTaskID':
     case 'TopTaskByTaskID':

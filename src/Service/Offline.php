@@ -143,5 +143,15 @@ class Offline extends V4Curl
                 ]
             ],
         ],
+        'BatchCreateTask' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'BatchCreateTask',
+                    'Version' => '2016-09-19'
+                ]
+            ],
+        ],
     ];
 }

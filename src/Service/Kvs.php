@@ -143,5 +143,15 @@ class Kvs extends V4Curl
                 ]
             ],
         ],
+        'BatchCreateTask' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'BatchCreateTask',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
     ];
 }
