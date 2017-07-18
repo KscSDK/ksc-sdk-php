@@ -1,4 +1,5 @@
 <?php
+
 namespace Ksyun\Tests;
 
 use Ksyun\Service\Cdn;
@@ -51,13 +52,13 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $params = [
             'query' => [
                 'DomainName' => 'www.le.com',     //加速域名
-                'CdnType' => 'download',    //加速类型             
+                'CdnType' => 'download',    //加速类型
                 'CdnProtocol' => 'http',    //客户访问边缘节点的协议。默认http
                 'Regions' => 'CN', //加速区域，默认CN， 可以输入多个，以逗号间隔。
                 'OriginType' => 'domain',   //源站类型
-                'OriginProtocol' => 'http', //回源协议              
+                'OriginProtocol' => 'http', //回源协议
                 'Origin' => 'www.ksyun.com',    //源站域名
-                'OriginPort' => '80', //源站域名端口号              
+                'OriginPort' => '80', //源站域名端口号
             ],
         ];
         $response = Cdn::getInstance()->request('AddCdnDomain', $params);
@@ -555,7 +556,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             'query' => [
                 'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
                 //'Provinces'=>'', //省份区域名称 多个省份区域用逗号（半角）分隔，缺省为全部省份区域
-                //'Isps'=>'', //运营商名称 多个运营商用逗号（半角）分隔，缺省为全部运营商                
+                //'Isps'=>'', //运营商名称 多个运营商用逗号（半角）分隔，缺省为全部运营商
                 'StartTime' => '2016-11-19T00:00+0800',
                 'EndTime' => '2016-11-19T23:00+0800',
                 'Granularity' => '480',
@@ -1168,6 +1169,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         return $this->assertEquals($response->getStatuscode(), 200);
     }
     //以下是内容管理接口
+
     /**
      * 刷新节点上的文件内容。刷新指定URL内容至Cache节点，支持URL、目录批量刷新。
      * 注意：
@@ -1366,6 +1368,193 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         $response = Cdn::getInstance()->request('GetPeakBandwidthData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 为单域名或者多域名配置证书，多域名用英文半角逗号隔开
+     * Parameters:
+     * Enable            String    开启、关闭设置服务证书，取值：on：开启，off：关闭，默认为off，当选择开启时，以下为必填
+     * DomainIds         String    domainid列表，英文半角逗号隔开
+     * CertificateId     String    金山云生成的证书唯一性ID，若输入证书ID，则以下内容可不填写，若无证书ID，则以下内容为必填
+     * CertificateName   String    证书名称
+     * ServerCertificate String    域名对应的证书内容
+     * PrivateKey        String    证书对应的私钥内容
+     */
+    public function testConfigCertificate()
+    {
+        $ServerCertificateParam = "-----BEGIN CERTIFICATE-----
+            MIIDpzCCAo+gAwIBAgIJAJVYqjMp0Oo+MA0GCSqGSIb3DQEBCwUAMGoxCzAJBgNV
+            BAYTAmFmMQswCQYDVQQIDAJhZjELMAkGA1UEBwwCYWYxCzAJBgNVBAoMAmFmMQsw
+            CQYDVQQLDAJhZjETMBEGA1UEAwwKYWFhLmNvbS5jbjESMBAGCSqGSIb3DQEJARYD
+            ZmFmMB4XDTE3MDcxODA2MjAxMloXDTE3MDgxNzA2MjAxMlowajELMAkGA1UEBhMC
+            YWYxCzAJBgNVBAgMAmFmMQswCQYDVQQHDAJhZjELMAkGA1UECgwCYWYxCzAJBgNV
+            BAsMAmFmMRMwEQYDVQQDDAphYWEuY29tLmNuMRIwEAYJKoZIhvcNAQkBFgNmYWYw
+            ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDR7nPaWm73enLhkzjw06oA
+            bE50Jqi4OaHKnurLX3byFVbkJU9NA5N4vQ4hXD0HDGqN87ruJVfrSOdCkPxFD95m
+            M4W60R2NSBNeDM3AiXPmn5Ghey4ittkLiVcArEiyGoLMt3dQPxChVUK2YrtP2XzN
+            +XmHTrez4N+ttV+xhia/TTNb9A0iCaFPzs/CGsqYhhd6AKt4QRzRIR3s5v8Rz8Pq
+            eytmkGuzV3q9l1sTTbBenbWyGv3T2zbUNFHDOwazzZXvU94pniC3xuOjB9KcNiXb
+            2fD9tVLKLppHf7Ei8KJAYDrSX8F0GXePpfHD7e7eHWVOwjuQZJFvvzRioiENc8oH
+            AgMBAAGjUDBOMB0GA1UdDgQWBBT1IUW+CaMjIbD4yLab19fkXUfYPTAfBgNVHSME
+            GDAWgBT1IUW+CaMjIbD4yLab19fkXUfYPTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3
+            DQEBCwUAA4IBAQCx1ET/0bGKn3WHoCMnTeEa9JD7AbPn1FWCSxVsnqxSh4OB0G0e
+            KRdPNIVY2keQp2NFM0qOic5bd+a5+WCVz+/p4v0HhmhiEo9z1NNOs6FvHGa1mAIk
+            9u/9Mx3ijKb19MLC/was9WzoxuW7BqxjAT3cyuKZ1eGQPu2aEwTHYTiZL0Qm9n5n
+            SwCh4R5bgw1sZ9f6W0EAG2sfkUdiSa1auBxNn+cMiDtLnUCLM4lXHT8kSylKJcwX
+            XKThusYHxWhMCn/iKK3SWMvmlf9P3luXXxa1ZRP3aAoh2DsKIB4wJwTxVoTaw7D4
+            kMHUsjuJKOh/GwFKK6vWGmxUkSsGK1m+Z/I9
+            -----END CERTIFICATE-----
+            ";
+        $PrivateKeyParam = "-----BEGIN PRIVATE KEY-----
+            MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDR7nPaWm73enLh
+            kzjw06oAbE50Jqi4OaHKnurLX3byFVbkJU9NA5N4vQ4hXD0HDGqN87ruJVfrSOdC
+            kPxFD95mM4W60R2NSBNeDM3AiXPmn5Ghey4ittkLiVcArEiyGoLMt3dQPxChVUK2
+            YrtP2XzN+XmHTrez4N+ttV+xhia/TTNb9A0iCaFPzs/CGsqYhhd6AKt4QRzRIR3s
+            5v8Rz8PqeytmkGuzV3q9l1sTTbBenbWyGv3T2zbUNFHDOwazzZXvU94pniC3xuOj
+            B9KcNiXb2fD9tVLKLppHf7Ei8KJAYDrSX8F0GXePpfHD7e7eHWVOwjuQZJFvvzRi
+            oiENc8oHAgMBAAECggEBAJdOOPwAwAfonlJM7PZOaDHj3evDTUlyaFUEkw+/n5g9
+            nyHSbkSAtlKIWF3dADNLVKU5LNql2adAJUYJ/3i7Rjz9F36dZ6JDd4oKymTh7MIk
+            8i6j/I2Sof65nxZiFgcgKnPoK7uPqKnPLMUNhhm4FEbUby4Bo0+nXS/zEKR/nv+z
+            EobjYt+WTbydGu1Bbg0l47yYzEg6k37CG/CekMtldhCBThYfAX1T+Lt5na+K9Wqr
+            06s00jPP//0aYFWjC56zFGDOiuhNm5Ba1/sWDPIAoxnuVOAMQqFv2pVICegCD4Tx
+            TnbhZUssENdi6+UGHyz3egVGWZjE+4Gae8UBWWm3sRECgYEA+qYGir45356+cItd
+            nEOKxK4xveakvpu+Gn9edHbzaRk4qrzHHHWjijM359nZCxMpnSVbGcwlc1/P3esj
+            o8PUC96aNDyr0BYKaZS9BwywPvIPHqizhSMZJoN9R1FROQcPIdNXcEFMeuaIU9tQ
+            pCtfWq4dRsXs4j/KdhnaaNxEi+kCgYEA1mng/biQYzn/y6ej9LvLQE/xgEDK+TzO
+            +cQYH6GCZVqAR1YucYTVhnVHByu6vS/T8nGSjt3lVrqzR6KtlN16mpc0dxFen4g5
+            NERAKVkyuaOrcq1zV7MidZuNp9CMviEJlRW7IleLXtYRa8QKyPzhZPQo+yXGkRPh
+            yd52CAeOIG8CgYBEbLyOdb3Q2UI98R3eAeZJKRC1OdixnEy6aRj9DFgI0fTRT3W/
+            xDGgEblqVuNUjaenmcIT+dIje/2AJKf3Fge2Mc/BAOsahFnVVuB/oyweEvCjuwQ/
+            DUTZab3ykTVuLwonfs14/KqHRpXi5pVOK/T9CVk+r9uqLCX2NbqVM8SWuQKBgQDT
+            G/aR+fn4KPAJheqxmYF6tfuzapgupEeptgCGjFBGGMB6/IjH7qEKPUiM7+pyQbgu
+            WtKRZjtblIHWg37jNtpzgXL/1RNUghzIsHZ3/8Io89RoGg2aCN9h6qGj3Hvm68Jy
+            jq3tF0M7QgxvDdwMnqgR7TC4by4+Q9QpHacbKs0ucwKBgCiZmZPmcHJakRo3QBJn
+            aer4yRIgY3gXbRchdSb0vzKIyW2l/dcLMtyQGOnFNbgj+Q4Ir4VaSZ9xFyV6eamQ
+            T107FjVUdU5/ANBbJA/23vpDFKmepY4j+rNZFDnTTSbUCGsYQcjICrgx7I7FmNKq
+            5b107+7UJDA20d5/MGBIBLIU
+            -----END PRIVATE KEY-----
+            ";
+        $params = [
+            'query' => [
+                'Enable' => 'on',
+                'DomainIds' => '2D09VN9',
+                'CertificateName' => '2D09VN9_test',
+                'ServerCertificate' => $ServerCertificateParam,
+                'PrivateKey' => $PrivateKeyParam,
+            ],
+        ];
+        $response = Cdn::getInstance()->request('ConfigCertificate', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 更新证书信息
+     * Parameters:
+     * CertificateId     String  证书对应的唯一ID
+     * CertificateName   String  安全证书名称
+     * ServerCertificate String  域名对应的安全证书内容
+     * PrivateKey        String  安全证书对应的私钥内容
+     */
+    public function testSetCertificate()
+    {
+        $ServerCertificateParam = "-----BEGIN CERTIFICATE-----
+            MIIDsTCCApmgAwIBAgIJAJ249yikxRpgMA0GCSqGSIb3DQEBCwUAMG8xCzAJBgNV
+            BAYTAmFmMQwwCgYDVQQIDANhZGYxDDAKBgNVBAcMA2FkZjENMAsGA1UECgwEYXNk
+            ZjEKMAgGA1UECwwBFjETMBEGA1UEAwwKYWFhLmNvbS5jbjEUMBIGCSqGSIb3DQEJ
+            ARYFYWRmYXMwHhcNMTcwNzE4MTEwMjU4WhcNMTcwODE3MTEwMjU4WjBvMQswCQYD
+            VQQGEwJhZjEMMAoGA1UECAwDYWRmMQwwCgYDVQQHDANhZGYxDTALBgNVBAoMBGFz
+            ZGYxCjAIBgNVBAsMARYxEzARBgNVBAMMCmFhYS5jb20uY24xFDASBgkqhkiG9w0B
+            CQEWBWFkZmFzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvMBPIDzY
+            /Xo+euQx+nu9idWrPJ1fEf4hQklbsXfkSmw3F3FVSGL9LFggd/gHyBVTtTmM5bnW
+            +lh1uDfKRyj9g92/+xG0dcZWHiTR7SR4i+AskS2k+cCeELN8ygg6GRpzK/p23l33
+            8SXlo2qMiMQcfYWhWomt5nc4mO0HJBzhxeE+eeruBKJbcSmdStd90RBwY338uaMT
+            VDMRCfoZSmgh5k8j+8+fAjSOWdlEJv8pjcvEqpz7of9gqNi/nQr6QB7btSPFWR9R
+            SCOTmKkelw/F3KF8l4S8W2HAm8et8+0oW15VjiLoadeCj/MWNr6HqEylYLdgnPUR
+            /9aNTidpUFx14wIDAQABo1AwTjAdBgNVHQ4EFgQUXCQfqKfwxchsQfeFbVuLzLg/
+            7TUwHwYDVR0jBBgwFoAUXCQfqKfwxchsQfeFbVuLzLg/7TUwDAYDVR0TBAUwAwEB
+            /zANBgkqhkiG9w0BAQsFAAOCAQEAiKJyoC6h5tQZUfhzlaaIjbGZykANy7ocRrBj
+            fZrByAdnT7KoGUJtj9Ic36FzEkLNT7F6nPEseJQPfm5vmpcCfi98CSnBYN9jXIxj
+            oJP1OPqxDU8yOoSeSUhJRKx0Y5EVDSEzyQgcNAeYCjNcDTnu4je+Xm7KAPDl/OJz
+            qOQC2qO+FwkETW8/M6AfzABCxqRbc2rZt5ob9Ns04MUbpBSCJbV6B+kBylbHGfsj
+            2WlgY/C56sB7A3/0r1my4veqxJDbROm3JA1J+X+bBm1qEOu/O64SpXbY+Q77oG4h
+            qHmEpo/y30OLBYJ5fLbtjn5bjCeR7K+nGlOCRj14Q+WiA4jeUg==
+            -----END CERTIFICATE-----
+            ";
+        $PrivateKeyParam = "-----BEGIN PRIVATE KEY-----
+            MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC8wE8gPNj9ej56
+            5DH6e72J1as8nV8R/iFCSVuxd+RKbDcXcVVIYv0sWCB3+AfIFVO1OYzludb6WHW4
+            N8pHKP2D3b/7EbR1xlYeJNHtJHiL4CyRLaT5wJ4Qs3zKCDoZGnMr+nbeXffxJeWj
+            aoyIxBx9haFaia3mdziY7QckHOHF4T556u4EoltxKZ1K133REHBjffy5oxNUMxEJ
+            +hlKaCHmTyP7z58CNI5Z2UQm/ymNy8SqnPuh/2Co2L+dCvpAHtu1I8VZH1FII5OY
+            qR6XD8XcoXyXhLxbYcCbx63z7ShbXlWOIuhp14KP8xY2voeoTKVgt2Cc9RH/1o1O
+            J2lQXHXjAgMBAAECggEAMqhWVCugfR8y556Y/0X4j6al54XA/z46ROUVU+L+hS7X
+            9lW3cs8GbcFVLX2G8R8wMSI5+2nOFbBqH7/xbPnGWH7KSKLu0PEjKcHuCXxRUhEf
+            RPOAJHuasJbLdhmRJi2gHXyCLJoBslnecOZmw0oG73VO4dKztnfm27w5v2p0+btM
+            2UTyptHaOeZ8irUAa/jT4tdSDoXNwHJB1QSEG48npmtLCnzTaHDPQ3T5i6JatVbb
+            tsHrw6FQLH83LVW7bM4J0h6VjLa+UILgZsBJgV6/sWnJrqp/sGcLDAEV7kh1mctd
+            AMI6wapqwVBNONy5TMZXQwlEzDNZH1ckZpOxrApGMQKBgQDrZHDiSWGat1nDTOJa
+            xK5adkRw5KiE6HjKzy2bl/9KobTgOi/vOERTRkG4WTwVidxqnYDxt9wJQOzG3nRu
+            p1CUKPzBeZjtM5Ya4dwnI7T/s5ZBJ7Li6obm1fSK1e+dlNEsvJE9cyTPsQe5JOxV
+            nw8tO4jYqvmfVQywcuvPyBeRmQKBgQDNRo7CEwJxsr4aZKHLsT0prpfy0n3vr2u0
+            bshXVHw1v23lTO1lGwTFg/qPiRDleXCux2JM7idraBr1X9bZziQ3ClHlzJIXpo+k
+            NV8eou4BybgYXkdjAwtxGIHZ2Bu63DHNsNjVA2bR2MbLcu4JNAzfAuXn/5podFJQ
+            vmnV/uso2wKBgEY1OAIWNvlpdGlu1hiSjxpGKhWt7aFuoRCEiKrew/MjlgpG8KMe
+            GiroSpPMccJO0yIthhcSapuL9NM/6GRUnREDxJeESBt/hmbQNNSrrsGRc+BNEeri
+            XogdCooaUxSiHV2FhKBaZoFX4ODU5XSIM4OfPSq6nCdsu5MpQ7I+kOEJAoGAOEEl
+            zjm3acE6J7F8RX4E7O9T5M+ag5znP0M80/HrOC+FxlkWlaaZ4CcS+1LstnZZUwyA
+            ++QoGV8mRChHkNjVQ+AoIXm2b5TNuIqHzrWH1CWbtdHgblnfQNcefryinMrLOztD
+            sNyFyOxHTmnooc0J2fPJXZLGlemKxWXpSyPY/hECgYA3cMmm4xwFk7VI0/U9p3ce
+            aYCHQYWrvWhz/foDhBVIVMFIGucTC8k4135P7R+RHSupP7grfCP6YpNgi+jad245
+            XIgrzQfOsNkx+nS+TMdfoUabduMnkAXMQ2htfHkmNwvRizsXswI1bkM+xU8UAH+j
+            OPb0yrcaLL55tHfUSluGiQ==
+            -----END PRIVATE KEY-----
+            ";
+        $params = [
+            'query' => [
+                'CertificateId' => '918',
+                'CertificateName' => '2D09VN9_test',
+                'ServerCertificate' => $ServerCertificateParam,
+                'PrivateKey' => $PrivateKeyParam,
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetCertificate', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 批量删除证书列表
+     *  注意：
+     *  仅当证书状态为未启用状态时方可删除证书
+     *  Parameters:
+     *   CertificateIds   String  证书id列表，英文半角逗号隔开
+     */
+    public function testRemoveCertificates()
+    {
+        $params = [
+            'query' => [
+                'CertificateIds' => '910,911',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('RemoveCertificates', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 分页获得用户证书列表参数
+     * Parameters:
+     * PageSize        Long    一页展示条数
+     * PageNum         Long    当前页码
+     */
+    public function testGetCertificates()
+    {
+        $params = [
+            'query' => [
+                'PageSize' => '1',
+                'PageNum' => '5',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetCertificates', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
 

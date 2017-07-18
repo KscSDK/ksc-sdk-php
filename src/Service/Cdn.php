@@ -16,7 +16,7 @@ class Cdn extends V4Curl
             'config' => [
                 'timeout' => 60,  //设置timeout
                 'v4_credentials' => [
-                    'region' => 'cn-shanghai-1',
+                    'region' => 'cn-shanghai-2',
                     'service' => 'cdn',
                 ],
             ],
@@ -664,6 +664,62 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+
+        /**
+         * 为单个或多个加速域名配置证书
+         */
+        'ConfigCertificate' => [
+            'url' => '/2016-09-01/cert/ConfigCertificate',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'ConfigCertificate',
+                ],
+            ],
+        ],
+
+        /**
+         * 更新证书信息
+         */
+        'SetCertificate' => [
+            'url' => '/2016-09-01/cert/SetCertificate',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetCertificate',
+                ],
+            ],
+        ],
+
+        /**
+         * 根据证书id列表，英文半角逗号隔开，删除证书处于未启用状态才可以删除
+         */
+        'RemoveCertificates' => [
+            'url' => '/2016-09-01/cert/RemoveCertificates',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'RemoveCertificates',
+                ],
+            ],
+        ],
+
+        /**
+         * 分页获得用户下证书列表
+         */
+        'GetCertificates' => [
+            'url' => '/2016-09-01/cert/GetCertificates',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetCertificates',
+                ],
+            ],
+        ]
     ];
     
     //特殊封装  request
