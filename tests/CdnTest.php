@@ -19,11 +19,11 @@ use Ksyun\Service\Cdn;
 class CdnTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     *查询域名列表
-     *   request($api, $httpConfig)提交请求
-     *       $api 为  'GetCdnDomains'
-     *       $httpConfig 中通过query字段设置请求参数
-     */
+     * //     *查询域名列表
+     * //     *   request($api, $httpConfig)提交请求
+     * //     *       $api 为  'GetCdnDomains'
+     * //     *       $httpConfig 中通过query字段设置请求参数
+     * //     */
     public function testGetCdnDomains()
     {
         //设置查询条件,可以多个条件组合查询,也可无查询条件查所有
@@ -1368,6 +1368,62 @@ class CdnTest extends \PHPUnit_Framework_TestCase
             ],
         ];
         $response = Cdn::getInstance()->request('GetPeakBandwidthData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 屏蔽、解除屏蔽URL。支持json和xml两种格式
+     */
+    public function testBlockDomainUrl()
+    {
+        $params_origin = [
+            'BlockTime' => 3600,
+            'RefreshOnUnblock' => 'off',
+            'BlockType' => 'unblock',
+            'Urls' => array(   //url信息
+                array(
+                    'Url' => 'http://v6.365yg.com/video/m/220dffb44d4bcfe4473b44169b14e1575d911487f30000375a9b6a2f42/'
+                ),
+            ),
+        ];
+        $data = json_encode($params_origin);
+        $params = [
+            'body' => $data,
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('BlockDomainUrl', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 获取屏蔽URL任务进度百分比及状态，查看任务是否在全网生效。
+     */
+
+    public function testGetBlockUrlTask()
+    {
+        $params = [
+            'query' => [
+                'PageSize' => 1,
+                'PageNumber' => 2,
+                'Urls' => array(   //url信息
+                    array(
+                        'Url' => 'http://v6.365yg.com/video/m/220dffb44d4bcfe4473b44169b14e1575d911487f30000375a9b6a2f42/'
+                    ),
+                ),
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetBlockUrlTask', $params);
+        return $this->assertEquals($response->getStatuscode(),200);
+    }
+
+    /**
+     * 获取屏蔽URL最大限制数量，及剩余的条数
+     */
+    public function testGetBlockUrlQuota(){
+        $params = [];
+        $response = Cdn::getInstance()->request('GetBlockUrlQuota',$params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
 

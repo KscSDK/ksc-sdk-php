@@ -1,7 +1,8 @@
 <?php
 /**
- *  creator: dinglei 
+ *  creator: dinglei
  */
+
 namespace Ksyun\Service;
 
 use Ksyun\Base\V4Curl;
@@ -22,8 +23,8 @@ class Cdn extends V4Curl
             ],
         ];
     }
-    
-    protected $apiList =[
+
+    protected $apiList = [
         //获取域名列表
         'GetCdnDomains' => [
             'url' => '/2016-09-01/domain/GetCdnDomains',
@@ -490,7 +491,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-		//查询目录带宽
+        //查询目录带宽
         'GetBandwidthDataByDir' => [
             'url' => '/2016-09-01/statistics/GetBandwidthDataByDir',
             'method' => 'get',
@@ -501,7 +502,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-		//查询目录流量
+        //查询目录流量
         'GetFlowDataByDir' => [
             'url' => '/2016-09-01/statistics/GetFlowDataByDir',
             'method' => 'get',
@@ -534,7 +535,7 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-	
+
         //获取用户计费方式接口
         'GetBillingMode' => [
             'url' => '/2016-09-01/service/GetBillingMode',
@@ -680,6 +681,48 @@ class Cdn extends V4Curl
         ],
 
         /**
+         * 屏蔽、解除屏蔽URL
+         */
+        'BlockDomainUrl' => [
+            'url' => '/2016-09-01/content/BlockDomainUrl',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'BlockDomainUrl',
+                ],
+            ],
+        ],
+
+        /**
+         * 获取屏蔽URL任务进度百分比及状态，查看任务是否在全网生效。
+         */
+        'GetBlockUrlTask' => [
+            'url' => '/2016-09-01/content/GetBlockUrlTask',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBlockUrlTask',
+                ],
+            ],
+        ],
+
+        /**
+         * 获取屏蔽URL最大限制数量，及剩余的条数。
+         */
+        'GetBlockUrlQuota' => [
+            'url' => '/2016-09-01/content/GetBlockUrlQuota',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetBlockUrlQuota',
+                ],
+            ],
+        ],
+
+        /**
          * 更新证书信息
          */
         'SetCertificate' => [
@@ -721,54 +764,55 @@ class Cdn extends V4Curl
             ],
         ]
     ];
-    
+
     //特殊封装  request
     public function request($api, array $config = [])
     {
-        if($api === 'GetDomainLogs'){
+        if ($api === 'GetDomainLogs') {
             $domain = $config['query']['domain'];
-            $config['query'] = $this->array_remove($config['query'] , 'domain');               
+            $config['query'] = $this->array_remove($config['query'], 'domain');
             $config['replace']['domain'] = base64_encode($domain);
-         
-        }else if($api === 'PreloadCache'){
+
+        } else if ($api === 'PreloadCache') {
             $files = isset($config['files']) ? $config['files'] : false;
-            if($files!==false){
+            if ($files !== false) {
                 $config = $this->array_remove($config, 'files'); //清空参数
                 $this->proloadpost($files, $api, $config);
-            }else{
+            } else {
                 echo "files is not set.";
             }
-            return ;
+            return;
         }
-        
+
         return parent::request($api, $config);
     }
-    
+
     // PreloadCache 封装xml 发送
-    private function proloadpost($files, $api, $config){
-        
-        foreach($files as $url){
-            $tempu=parse_url($url);  
-            $strdomain = $tempu['host'];  
+    private function proloadpost($files, $api, $config)
+    {
+
+        foreach ($files as $url) {
+            $tempu = parse_url($url);
+            $strdomain = $tempu['host'];
             $strPath = $tempu['path'];
-            isset($domains[$strdomain]) ?  $domains[$strdomain][]=$strPath: $domains[$strdomain]=[$strPath,];
-        } 
+            isset($domains[$strdomain]) ? $domains[$strdomain][] = $strPath : $domains[$strdomain] = [$strPath,];
+        }
         $keys = array_keys($domains);
 
-        foreach($keys as $key){
+        foreach ($keys as $key) {
             $distributionId = base64_encode($key);
-       
-            $dom = new DOMDocument(); 
-            $root = $dom->createElement("PreloadBatch"); 
-            $dom->appendChild($root); 
-            $paths = $dom->createElement("Paths"); 
-            $root->appendChild($paths); 
+
+            $dom = new DOMDocument();
+            $root = $dom->createElement("PreloadBatch");
+            $dom->appendChild($root);
+            $paths = $dom->createElement("Paths");
+            $root->appendChild($paths);
             $items = $dom->createElement("Items");
             $paths->appendChild($items);
-            foreach($domains[$key] as $path){
+            foreach ($domains[$key] as $path) {
                 $item = $dom->createElement("Path");
                 $items->appendChild($item);
-                $text = $dom->createTextNode($path); 
+                $text = $dom->createTextNode($path);
                 $item->appendChild($text);
             }
             $quantity = $dom->createElement("Quantity");
@@ -786,31 +830,35 @@ class Cdn extends V4Curl
             //echo $response->getStatusCode();
             //echo "\n";
             //echo (string)$response->getBody();
-        }    
+        }
     }
+
     //删除指定key 数组元素
-    private function array_remove($data, $key){  
-        if(!array_key_exists($key, $data)){  
-            return $data;  
-        }  
-        $keys = array_keys($data);  
-        $index = array_search($key, $keys);  
-        if($index !== FALSE){  
-            array_splice($data, $index, 1);  
-        }  
-        return $data;  
+    private function array_remove($data, $key)
+    {
+        if (!array_key_exists($key, $data)) {
+            return $data;
+        }
+        $keys = array_keys($data);
+        $index = array_search($key, $keys);
+        if ($index !== FALSE) {
+            array_splice($data, $index, 1);
+        }
+        return $data;
     }
-    private function create_guid() {
+
+    private function create_guid()
+    {
         $charid = strtoupper(md5(uniqid(mt_rand(), true)));
         $hyphen = chr(45);
-        $uuid = ''.substr($charid, 0, 8).$hyphen
-                    .substr($charid, 8, 4).$hyphen
-                    .substr($charid,12, 4).$hyphen
-                    .substr($charid,16, 4).$hyphen
-                    .substr($charid,20,12);
+        $uuid = '' . substr($charid, 0, 8) . $hyphen
+            . substr($charid, 8, 4) . $hyphen
+            . substr($charid, 12, 4) . $hyphen
+            . substr($charid, 16, 4) . $hyphen
+            . substr($charid, 20, 12);
         return $uuid;
     }
-    
+
 }
 
 
