@@ -2,24 +2,24 @@
 /**
  * @desc 离线转码
  * @author wangshuai<wangshuai9@kingsoft.com>
- * @date 2016/09/19
+ * @date 2017/01/22
  */
 namespace Ksyun\Service;
 
 use Ksyun\Base\V4Curl;
-class Offline extends V4Curl
+class Kvs extends V4Curl
 {
     protected function getConfig()
     {
         return [
-            'host' => 'http://offline.cn-beijing-6.api.ksyun.com',
+            'host' => 'http://kvs.cn-beijing-6.api.ksyun.com',
+            'timeout' => 5,
             'config' => [
-                'timeout' => 5.0,
                 'headers' => [
                     'Accept' => 'application/json'
                 ],
                 'v4_credentials' => [
-                    'service' => 'offline',
+                    'service' => 'kvs',
                 ],
             ],
         ];
@@ -39,7 +39,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'Preset',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -49,7 +49,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'UpdatePreset',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -59,7 +59,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'DelPreset',
-                    'Version' => '2016-09-19',
+                    'Version' => '2017-01-01',
                 ]
             ],
         ],
@@ -69,7 +69,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetList',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -79,7 +79,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetDetail',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -89,7 +89,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'CreateTask',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -99,7 +99,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'DelTaskByTaskID',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -109,7 +109,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'TopTaskByTaskID',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -119,7 +119,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetTaskList',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -129,7 +129,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetTaskByTaskID',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -139,7 +139,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetTaskMetaInfo',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -149,7 +149,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'BatchCreateTask',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
