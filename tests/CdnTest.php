@@ -1220,6 +1220,8 @@ class CdnTest extends \PHPUnit_Framework_TestCase
      * 使用场景
      * 查询用户刷新或预热URL进度百分比及状态，查看是否在全网生效，用于在控制台展示
      * 客户通过API获取刷新或预热任务或URL进度百分比及状态，查看是否在全网生效
+     * 新增类型Type:
+     * Type	否	String	任务类别，取值为：refresh，刷新任务；取值为:preload,预热任务
      */
     public function testGetRefreshOrPreloadTask()
     {
