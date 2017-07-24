@@ -23,6 +23,7 @@ composer require kscsdk/ksyun_sdk
 - [VPC](http://www.ksyun.com/doc/art/id/1661)
 - [SLB](http://www.ksyun.com/doc/art/id/1662)
 - [CDN](https://docs.ksyun.com/read/latest/107/_book/index.html)
+- [TAG](https://docs.ksyun.com/read/latest/90/_book/index.html)
 
 >敬请期待
 
