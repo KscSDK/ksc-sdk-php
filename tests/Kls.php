@@ -20,7 +20,14 @@ class KlsTest extends \PHPUnit_Framework_TestCase
         'ListStreamDurations',              // 主播流时长统计
         'ListRealtimePubStreamsInfo',       // 查询流实时信息
         'ListHistoryPubStreamsInfo',        // 查询流历史信息
-        'ListHistoryPubStreamsErrInfo'      // 查询流历史错误信息
+        'ListHistoryPubStreamsErrInfo',     // 查询流历史错误信息
+        'ForbidStream',                     // 禁止单路直播流推送
+        'ResumeStream',                     // 恢复单路直播流推送
+        'GetBlacklist',                     // 查询黑名单列表
+        'CheckBlacklist',                   // 检查流是否在黑名单内
+        'listRelayStreamsInfo',             // 转推实时信息查询接口
+        'listRelayErrInfo',                 // 转推历史错误统计接口
+        'KillStreamCache',                  // 踢拉流接口
     );
 
 
@@ -95,6 +102,48 @@ class KlsTest extends \PHPUnit_Framework_TestCase
     public function testListHistoryPubStreamsErrInfo()
     {
         $response = kls::getInstance()->request('ListHistoryPubStreamsErrInfo');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testForbidStream()
+    {
+        $response = kls::getInstance()->request('ForbidStream');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testResumeStream()
+    {
+        $response = kls::getInstance()->request('ResumeStream');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testGetBlacklist()
+    {
+        $response = kls::getInstance()->request('GetBlacklist');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testCheckBlacklist()
+    {
+        $response = kls::getInstance()->request('CheckBlacklist');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testListRelayStreamsInfo()
+    {
+        $response = kls::getInstance()->request('listRelayStreamsInfo');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+     public function testListRelayErrInfo()
+    {
+        $response = kls::getInstance()->request('listRelayErrInfo');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+     public function testKillStreamCache()
+    {
+        $response = kls::getInstance()->request('KillStreamCache');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 	

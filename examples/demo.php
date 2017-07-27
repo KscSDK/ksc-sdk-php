@@ -3,7 +3,6 @@ require('./vendor/autoload.php');
 use Ksyun\Service\Vpc;
 use Ksyun\Service\Kec;
 use Ksyun\Service\Eip;
-use Ksyun\Service\Kls;
 
 function getResponse($response)
 {
@@ -12,10 +11,6 @@ function getResponse($response)
 
 //----------------------------------
 
-//创建定时录像任务
-$parma = array(
-    ''
-);
 
 //查询vpc
 $response = Vpc::getInstance()->request('DescribeVpcs');
