@@ -31,6 +31,7 @@ if (!in_array($method, $arrMethod)) {
     exit;
 }
 
+//
 
 switch($method) {
     case 'CreateRecordTask':
