@@ -11,6 +11,7 @@ class KvsTest extends \PHPUnit_Framework_TestCase
         'GetPresetList',	// 获取模板列表
         'GetPresetDetail',  // 获取模板详情
         'CreateTask',		// 创建任务
+        'CreateFlowTask',	// 创建流式任务
         'DelTaskByReqID',   // 删除任务
         'TopTaskByReqID',	// 置顶任务
         'GetTaskList',		// 获取任务列表
@@ -62,6 +63,12 @@ class KvsTest extends \PHPUnit_Framework_TestCase
     public function testCreateTaskl()
     {
         $response = Kvs::getInstance()->request('CreateTask');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testCreateFlowTaskl()
+    {
+        $response = Kvs::getInstance()->request('CreateFlowTask');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
