@@ -14,6 +14,7 @@ $arrMethod = array(
     'GetPresetList',	// 获取模板列表
     'GetPresetDetail',  // 获取模板详情
     'CreateTask',		// 创建任务
+    'CreateFlowTask',	// 创建流式任务
     'DelTaskByTaskID',  // 删除任务
     'TopTaskByTaskID',	// 置顶任务
     'GetTaskList',		// 获取任务列表
@@ -134,6 +135,46 @@ $tasks_data = [
     ]
 ];
 
+// 创建流式任务数组
+$flowtask_data = [
+    'Pipeline' => $pipeline,
+    'FlowData' => [
+        [
+            'Preset' => $preset,
+            'SrcInfo' => [
+                [
+                    'path' => '/wangshuai9/ksyun1.flv',
+                    'index' => 0,
+                    'type' => 'video'
+                ]
+            ],
+            'DstBucket' => 'wangshuai9',
+            'DstDir' => '',
+            'DstObjectKey' => 'ksyun_1.flv',
+            'DstAcl' => 'public-read',
+            'ExtParam' => ''
+        ],
+        [
+            'Preset' => $preset,
+            'SrcInfo' => [
+                [
+                    'path' => '/wangshuai9/ksyun2.flv',
+                    'index' => 0,
+                    'type' => 'video'
+                ]
+            ],
+            'DstBucket' => 'wangshuai9',
+            'DstDir' => '',
+            'DstObjectKey' => 'ksyun_2.flv',
+            'DstAcl' => 'public-read',
+            'ExtParam' => ''
+        ]
+    ],
+    'IsTop' => 0,
+    'CbUrl' => '',
+    'CbMethod' => ''
+];
+
 // 任务ID
 $taskid = '99df258304633fd3a60b8899b9d726eb20160921';
 
@@ -154,6 +195,9 @@ switch($method) {
     case 'CreateTask':
         $response = Kvs::getInstance()->request($method, ['json' => $task_data]);
         break;
+    case 'CreateFlowTask':
+        $response = Kvs::getInstance()->request($method, ['json' => $flowtask_data]);
+        break;
     case 'BatchCreateTask':
         $response = Kvs::getInstance()->request($method, ['json' => $tasks_data]);
         break;
@@ -167,7 +211,7 @@ switch($method) {
         break;
     case 'QueryPipeline':
         $response = Kvs::getInstance()->request($method, ['query' => ['PipelineName' => $pipeline]]);
-
+        break;
 }
 
 print_r(json_decode((string)$response->getBody(), true) );
