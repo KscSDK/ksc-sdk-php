@@ -153,5 +153,25 @@ class Kvs extends V4Curl
                 ]
             ],
         ],
+        'UpdatePipeline' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'UpdatePipeline',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'QueryPipeline' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'QueryPipeline',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
     ];
 }

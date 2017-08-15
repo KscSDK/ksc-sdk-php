@@ -20,6 +20,8 @@ $arrMethod = array(
     'GetTaskByTaskID',	// 获取任务详情
     'GetTaskMetaInfo',  // 获取任务META列表
     'BatchCreateTask',  // 批量创建任务
+    'UpdatePipeline',   // 更新任务队列
+    'QueryPipeline',    // 查询任务队列
 );
 
 if (!in_array($method, $arrMethod)) {
@@ -56,9 +58,23 @@ $preset_data = [
     'Description'=>'desc:preset_avop1'
 ];
 
+// 队列名称
+$pipeline = 'usual';
+
+// 更新队列数组
+$pipeline_data = [
+    'PipelineName' => $pipeline,
+    'State' => 'Active',
+    'RegularStart' => '01:00:00',
+    'RegularDuration' => 7200,
+    'Description' => 'low priority pipeline'
+];
+
+
 // 创建任务数组
 $task_data = [
     'Preset' => $preset,
+    'Pipeline' => $pipeline,
     'SrcInfo' => [
         [
             'path' => '/wangshuai9/ksyun.flv',
@@ -80,6 +96,7 @@ $task_data = [
 $tasks_data = [
     [
         'Preset' => $preset,
+        'Pipeline' => $pipeline,
         'SrcInfo' => [
             [
                 'path' => '/wangshuai9/ksyun1.flv',
@@ -98,6 +115,7 @@ $tasks_data = [
     ],
     [
         'Preset' => $preset,
+        'Pipeline' => $pipeline,
         'SrcInfo' => [
             [
                 'path' => '/wangshuai9/ksyun2.flv',
@@ -114,7 +132,6 @@ $tasks_data = [
         'CbMethod' => '',
         'ExtParam' => ''
     ]
-
 ];
 
 // 任务ID
@@ -145,6 +162,12 @@ switch($method) {
     case 'DelTaskByTaskID':
         $response = Kvs::getInstance()->request($method, ['query' => ['TaskID' => $taskid]]);
         break;
+    case 'UpdatePipeline':
+        $response = Kvs::getInstance()->request($method, ['json' => $pipeline_data]);
+        break;
+    case 'QueryPipeline':
+        $response = Kvs::getInstance()->request($method, ['query' => ['PipelineName' => $pipeline]]);
+
 }
 
 print_r(json_decode((string)$response->getBody(), true) );

@@ -17,6 +17,8 @@ class KvsTest extends \PHPUnit_Framework_TestCase
         'GetTaskByReqID',	// 获取任务详情
         'GetTaskMetaInfo',  // 获取任务META列表
         'BatchCreateTask',  // 批量创建任务
+        'UpdatePipeline',   // 更新任务队列
+        'QueryPipeline',    // 查询任务队列
     );
 
     public function testAllAPI()
@@ -96,6 +98,16 @@ class KvsTest extends \PHPUnit_Framework_TestCase
     public function testBatchCreateTask()
     {
         $response = Kvs::getInstance()->request('BatchCreateTask');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testUpdatePipeline() {
+        $response = Kvs::getInstance()->request('UpdatePipeline');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testQueryPipeline() {
+        $response = Kvs::getInstance()->request('QueryPipeline');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 }
