@@ -204,5 +204,15 @@ class Ket extends V4Curl
                 ]
             ],
         ],
+        'GetLiveTransDuration' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetLiveTransDuration',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
     ];
 }

@@ -9,20 +9,23 @@ $method = $argv[1];
 
 $arrMethod = array(
     'Preset',           // 设置模板
-    'UpdatePreset',		// 更新模板
-    'DelPreset',		// 删除模板
-    'GetPresetList',	// 获取模板列表
+    'UpdatePreset',     // 更新模板
+    'DelPreset',        // 删除模板\
+    'GetPresetList',    // 获取模板列表
     'GetPresetDetail',  // 获取模板详情
-    'CreateTask',		// 创建任务
-    'CreateFlowTask',	// 创建流式任务
-    'DelTaskByTaskID',  // 删除任务
-    'TopTaskByTaskID',	// 置顶任务
-    'GetTaskList',		// 获取任务列表
-    'GetTaskByTaskID',	// 获取任务详情
+    'CreateTask',       // 创建任务
+    'CreateFlowTask',   // 创建流式任务
+    'DelTaskByReqID',   // 删除任务
+    'TopTaskByReqID',   // 置顶任务
+    'GetTaskList',      // 获取任务列表
+    'GetTaskByReqID',   // 获取任务详情
     'GetTaskMetaInfo',  // 获取任务META列表
     'BatchCreateTask',  // 批量创建任务
     'UpdatePipeline',   // 更新任务队列
     'QueryPipeline',    // 查询任务队列
+    'GetMediaTransDuration',    // 查询转码时长
+    'GetScreenshotNumber',      // 查询截图数量
+    'GetInterfaceNumber',       // 查询接口调用次数
 );
 
 if (!in_array($method, $arrMethod)) {
@@ -210,6 +213,11 @@ switch($method) {
         break;
     case 'QueryPipeline':
         $response = Kvs::getInstance()->request($method, ['query' => ['PipelineName' => $pipeline]]);
+        break;
+    case 'GetMediaTransDuration':
+    case 'GetScreenshotNumber':
+    case 'GetInterfaceNumber':
+        $response = Kvs::getInstance()->request($method, ['query' => ['StartUnixTime' => 1497542400, 'EndUnixTime' => 1497974400, 'Granularity' => 1440, 'ResultType' => 1]]);
         break;
 }
 

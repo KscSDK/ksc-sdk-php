@@ -184,5 +184,35 @@ class Kvs extends V4Curl
                 ]
             ],
         ],
+        'GetMediaTransDuration' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetMediaTransDuration',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'GetScreenshotNumber' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetScreenshotNumber',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'GetInterfaceNumber' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetInterfaceNumber',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
     ];
 }

@@ -25,6 +25,7 @@ $arrMethod = array(
     'UpdateDirectorTask',   // 更新选流任务
     'QueryDirectorTask',    // 查询选流任务
     'DelDirectorTask',      // 删除选流任务
+    'GetLiveTransDuration', // 查询转码时长分布
 );
 
 if (!in_array($method, $arrMethod)) {
@@ -200,7 +201,9 @@ switch($method) {
     case 'DelDirectorTask':
         $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname, 'App' => $app, 'TaskID' => $taskid]]);
         break;
-
+    case 'GetLiveTransDuration':
+        $response = Ket::getInstance()->request($method, ['query' => ['UniqName' => $uniqname, 'ResultType' => 1]]);
+        break;
 }
 
 print_r(json_decode((string)$response->getBody(), true) );

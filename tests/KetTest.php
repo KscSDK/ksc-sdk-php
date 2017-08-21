@@ -22,6 +22,7 @@ class KetTest extends \PHPUnit_Framework_TestCase
         'UpdateDirectorTask',   // 更新选流任务
         'QueryDirectorTask',    // 查询选流任务
         'DelDirectorTask',      // 删除选流任务
+        'GetLiveTransDuration', // 查询转码时长分布
     );
 
     public function testAllAPI()
@@ -131,6 +132,12 @@ class KetTest extends \PHPUnit_Framework_TestCase
     public function testDelDirectorTask()
     {
         $response = Ket::getInstance()->request('DelDirectorTask');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testGetLiveTransDuration()
+    {
+        $response = Ket::getInstance()->request('GetLiveTransDuration');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
