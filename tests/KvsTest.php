@@ -7,7 +7,7 @@ class KvsTest extends \PHPUnit_Framework_TestCase
     private $arrMethod = array(
         'Preset',			// 设置模板
         'UpdatePreset',		// 更新模板
-        'DelPreset',		// 删除模板
+        'DelPreset',		// 删除模板\
         'GetPresetList',	// 获取模板列表
         'GetPresetDetail',  // 获取模板详情
         'CreateTask',		// 创建任务

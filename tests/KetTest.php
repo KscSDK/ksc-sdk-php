@@ -5,19 +5,23 @@ use Ksyun\Service\Ket;
 class KetTest extends \PHPUnit_Framework_TestCase
 {
     private $arrMethod = array(
-        'Preset',			// 设置模板
-        'UpdatePreset',     // 更新模版
-        'DelPreset',		// 删除模板
-        'GetPresetList',	// 获取模板列表
-        'GetPresetDetail',  // 获取模板详情
-        'GetStreamTranList',// 获取任务列表
-        'StartStreamPull',  // 发起外网拉流
-        'StopStreamPull',	// 停止外网拉流
-        'GetQuotaUsed',     // 查询配额信息
-        'StartLoop',        // 发起轮播
-        'StopLoop',         // 停止轮播
-        'UpdateLoop',       // 更新轮播时长
-        'GetLoopList',      // 获取轮播列表
+        'Preset',               // 设置模板
+        'UpdatePreset',         // 更新模版
+        'DelPreset',            // 删除模板
+        'GetPresetList',        // 获取模板列表
+        'GetPresetDetail',      // 获取模板详情
+        'GetStreamTranList',    // 获取任务列表
+        'StartStreamPull',      // 发起外网拉流
+        'StopStreamPull',       // 停止外网拉流
+        'GetQuotaUsed',         // 查询配额信息
+        'StartLoop',            // 发起轮播
+        'StopLoop',             // 停止轮播
+        'UpdateLoop',           // 更新轮播时长
+        'GetLoopList',          // 获取轮播列表
+        'CreateDirectorTask',   // 创建选流任务
+        'UpdateDirectorTask',   // 更新选流任务
+        'QueryDirectorTask',    // 查询选流任务
+        'DelDirectorTask',      // 删除选流任务
     );
 
     public function testAllAPI()
@@ -105,4 +109,29 @@ class KetTest extends \PHPUnit_Framework_TestCase
         $response = Ket::getInstance()->request('GetLoopList');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
+
+    public function testCreateDirectorTask()
+    {
+        $response = Ket::getInstance()->request('CreateDirectorTask');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testUpdateDirectorTask()
+    {
+        $response = Ket::getInstance()->request('UpdateDirectorTask');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testQueryDirectorTask()
+    {
+        $response = Ket::getInstance()->request('QueryDirectorTask');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testDelDirectorTask()
+    {
+        $response = Ket::getInstance()->request('DelDirectorTask');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
 }

@@ -71,7 +71,6 @@ $pipeline_data = [
     'Description' => 'low priority pipeline'
 ];
 
-
 // 创建任务数组
 $task_data = [
     'Preset' => $preset,

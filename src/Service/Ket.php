@@ -9,6 +9,7 @@ namespace Ksyun\Service;
 use Ksyun\Base\V4Curl;
 class Ket extends V4Curl
 {
+    const VERSION = '2017-01-01';
     protected function getConfig()
     {
         return [
@@ -39,7 +40,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'Preset',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -49,7 +50,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'UpdatePreset',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -59,7 +60,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'DelPreset',
-                    'Version' => '2017-01-01',
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -69,7 +70,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetList',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -79,7 +80,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetDetail',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -89,7 +90,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetStreamTranList',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -99,7 +100,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'StartStreamPull',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -109,7 +110,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'StopStreamPull',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -119,7 +120,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetQuotaUsed',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -129,7 +130,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'StartLoop',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -139,7 +140,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'StopLoop',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -149,7 +150,7 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'UpdateLoop',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -159,7 +160,47 @@ class Ket extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetLoopList',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'CreateDirectorTask' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'CreateDirectorTask',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'UpdateDirectorTask' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'UpdateDirectorTask',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'QueryDirectorTask' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'QueryDirectorTask',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'DelDirectorTask' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'DelDirectorTask',
+                    'Version' => self::VERSION
                 ]
             ],
         ],
