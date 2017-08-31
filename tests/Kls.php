@@ -12,21 +12,21 @@ class KlsTest extends \PHPUnit_Framework_TestCase
 	private $arrMethod = array(
         'CreateRecordTask',                 // 创建定时任务
         'CancelRecordTask',                 // 取消定时任务
-        'GetRecordTask',                    // 获取任务详情
-        'ListHistoryRecordTasks',           // 历史任务列表
         'StartStreamRecord',                // 创建实时任务
         'StopStreamRecord',                 // 停止实时任务
         'ListRecordingTasks',               // 查询在线录制任务
-        'ListStreamDurations',              // 主播流时长统计
-        'ListRealtimePubStreamsInfo',       // 查询流实时信息
-        'ListHistoryPubStreamsInfo',        // 查询流历史信息
-        'ListHistoryPubStreamsErrInfo',     // 查询流历史错误信息
+        'ListHistoryRecordTasks',           // 历史任务列表
+        'GetRecordTask',                    // 获取任务详情
         'ForbidStream',                     // 禁止单路直播流推送
         'ResumeStream',                     // 恢复单路直播流推送
         'GetBlacklist',                     // 查询黑名单列表
         'CheckBlacklist',                   // 检查流是否在黑名单内
-        'listRelayStreamsInfo',             // 转推实时信息查询接口
-        'listRelayErrInfo',                 // 转推历史错误统计接口
+        'ListRealtimePubStreamsInfo',       // 查询流实时信息
+        'ListHistoryPubStreamsInfo',        // 查询流历史信息
+        'ListHistoryPubStreamsErrInfo',     // 查询流历史错误信息
+        // 'listRelayStreamsInfo',             // 转推实时信息查询接口
+        // 'listRelayErrInfo',                 // 转推历史错误统计接口
+        'ListStreamDurations',              // 主播流时长统计
         'KillStreamCache',                  // 踢拉流接口
     );
 
@@ -34,7 +34,7 @@ class KlsTest extends \PHPUnit_Framework_TestCase
     public function testAllAPI()
     {
         foreach ($this->arrMethod as $method) {
-            $response = Offline::getInstance()->request($method);
+            $response = Kls::getInstance()->request($method);
             return $this->assertEquals($response->getStatusCode(), 200);
         }
     }

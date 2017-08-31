@@ -59,21 +59,10 @@ class Kls extends V4Curl
                 ],
             ],
         ],
-        //查询录像任务状态接口(GetRecordTask)
-        'GetRecordTask' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'GetRecordTask',
-                    'Version' => '2017-01-01'
-                ],
-            ],
-        ],
         //短视频开始录制接口(StartStreamRecord)
         'StartStreamRecord' => [
             'url' => '/',
-            'method' => 'get',
+            'method' => 'post',
             'config' => [
                 'query' => [
                     'Action' => 'StartStreamRecord',
@@ -103,50 +92,29 @@ class Kls extends V4Curl
                 ],
             ],
         ],
-        //查询主播流时长接口(ListStreamDurations )
-        'ListStreamDurations' => [
+        // 查询历史录制任务接口(ListHistoryRecordTasks)
+        'ListHistoryRecordTasks' => [
             'url' => '/',
             'method' => 'get',
             'config' => [
                 'query' => [
-                    'Action' => 'ListStreamDurations',
+                    'Action' => 'ListHistoryRecordTasks',
                     'Version' => '2017-01-01'
                 ],
             ],
         ],
-        //查询推流实时信息接口（ListRealtimePubStreamsInfo）
-        'ListRealtimePubStreamsInfo' => [
+        //查询录像任务状态接口(GetRecordTask)
+        'GetRecordTask' => [
             'url' => '/',
             'method' => 'get',
             'config' => [
                 'query' => [
-                    'Action' => 'ListRealtimePubStreamsInfo',
+                    'Action' => 'GetRecordTask',
                     'Version' => '2017-01-01'
                 ],
             ],
         ],
-        //查询流历史信息接口(ListHistoryPubStreamsInfo）
-        'ListHistoryPubStreamsInfo' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'ListHistoryPubStreamsInfo',
-                    'Version' => '2017-01-01'
-                ],
-            ],
-        ],
-        //查询流历史错误信息接口(ListHistoryPubStreamsErrInfo)
-        'ListHistoryPubStreamsErrInfo' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'ListHistoryPubStreamsErrInfo',
-                    'Version' => '2017-01-01'
-                ],
-            ],
-        ],
+
         // 禁止单路直播流推送（ForbidStream）
         'ForbidStream' => [
             'url' => '/',
@@ -191,39 +159,75 @@ class Kls extends V4Curl
                 ],
             ],
         ],
-        // 转推实时信息查询接口（listRelayStreamsInfo）
-        'listRelayStreamsInfo' => [
+
+
+         //查询推流实时信息接口（ListRealtimePubStreamsInfo）
+        'ListRealtimePubStreamsInfo' => [
             'url' => '/',
             'method' => 'get',
             'config' => [
                 'query' => [
-                    'Action' => 'listRelayStreamsInfo',
-                    'Version' => '2016-10-26'
-                ],
-            ],
-        ],
-        // 转推历史错误统计接口（listRelayErrInfo）
-        'listRelayErrInfo' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'listRelayErrInfo',
-                    'Version' => '2016-10-26'
-                ],
-            ],
-        ],
-        // 查询历史录制任务接口(ListHistoryRecordTasks)
-        'ListHistoryRecordTasks' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'ListHistoryRecordTasks',
+                    'Action' => 'ListRealtimePubStreamsInfo',
                     'Version' => '2017-01-01'
                 ],
             ],
         ],
+        //查询流历史信息接口(ListHistoryPubStreamsInfo）
+        'ListHistoryPubStreamsInfo' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'ListHistoryPubStreamsInfo',
+                    'Version' => '2017-01-01'
+                ],
+            ],
+        ],
+        //查询流历史错误信息接口(ListHistoryPubStreamsErrInfo)
+        'ListHistoryPubStreamsErrInfo' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'ListHistoryPubStreamsErrInfo',
+                    'Version' => '2017-01-01'
+                ],
+            ],
+        ],
+         // 转推实时信息查询接口（listRelayStreamsInfo）
+        // 'listRelayStreamsInfo' => [
+        //     'url' => '/',
+        //     'method' => 'get',
+        //     'config' => [
+        //         'query' => [
+        //             'Action' => 'listRelayStreamsInfo',
+        //             'Version' => '2016-10-26'
+        //         ],
+        //     ],
+        // ],
+        // 转推历史错误统计接口（listRelayErrInfo）
+        // 'listRelayErrInfo' => [
+        //     'url' => '/',
+        //     'method' => 'get',
+        //     'config' => [
+        //         'query' => [
+        //             'Action' => 'listRelayErrInfo',
+        //             'Version' => '2016-10-26'
+        //         ],
+        //     ],
+        // ],
+        //查询主播流时长接口(ListStreamDurations )
+        'ListStreamDurations' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'ListStreamDurations',
+                    'Version' => '2017-01-01'
+                ],
+            ],
+        ],
+       
         // 踢拉流接口 
         'KillStreamCache' => [
             'url' => '/',
