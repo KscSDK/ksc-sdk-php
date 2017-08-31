@@ -1,19 +1,18 @@
 {
-    "name": "kscsdk/ksyun_sdk",
-    "description": "ksyun openapi offical sdk",
+    "name": "yangfan21/ksyun_sdk",
+    "description": "ksyun openapi sdk",
     "type": "library",
-    "homepage": "https://github.com/KscSDK/ksc-sdk-php",
+    "homepage": "https://github.com/yangfan21/ksc-sdk-php",
     "keywords": [
         "openapi",
         "ksyun",
-        "maigoxin",
-        "huangxin"
+        "yangfan21"
     ],
     "license": "KSC",
     "authors": [
         {
-            "name": "Huang Xin",
-            "email": "ksc_sdk@kingsoft.com"
+            "name": "Yang Fan",
+            "email": "yangfan9915@gmail.com"
         }
     ],
     "require": {

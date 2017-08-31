@@ -10,6 +10,8 @@ function getResponse($response)
 }
 
 //----------------------------------
+
+
 //查询vpc
 $response = Vpc::getInstance()->request('DescribeVpcs');
 $vpcInfo = getResponse($response);
