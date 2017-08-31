@@ -24,5 +24,8 @@
             "Ksyun\\": "src/",
             "Test\\": "tests/"
         }
+    },
+    "config": {
+        "secure-http": false
     }
 }

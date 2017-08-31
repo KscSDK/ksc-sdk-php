@@ -1,25 +1,25 @@
 <?php
 /**
- * @desc 离线转码
+ * @desc 直播转码
  * @author wangshuai<wangshuai9@kingsoft.com>
- * @date 2016/09/19
+ * @date 2016/12/12
  */
 namespace Ksyun\Service;
 
 use Ksyun\Base\V4Curl;
-class Offline extends V4Curl
+class Ket extends V4Curl
 {
     protected function getConfig()
     {
         return [
-            'host' => 'http://offline.cn-beijing-6.api.ksyun.com',
+            'host' => 'http://ket.cn-beijing-6.api.ksyun.com',
+            'timeout' => 5,
             'config' => [
-                'timeout' => 5.0,
                 'headers' => [
                     'Accept' => 'application/json'
                 ],
                 'v4_credentials' => [
-                    'service' => 'offline',
+                    'service' => 'ket',
                 ],
             ],
         ];
@@ -39,7 +39,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'Preset',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -49,7 +49,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'UpdatePreset',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -59,7 +59,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'DelPreset',
-                    'Version' => '2016-09-19',
+                    'Version' => '2017-01-01',
                 ]
             ],
         ],
@@ -69,7 +69,7 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetList',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
@@ -79,77 +79,87 @@ class Offline extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetDetail',
-                    'Version' => '2016-09-19'
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
-        'CreateTask' => [
+        'GetStreamTranList' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetStreamTranList',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'StartStreamPull' => [
             'url' => '/',
             'method' => 'post',
             'config' => [
                 'query' => [
-                    'Action' => 'CreateTask',
-                    'Version' => '2016-09-19'
+                    'Action' => 'StartStreamPull',
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],
-        'DelTaskByTaskID' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'DelTaskByTaskID',
-                    'Version' => '2016-09-19'
-                ]
-            ],
-        ],
-        'TopTaskByTaskID' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'TopTaskByTaskID',
-                    'Version' => '2016-09-19'
-                ]
-            ],
-        ],
-        'GetTaskList' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'GetTaskList',
-                    'Version' => '2016-09-19'
-                ]
-            ],
-        ],
-        'GetTaskByTaskID' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'GetTaskByTaskID',
-                    'Version' => '2016-09-19'
-                ]
-            ],
-        ],
-        'GetTaskMetaInfo' => [
-            'url' => '/',
-            'method' => 'get',
-            'config' => [
-                'query' => [
-                    'Action' => 'GetTaskMetaInfo',
-                    'Version' => '2016-09-19'
-                ]
-            ],
-        ],
-        'BatchCreateTask' => [
+        'StopStreamPull' => [
             'url' => '/',
             'method' => 'post',
             'config' => [
                 'query' => [
-                    'Action' => 'BatchCreateTask',
-                    'Version' => '2016-09-19'
+                    'Action' => 'StopStreamPull',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'GetQuotaUsed' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetQuotaUsed',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'StartLoop' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'StartLoop',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'StopLoop' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'StopLoop',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'UpdateLoop' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'UpdateLoop',
+                    'Version' => '2017-01-01'
+                ]
+            ],
+        ],
+        'GetLoopList' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetLoopList',
+                    'Version' => '2017-01-01'
                 ]
             ],
         ],

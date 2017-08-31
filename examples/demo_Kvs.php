@@ -3,7 +3,7 @@
  * 离线转码demo
  */
 require('./vendor/autoload.php');
-use Ksyun\Service\Offline;
+use Ksyun\Service\Kvs;
 
 $method = $argv[1];
 
@@ -32,9 +32,9 @@ $preset = 'preset_avop1';
 
 // 创建模板数组
 $preset_data = [
-    'preset' => $preset,
-    'presettype' => 'avop',
-    'param' => [
+    'Preset' => $preset,
+    'PresetType' => 'avop',
+    'Param' => [
         'f'=>'flv',
         'VIDEO' => [
             'vr' => '13',
@@ -53,67 +53,68 @@ $preset_data = [
             'an' => 0
         ]
     ],
-    'description'=>'desc:preset_avop1'
+    'Description'=>'desc:preset_avop1'
 ];
 
 // 创建任务数组
 $task_data = [
-    'preset' => $preset,
-    'srcInfo' => [
+    'Preset' => $preset,
+    'SrcInfo' => [
         [
             'path' => '/wangshuai9/ksyun.flv',
             'index' => 0,
             'type' => 'video'
         ]
     ],
-    'dstBucket' => 'wangshuai9',
-    'dstDir' => '',
-    'dstObjectKey' => 'ksyun_1.flv',
-    'dstAcl' => 'public-read',
-    'isTop' => 0,
-    'cbUrl' => '',
-    'cbMethod' => '',
-    'extParam' => ''
+    'DstBucket' => 'wangshuai9',
+    'DstDir' => '',
+    'DstObjectKey' => 'ksyun_1.flv',
+    'DstAcl' => 'public-read',
+    'IsTop' => 0,
+    'CbUrl' => '',
+    'CbMethod' => '',
+    'ExtParam' => ''
 ];
 
 // 批量创建任务数组
 $tasks_data = [
     [
-        'preset' => $preset,
-        'srcInfo' => [
+        'Preset' => $preset,
+        'SrcInfo' => [
             [
                 'path' => '/wangshuai9/ksyun1.flv',
                 'index' => 0,
                 'type' => 'video'
             ]
         ],
-        'dstBucket' => 'wangshuai9',
-        'dstDir' => '',
-        'dstObjectKey' => 'ksyun_1.flv',
-        'dstAcl' => 'public-read',
-        'isTop' => 0,
-        'cbUrl' => '',
-        'cbMethod' => '',
-        'extParam' => ''
+        'DstBucket' => 'wangshuai9',
+        'DstDir' => '',
+        'DstObjectKey' => 'ksyun_1.flv',
+        'DstAcl' => 'public-read',
+        'IsTop' => 0,
+        'CbUrl' => '',
+        'CbMethod' => '',
+        'ExtParam' => ''
     ],
     [
-        'preset' => $preset,
-        'srcInfo' => [
+        'Preset' => $preset,
+        'SrcInfo' => [
             [
                 'path' => '/wangshuai9/ksyun2.flv',
                 'index' => 0,
                 'type' => 'video'
             ]
         ],
-        'dstBucket' => 'wangshuai9',
-        'dstDir' => '',
-        'dstObjectKey' => 'ksyun_2.flv',
-        'dstAcl' => 'public-read',
-        'isTop' => 0,
-        'cbUrl' => '',
-        'cbMethod' => '',
-        'extParam' => ''
+        'DstBucket' => 'wangshuai9',
+        'DstDir' => '',
+        'DstObjectKey' => 'ksyun_2.flv',
+        'DstAcl' => 'public-read',
+        'IsTop' => 0,
+        'CbUrl' => '',
+        'CbMethod' => '',
+        'ExtParam' => ''
     ]
+
 ];
 
 // 任务ID
@@ -122,27 +123,27 @@ $taskid = '99df258304633fd3a60b8899b9d726eb20160921';
 switch($method) {
     case 'Preset':
     case 'UpdatePreset':
-        $response = Offline::getInstance()->request($method, ['json' => $preset_data]);
+        $response = Kvs::getInstance()->request($method, ['json' => $preset_data]);
         break;
     case 'DelPreset':
     case 'GetPresetDetail':
-        $response = Offline::getInstance()->request($method, ['query' => ['preset' => $preset]]);
+        $response = Kvs::getInstance()->request($method, ['query' => ['Preset' => $preset]]);
         break;
     case 'GetPresetList':
     case 'GetTaskList':
     case 'GetTaskMetaInfo':
-        $response = Offline::getInstance()->request($method);
+        $response = Kvs::getInstance()->request($method);
         break;
     case 'CreateTask':
-        $response = Offline::getInstance()->request($method, ['json' => $task_data]);
+        $response = Kvs::getInstance()->request($method, ['json' => $task_data]);
         break;
     case 'BatchCreateTask':
-        $response = Offline::getInstance()->request($method, ['json' => $tasks_data]);
+        $response = Kvs::getInstance()->request($method, ['json' => $tasks_data]);
         break;
     case 'GetTaskByTaskID':
     case 'TopTaskByTaskID':
     case 'DelTaskByTaskID':
-        $response = Offline::getInstance()->request($method, ['query' => ['taskid' => $taskid]]);
+        $response = Kvs::getInstance()->request($method, ['query' => ['TaskID' => $taskid]]);
         break;
 }
 
