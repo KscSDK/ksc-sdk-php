@@ -9,6 +9,7 @@ namespace Ksyun\Service;
 use Ksyun\Base\V4Curl;
 class Kvs extends V4Curl
 {
+    const VERSION = '2017-01-01';
     protected function getConfig()
     {
         return [
@@ -39,7 +40,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'Preset',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -49,7 +50,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'UpdatePreset',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -59,7 +60,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'DelPreset',
-                    'Version' => '2017-01-01',
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -69,7 +70,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetList',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -79,7 +80,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetPresetDetail',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -89,7 +90,17 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'CreateTask',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'CreateFlowTask' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'CreateFlowTask',
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -99,7 +110,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'DelTaskByTaskID',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -109,7 +120,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'TopTaskByTaskID',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -119,7 +130,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetTaskList',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -129,7 +140,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetTaskByTaskID',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -139,7 +150,7 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetTaskMetaInfo',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
                 ]
             ],
         ],
@@ -149,7 +160,57 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'BatchCreateTask',
-                    'Version' => '2017-01-01'
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'UpdatePipeline' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'UpdatePipeline',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'QueryPipeline' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'QueryPipeline',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'GetMediaTransDuration' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetMediaTransDuration',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'GetScreenshotNumber' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetScreenshotNumber',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'GetInterfaceNumber' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetInterfaceNumber',
+                    'Version' => self::VERSION
                 ]
             ],
         ],
