@@ -21,6 +21,7 @@ $arrMethod = array(
     'ListHistoryPubStreamsInfo',        // 查询流历史信息
     'ListHistoryPubStreamsErrInfo',     // 查询流历史错误信息
     'ListStreamDurations',              // 主播流时长统计
+    'ListStreamRecordContent'           // 录像查询
     'KillStreamCache',                  // 踢拉流接口
 );
 
@@ -112,6 +113,12 @@ switch($method) {
             'StartUnixTime' => $start_unix_time, 'EndUnixTime' => $end_unix_time]]
         );
          break;
+    case 'ListStreamRecordContent':
+        $response = Kls::getInstance()->request($method, 
+            ['query' => ['App' => $app,"Pubdomain" => $pubdomain, 'VideoType' => 'flv', 'Stream' => $stream, 
+            'StartUnixTime' => $start_unix_time, 'EndUnixTime' => $end_unix_time]]
+        );
+        break;
     case 'KillStreamCache':
         $response = Kls::getInstance()->request($method, ['json' => $kill_stream_data]);
         break;
