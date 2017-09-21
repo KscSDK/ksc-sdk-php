@@ -27,7 +27,7 @@ class KlsTest extends \PHPUnit_Framework_TestCase
         // 'listRelayStreamsInfo',             // 转推实时信息查询接口
         // 'listRelayErrInfo',                 // 转推历史错误统计接口
         'ListStreamDurations',              // 主播流时长统计
-        'ListStreamRecordContent'           // 录像查询
+        'ListStreamRecordContent',          // 录像查询
         'KillStreamCache',                  // 踢拉流接口
     );
 
