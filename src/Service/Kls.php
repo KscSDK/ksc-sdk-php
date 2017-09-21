@@ -194,6 +194,17 @@ class Kls extends V4Curl
                 ],
             ],
         ],
+        //录像查询接口
+        'ListStreamRecordContent' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'ListStreamRecordContent',
+                    'Version' => '2017-01-01'
+                ],
+            ],
+        ],
          // 转推实时信息查询接口（listRelayStreamsInfo）
         // 'listRelayStreamsInfo' => [
         //     'url' => '/',
@@ -227,6 +238,7 @@ class Kls extends V4Curl
                 ],
             ],
         ],
+
        
         // 踢拉流接口 
         'KillStreamCache' => [
