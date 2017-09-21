@@ -21,7 +21,7 @@ $arrMethod = array(
     'ListHistoryPubStreamsInfo',        // 查询流历史信息
     'ListHistoryPubStreamsErrInfo',     // 查询流历史错误信息
     'ListStreamDurations',              // 主播流时长统计
-    'ListStreamRecordContent'           // 录像查询
+    'ListStreamRecordContent',           // 录像查询
     'KillStreamCache',                  // 踢拉流接口
 );
 
