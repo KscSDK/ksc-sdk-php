@@ -7,7 +7,7 @@ class KvsTest extends \PHPUnit_Framework_TestCase
     private $arrMethod = array(
         'Preset',           // 设置模板
         'UpdatePreset',     // 更新模板
-        'DelPreset',        // 删除模板\
+        'DelPreset',        // 删除模板
         'GetPresetList',    // 获取模板列表
         'GetPresetDetail',  // 获取模板详情
         'CreateTask',       // 创建任务
@@ -23,6 +23,9 @@ class KvsTest extends \PHPUnit_Framework_TestCase
         'GetMediaTransDuration',    // 查询转码时长
         'GetScreenshotNumber',      // 查询截图数量
         'GetInterfaceNumber',       // 查询接口调用次数
+        'FetchObjectMediaProcess',
+        'ListFetchObjectMediaProcess',
+        'GetFetchObjectMediaProcess',
     );
 
     public function testAllAPI()
@@ -136,6 +139,23 @@ class KvsTest extends \PHPUnit_Framework_TestCase
     public function testGetInterfaceNumber()
     {
         $response = Kvs::getInstance()->request('GetInterfaceNumber');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testFetchObjectMediaProcess()
+    {
+        $response = Ket::getInstance()->request('FetchObjectMediaProcess');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testListFetchObjectMediaProcess()
+    {
+        $response = Ket::getInstance()->request('ListFetchObjectMediaProcess');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testGetFetchObjectMediaProcess() {
+        $response = Ket::getInstance()->request('GetFetchObjectMediaProcess');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
