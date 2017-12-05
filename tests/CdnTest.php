@@ -1379,8 +1379,6 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     public function testBlockDomainUrl()
     {
         $params_origin = [
-            'BlockTime' => 3600,
-            'RefreshOnUnblock' => 'off',
             'BlockType' => 'unblock',
             'Urls' => array(   //url信息
                 array(
