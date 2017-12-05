@@ -23,6 +23,7 @@ composer require kscsdk/ksyun_sdk
 - [VPC](http://www.ksyun.com/doc/art/id/1661)
 - [SLB](http://www.ksyun.com/doc/art/id/1662)
 - [CDN](https://docs.ksyun.com/read/latest/107/_book/index.html)
+- [MONITOR](https://docs.ksyun.com/read/latest/81/_book/index.html)
 - [TAG](https://docs.ksyun.com/read/latest/90/_book/index.html)
 
 >敬请期待
@@ -67,5 +68,13 @@ echo (string)$response->getBody();
 require('./vendor/autoload.php');
 use Ksyun\Service\Cdn;   //详细CDN api调用示例 位于./tests/CdnTest.php
 $response = Iam::getInstance()->request('GetCdnDomains', ['query'=>['DomainStatus' => 'online', 'CdnType' => 'download']);
+echo (string)$response->getBody();
+```
+
+```
+<?php
+require('./vendor/autoload.php');
+use Ksyun\Service\Monitor;   //详细Monitor api调用示例 位于./tests/MonitorTest.php
+$response = Monitor::getInstance()->request('ListMetrics', ['query'=['Namespace' => 'KEC', 'InstanceID' => '7af8d721-fb03-4d5b-a4a7-0ff983a2c30b', 'PageIndex' => 1]], 'cn-beijing-6'); 
 echo (string)$response->getBody();
 ```
