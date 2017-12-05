@@ -1,12 +1,11 @@
 {
-    "name": "yangfan21/ksyun_sdk",
+    "name": "kscsdk/ksyun_sdk",
     "description": "ksyun openapi sdk",
     "type": "library",
-    "homepage": "https://github.com/yangfan21/ksc-sdk-php",
+    "homepage": "https://github.com/KscSDK/ksc-sdk-php",
     "keywords": [
         "openapi",
-        "ksyun",
-        "yangfan21"
+        "ksyun"
     ],
     "license": "KSC",
     "authors": [
