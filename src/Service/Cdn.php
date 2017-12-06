@@ -102,6 +102,18 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+		//设置域名详细配置信息
+        'SetDomainConfigs' => [
+            'url' => '/2016-09-01/domain/SetDomainConfigs',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetDomainConfigs',
+					'content-type' => 'application/json',
+                ],
+            ],
+        ],
         //设置过滤参数功能
         'SetIgnoreQueryStringConfig' => [
             'url' => '/2016-09-01/domain/SetIgnoreQueryStringConfig',
@@ -569,7 +581,40 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
-
+		//泛域名统计接口
+		//泛域名明细带宽查询
+		'GetSubDomainsBandwidthData' => [
+            'url' => '/2016-09-01/statistics/GetSubDomainsBandwidthData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetSubDomainsBandwidthData',
+                ],
+            ],
+        ],
+		//泛域名明细流量查询
+		'GetSubDomainsFlowData' => [
+            'url' => '/2016-09-01/statistics/GetSubDomainsFlowData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetSubDomainsFlowData',
+                ],
+            ],
+        ],
+		//泛域名明细请求数查询
+		'GetSubDomainsPvData' => [
+            'url' => '/2016-09-01/statistics/GetSubDomainsPvData',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetSubDomainsPvData',
+                ],
+            ],
+        ],
         // 内容管理接口
         /**
          * 刷新接口
@@ -609,6 +654,7 @@ class Cdn extends V4Curl
                 'headers' => [
                     'X-Version' => '2016-09-01',
                     'X-Action' => 'GetRefreshOrPreloadTask',
+					'content-type' => 'application/json',
                 ],
             ],
         ],
@@ -762,7 +808,31 @@ class Cdn extends V4Curl
                     'X-Action' => 'GetCertificates',
                 ],
             ],
-        ]
+        ],
+		//辅助工具
+        /**
+         * 根据源站地址获取加速域名
+         */
+        'GetDomainsByOrigin' => [
+            'url' => '/2016-09-01/domain/GetDomainsByOrigin',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetDomainsByOrigin',
+                ],
+            ],
+        ],
+        'GetCnameSuffixs' => [
+            'url' => '/2016-09-01/domain/GetCnameSuffixs',
+            'method' => 'get',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetCnameSuffixs',
+                ],
+            ],
+        ],		
     ];
 
     //特殊封装  request
