@@ -392,6 +392,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
                 'Regions' => 'CN', //查询区域
                 'DataType' => 'origin', //数据类型,边缘或者回源 edge:边缘数据; origin:回源数据
+				'ProtocolType' => 'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetBandwidthData', $params);
@@ -421,6 +422,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
                 'Regions' => 'CN', //查询区域
                 'DataType' => 'edge', //数据类型,边缘或者回源 edge:边缘数据; origin:回源数据
+				'ProtocolType' => 'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetFlowData', $params);
@@ -457,6 +459,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'DataType' => 'edge',
                 'Granularity' => '5', //统计粒度 取值为 5（默认）：5分钟粒度；10：10分钟粒度；20：20分钟粒度；60：1小时粒度；
                 //240：4小时粒度；480：8小时粒度；1440：1天粒度；以上粒度均取该粒度时间段的请求数总和
+				'ProtocolType' => 'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetPvData', $params);
