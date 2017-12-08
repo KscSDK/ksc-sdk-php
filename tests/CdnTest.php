@@ -1391,6 +1391,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'EndTime' => '2017-02-28T23:56+0800',
                 'CdnType' => 'download',
                 'Regions' => 'CN,AS,NA,AU',
+				'ProtocolType' =>'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetPeakBandwidthData', $params);
