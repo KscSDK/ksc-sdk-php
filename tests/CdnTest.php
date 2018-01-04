@@ -51,7 +51,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
     {
         $params = [
             'query' => [
-                'DomainName' => 'www.le.com',     //加速域名
+                'DomainName' => 'www.le.com',     //加速域名,可输入泛域名*.le.com
                 'CdnType' => 'download',    //加速类型
                 'CdnProtocol' => 'http',    //客户访问边缘节点的协议。默认http
                 'Regions' => 'CN', //加速区域，默认CN， 可以输入多个，以逗号间隔。
@@ -59,6 +59,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'OriginProtocol' => 'http', //回源协议
                 'Origin' => 'www.ksyun.com',    //源站域名
                 'OriginPort' => '80', //源站域名端口号
+				'SearchUrl' => 'www.le.backsource.com/test.html',//泛域名时，必输,非泛域名时填写无效
             ],
         ];
         $response = Cdn::getInstance()->request('AddCdnDomain', $params);
@@ -97,6 +98,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'OriginType' => 'domain', //源站类型
                 'OriginPort' => '80', //源站域名端口号
                 //'Regions' => '', //加速区域，默认CN
+				'SearchUrl' => 'www.le.backsource.com/test.html'//泛域名时，可输,非泛域名时填写无效
             ],
         ];
         $response = Cdn::getInstance()->request('ModifyCdnDomain', $params);
@@ -158,6 +160,26 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         ];
         $response = Cdn::getInstance()->request('GetDomainConfigs', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
+    }
+	/**
+     * 多项域名配置信息修改
+     */
+    public function testSetDomainConfigs()
+    {   
+	    /*参数说明
+            DomainId    域名ID
+            IgnoreQueryStringConfig               表示设置过滤参数
+            BackOriginHostConfig       表示设置回源host
+            ReferProtectionConfig      	表示设置refer防盗链
+            CacheRuleConfig         表示设置缓存策略
+            IpProtectionConfig      表示设置IP防盗链
+        */
+        $data = "{\"DomainId\":\"2D09NA6\",\"CacheRuleConfig\":{\"CacheRules\":[{\"CacheRuleType\":\"directory\",\"Value\":\"/XXX/\",\"CacheTime\":11,\"RespectOrigin\":\"off\"},{\"CacheRuleType\":\"exact\",\"Value\":\"/XXX/XXX.TXT,/sdfsf/sdf.text\",\"CacheTime\":120,\"RespectOrigin\":\"off\"}]},\"IgnoreQueryStringConfig\":{\"Enable\":\"on\"},\"ReferProtectionConfig\":{\"Enable\":\"on\",\"ReferType\":\"block\",\"ReferList\":\"www.baidu.com,www.sina.com\",\"AllowEmpty\":\"on\"},\"BackOriginHostConfig\":{\"BackOriginHost\":\"www.a.qunar.com\"},\"IpProtectionConfig\":{\"Enable\":\"on\",\"IpType\":\"allow\",\"IpList\":\"10.1.1.1\"}}";
+        $params = [
+            'body' => $data,
+        ];
+        $response = Cdn::getInstance()->request('SetDomainConfigs', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
     }
 
     /**
@@ -370,6 +392,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
                 'Regions' => 'CN', //查询区域
                 'DataType' => 'origin', //数据类型,边缘或者回源 edge:边缘数据; origin:回源数据
+				'ProtocolType' => 'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetBandwidthData', $params);
@@ -399,6 +422,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
                 'Regions' => 'CN', //查询区域
                 'DataType' => 'edge', //数据类型,边缘或者回源 edge:边缘数据; origin:回源数据
+				'ProtocolType' => 'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetFlowData', $params);
@@ -435,6 +459,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'DataType' => 'edge',
                 'Granularity' => '5', //统计粒度 取值为 5（默认）：5分钟粒度；10：10分钟粒度；20：20分钟粒度；60：1小时粒度；
                 //240：4小时粒度；480：8小时粒度；1440：1天粒度；以上粒度均取该粒度时间段的请求数总和
+				'ProtocolType' => 'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetPvData', $params);
@@ -1224,12 +1249,11 @@ class CdnTest extends \PHPUnit_Framework_TestCase
      * Type	否	String	任务类别，取值为：refresh，刷新任务；取值为:preload,预热任务
      */
     public function testGetRefreshOrPreloadTask()
-    {
+    {	
+		$data = "{\"StartTime\":\"2016-11-19T08:00+0800\",\"EndTime\":\"2016-11-20T08:00+0800\",\"TaskId\":\"4da8be59-495d-41a6-8b35-733815aea33f\",\"Urls\": [{\"Url\": \"http:\/\/www.zhaofang360.com\/abc.txt\"},{\"Url\": \"http:\/\/www.zhaofang360.com\/test\"}],\"PageSize\":50,\"PageNumber\":1,\"Type\":\"refresh\"}";
+		
         $params = [
-            'query' => [
-                'StartTime' => '2016-11-19T08:00+0800',
-                'EndTime' => '2016-11-20T08:00+0800',
-            ],
+            'body' => $data,
         ];
         $response = Cdn::getInstance()->request('GetRefreshOrPreloadTask', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
@@ -1367,20 +1391,91 @@ class CdnTest extends \PHPUnit_Framework_TestCase
                 'EndTime' => '2017-02-28T23:56+0800',
                 'CdnType' => 'download',
                 'Regions' => 'CN,AS,NA,AU',
+				'ProtocolType' =>'http',
             ],
         ];
         $response = Cdn::getInstance()->request('GetPeakBandwidthData', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
-
+	/**
+	 *泛域名明细带宽查询
+	 *查询泛域名下次级域名的详细带宽数据，进行数据保存以及数据分析
+	 */
+	
+	public function testGetSubDomainsBandwidthData()
+    {
+        $params = [
+            'query' => [
+			    'DomainId' => '2D099E6',
+				'Domains' => 'www.cmcm.com,A.cmcm.com',
+				'Granularity' => '5',
+                'StartTime' => '2017-11-06T00:00+0800',
+                'EndTime' => '2017-11-06T00:05+0800',
+                'ResultType' => 1,
+				'DataType' => 'origin,edge',
+				'ProtocolType' => 'http',
+                'Regions' => 'CN,AS,NA,AU',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetSubDomainsBandwidthData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	/**
+	 *泛域名查询流量
+	 *获取泛域名次级域名流量数据，包括边缘流量、回源流量数据，
+	 *查询单个域名或多域名合并后实时流量数据，用于绘制一条流量线图
+	 */
+	
+	public function testGetSubDomainsFlowData()
+    {
+        $params = [
+            'query' => [
+			    'DomainId' => '2D099E6',
+				'Domains' => 'www.cmcm.com,A.cmcm.com',
+				'Granularity' => '5',
+                'StartTime' => '2017-11-06T00:00+0800',
+                'EndTime' => '2017-11-06T00:05+0800',
+                'ResultType' => 1,
+				'DataType' => 'origin,edge',
+				'ProtocolType' => 'http',
+                'Regions' => 'CN,AS,NA,AU',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetSubDomainsFlowData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	
+	/**
+	 *泛域名请求数查询
+	 *获取泛域名次级域名请求数数据，包括边缘请求数、回源请求数数据
+	 *查询单个域名或多域名合并后实时请求数数据，用于绘制一条请求数线图
+	 */
+	
+	public function testGetSubDomainsPvData()
+    {
+        $params = [
+            'query' => [
+			    'DomainId' => '2D099E6',
+				'Domains' => 'www.cmcm.com,A.cmcm.com',
+				'Granularity' => '5',
+                'StartTime' => '2017-11-06T00:00+0800',
+                'EndTime' => '2017-11-06T00:05+0800',
+                'ResultType' => 1,
+				'DataType' => 'origin,edge',
+				'ProtocolType' => 'http',
+                'Regions' => 'CN,AS,NA,AU',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetSubDomainsPvData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+	
     /**
      * 屏蔽、解除屏蔽URL。支持json和xml两种格式
      */
     public function testBlockDomainUrl()
     {
         $params_origin = [
-            'BlockTime' => 3600,
-            'RefreshOnUnblock' => 'off',
             'BlockType' => 'unblock',
             'Urls' => array(   //url信息
                 array(
@@ -1615,7 +1710,33 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetCertificates', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
-
+	//辅助工具
+	/**
+	*根据源站地址获取加速域名
+	*/
+    public function testGetDomainsByOrigin()
+    {
+        $params = [
+            'query' => [
+                'Origin' => '10.11.0.27', //指定的源站地址，包括IP源站和域名源站
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetDomainsByOrigin', $params);
+		print $response->getBody();
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+	/**
+    * 获取厂商CNAME后缀
+    */
+    public function testGetCnameSuffixs()
+    {
+        $params = [
+            'query' => [
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetCnameSuffixs', $params);
+        return $this->assertEquals($response->getStatusCode(), 200);
+    } 
 }
 
 

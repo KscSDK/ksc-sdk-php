@@ -11,8 +11,8 @@ composer require kscsdk/ksyun_sdk
 ####config文件结构
 ```
 {
-    "ak":"AKLTPeYwGi78S5-6y9RrHello",
-    "sk":"OOiXFoKYYQSJ4YNtvlN8hsnLbJ6/kARKU+sHxgfUUy0/JqpzKgPyx=="
+    "ak":"your ak",
+    "sk":"your sk"
 }
 ```
 
