@@ -832,7 +832,77 @@ class Cdn extends V4Curl
                     'X-Action' => 'GetCnameSuffixs',
                 ],
             ],
-        ],		
+        ],,
+        
+        /**
+         * 设置视频拖拽
+         */
+        'SetVideoSeekConfig' => [
+            'url' => '/2016-09-01/domain/SetVideoSeekConfig',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetVideoSeekConfig',
+                ],
+            ],
+        ],
+        
+        /**
+         * 获取视频拖拽信息
+         */
+        'GetVideoSeekConfig' => [
+            'url' => '/2016-09-01/domain/GetVideoSeekConfig',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetVideoSeekConfig',
+                ],
+            ],
+        ],
+        
+        /**
+         * 设置Http响应头
+         */
+        'SetHttpHeadersConfig' => [
+            'url' => '/2016-09-01/domain/SetHttpHeadersConfig',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetHttpHeadersConfig',
+                ],
+            ],
+        ],
+        
+        /**
+         * 删除Http响应头
+         */
+        'DeleteHttpHeadersConfig' => [
+            'url' => '/2016-09-01/domain/DeleteHttpHeadersConfig',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'DeleteHttpHeadersConfig',
+                ],
+            ],
+        ],
+        
+        /**
+         * 获取Http响应头列表
+         */
+        'GetHttpHeaderList' => [
+            'url' => '/2016-09-01/domain/GetHttpHeaderList',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetHttpHeaderList',
+                ],
+            ],
+        ]
     ];
 
     //特殊封装  request

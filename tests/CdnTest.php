@@ -1737,6 +1737,93 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetCnameSuffixs', $params);
         return $this->assertEquals($response->getStatusCode(), 200);
     } 
+    /**
+     * 设置视频拖拽
+     * Parameters:
+     * DomainId        String    域名ID
+     * Enable         String    开关值 只支持on，off
+     */
+    public function testSetVideoSeekConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId' => '2D09HG3',
+                'Enable' => 'on',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetVideoSeekConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    
+    /**
+     * 获取视频拖拽信息
+     * Parameters:
+     * DomainId        String    域名ID
+     */
+    public function testGetVideoSeekConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId' => '2D09HG3',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetVideoSeekConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    
+    /**
+     * 设置Http响应头
+     * Parameters:
+     * DomainId          String    域名ID
+     * HeaderKey         String    表示设置的http头 只支持 Content-Type，Cache-Control，Content-Disposition，Content-Language，Expires，Access-Control-Allow-Origin，Access-Control-Allow-Methods，Access-Control-Max-Age，Access-Control-Expose-Headers 这9种
+     * HeaderValue       String    表示设置http头vaule值
+     */
+    public function testSetHttpHeadersConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId' => '2D09HG3',
+                'HeaderKey' => 'Expires',
+                'HeaderValue' => '20',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetHttpHeadersConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    
+    /**
+     * 删除Http响应头
+     * Parameters:
+     * DomainId          String    域名ID
+     * HeaderKey         String    表示设置的http头 只支持 Content-Type，Cache-Control，Content-Disposition，Content-Language，Expires，Access-Control-Allow-Origin，Access-Control-Allow-Methods，Access-Control-Max-Age，Access-Control-Expose-Headers 这9种
+     */
+    public function testDeleteHttpHeadersConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId' => '2D09HG3',
+                'HeaderKey' => 'Expires',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('DeleteHttpHeadersConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    
+    /**
+     * 获取Http响应头列表
+     * Parameters:
+     * DomainId          String    域名ID
+     */
+    public function testGetHttpHeaderList()
+    {
+        $params = [
+            'query' => [
+                'DomainId' => '2D09HG3',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetHttpHeaderList', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
 }
 
 
