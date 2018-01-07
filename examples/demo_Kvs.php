@@ -20,6 +20,7 @@ $arrMethod = array(
     'GetTaskList',      // 获取任务列表
     'GetTaskByReqID',   // 获取任务详情
     'GetTaskMetaInfo',  // 获取任务META列表
+    'FetchMetaInfo',    // 同步获取文件头信息
     'BatchCreateTask',  // 批量创建任务
     'UpdatePipeline',   // 更新任务队列
     'QueryPipeline',    // 查询任务队列
@@ -207,6 +208,9 @@ switch($method) {
     case 'TopTaskByTaskID':
     case 'DelTaskByTaskID':
         $response = Kvs::getInstance()->request($method, ['query' => ['TaskID' => $taskid]]);
+        break;
+    case 'FetchMetaInfo':
+        $response = Kvs::getInstance()->request($method, ['json' => ['SrcPath' => '/wangshuai9/ksyun1.flv']]);
         break;
     case 'UpdatePipeline':
         $response = Kvs::getInstance()->request($method, ['json' => $pipeline_data]);

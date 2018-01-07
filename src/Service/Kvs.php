@@ -155,6 +155,16 @@ class Kvs extends V4Curl
                 ]
             ],
         ],
+        'FetchMetaInfo' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'FetchMetaInfo',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
         'BatchCreateTask' => [
             'url' => '/',
             'method' => 'post',

@@ -17,6 +17,7 @@ class KvsTest extends \PHPUnit_Framework_TestCase
         'GetTaskList',      // 获取任务列表
         'GetTaskByReqID',   // 获取任务详情
         'GetTaskMetaInfo',  // 获取任务META列表
+        'FetchMetaInfo',    // 同步获取文件头信息
         'BatchCreateTask',  // 批量创建任务
         'UpdatePipeline',   // 更新任务队列
         'QueryPipeline',    // 查询任务队列
@@ -105,6 +106,12 @@ class KvsTest extends \PHPUnit_Framework_TestCase
     public function testGetTaskMetaInfo()
     {
         $response = Kvs::getInstance()->request('GetTaskMetaInfo');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testFetchMetaInfo()
+    {
+        $response = Kvs::getInstance()->request('FetchMetaInfo');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 
