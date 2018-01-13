@@ -305,6 +305,46 @@ class Iam extends V4Curl
                 ],
             ],
         ],
+        'GetUserSession' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetUserSession',
+                    'Version' => '2015-11-01',
+                ],
+            ],
+        ],
+        'CreateAccount' => [
+            'url' => '/',
+            'method' => 'get',
+            'config' => [
+                'query' => [
+                    'Action' => 'CreateAccount',
+                    'Version' => '2015-11-01',
+                ],
+            ],
+        ],
+        'VerificateCompany' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'VerificateCompany',
+                    'Version' => '2015-11-01',
+                ],
+            ],
+        ],
+        'VerificatePerson' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'VerificatePerson',
+                    'Version' => '2015-11-01',
+                ],
+            ],
+        ],
     ];
 }
 
