@@ -832,7 +832,7 @@ class Cdn extends V4Curl
                     'X-Action' => 'GetCnameSuffixs',
                 ],
             ],
-        ],,
+        ],
         
         /**
          * 设置视频拖拽
