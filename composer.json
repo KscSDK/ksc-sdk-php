@@ -7,7 +7,7 @@
         "openapi",
         "ksyun"
     ],
-    "license": "KSC",
+    "license": "MIT",
     "authors": [
         {
             "name": "Yang Fan",
