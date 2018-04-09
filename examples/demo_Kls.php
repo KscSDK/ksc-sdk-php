@@ -23,6 +23,7 @@ $arrMethod = array(
     'ListStreamDurations',              // 主播流时长统计
     'ListStreamRecordContent',           // 录像查询
     'KillStreamCache',                  // 踢拉流接口
+    'ListRealtimeStreamsInfo',          // 查询主播推拉流实时信息接口
 );
 
 if (!in_array($method, $arrMethod)) {
@@ -44,6 +45,14 @@ $forbid_stream_data = [
     'Pubdomain' => $pubdomain,
     'Stream' => $stream,
 ];
+
+
+// 组织查询主播推拉流实时信息的数据
+$list_realtime_stream_info_data = [
+    'UniqueName' => $uniqname,
+    'App' => $app,
+];
+
 
 switch($method) {
     case 'CreateRecordTask':
@@ -121,6 +130,9 @@ switch($method) {
         break;
     case 'KillStreamCache':
         $response = Kls::getInstance()->request($method, ['json' => $kill_stream_data]);
+        break;
+    case 'ListRealtimeStreamsInfo':
+        $response = Kls::getInstance()->request($method, ['json' => $list_realtime_stream_info_data]);
         break;
 }
 

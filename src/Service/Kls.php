@@ -251,6 +251,18 @@ class Kls extends V4Curl
                 ],
             ],
         ],
+
+        //查询主播推拉流实时信息接口
+        'ListRealtimeStreamsInfo' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'ListRealtimeStreamsInfo',
+                    'Version' => '2017-01-01'
+                ],
+            ],
+        ],
     ];
 }
 
