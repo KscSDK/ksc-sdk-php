@@ -29,6 +29,7 @@ class KlsTest extends \PHPUnit_Framework_TestCase
         'ListStreamDurations',              // 主播流时长统计
         'ListStreamRecordContent',          // 录像查询
         'KillStreamCache',                  // 踢拉流接口
+        'ListRealtimeStreamsInfo',          // 查询主播推拉流实时信息接口
     );
 
 
@@ -151,6 +152,12 @@ class KlsTest extends \PHPUnit_Framework_TestCase
      public function testKillStreamCache()
     {
         $response = kls::getInstance()->request('KillStreamCache');
+        return $this->assertEquals($response->getStatusCode(), 200);
+    }
+
+    public function testListRealtimeStreamsInfo()
+    {
+        $response = kls::getInstance()->request('ListRealtimeStreamsInfo');
         return $this->assertEquals($response->getStatusCode(), 200);
     }
 	
