@@ -1825,31 +1825,62 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //        return $this->assertEquals($response->getStatuscode(), 200);
 //    }
 
-    public function testAddCdnDomainV2()
-    {
-        $domain = [
-                'DomainName' => 'www.adfasdfa.com',     //加速域名,可输入泛域名*.le.com
-                'CdnType' => 'download',    //加速类型
-                'CdnProtocol' => 'http',    //客户访问边缘节点的协议。默认http
-                'Regions' => 'CN', //加速区域，默认CN， 可以输入多个，以逗号间隔。
-                'OriginType' => 'domain',   //源站类型
-                'OriginProtocol' => 'http', //回源协议
-                'Origin' => 'www.ksyun.com',    //源站域名
-                'OriginPort' => '80', //源站域名端口号
-                'SearchUrl' => 'www.le.backsource.com/test.html',//泛域名时，必输,非泛域名时填写无效
-        ];
+//    public function testAddCdnDomainV2()
+//    {
+//        $domain = [
+//                'DomainName' => 'www.adfasdfa.com',     //加速域名,可输入泛域名*.le.com
+//                'CdnType' => 'download',    //加速类型
+//                'CdnProtocol' => 'http',    //客户访问边缘节点的协议。默认http
+//                'Regions' => 'CN', //加速区域，默认CN， 可以输入多个，以逗号间隔。
+//                'OriginType' => 'domain',   //源站类型
+//                'OriginProtocol' => 'http', //回源协议
+//                'Origin' => 'www.ksyun.com',    //源站域名
+//                'OriginPort' => '80', //源站域名端口号
+//                'SearchUrl' => 'www.le.backsource.com/test.html',//泛域名时，必输,非泛域名时填写无效
+//        ];
+//
+//        $data = json_encode($domain);
+//        $params = [
+//            'body' => $data,
+//            'headers' => [
+//                'Content-Type' => 'application/json',
+//            ],
+//        ];
+//        $response = Cdn::getInstance()->request('AddCdnDomainV2', $params);
+//        return $this->assertEquals($response->getStatusCode(), 200);
+//    }
 
-        $data = json_encode($domain);
-        $params = [
-            'body' => $data,
-            'headers' => [
-                'Content-Type' => 'application/json',
+    /**
+     * Ip检测
+     */
+    public function testIpCheck()
+    {
+         $params = [
+            'query' => [
+                'Ip' => '1.1.1.1',
             ],
         ];
-        $response = Cdn::getInstance()->request('AddCdnDomainV2', $params);
-        return $this->assertEquals($response->getStatusCode(), 200);
+        $response = Cdn::getInstance()->request('IpCheck', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
     }
 
+    /**
+     * 直播获取播放统计历史信息接口需求
+     */
+    public function testGetLivePlayStatData()
+    {
+        $params = [
+            'query' => [
+                'StartTime' => '2018-05-30T09:10+0800',
+                 //'DomainIds'=>'2D09NS4', //域名ID，支持批量域名过滤查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+                'Regions' => 'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
+                'ResultType' => '0',
+                'LimitN' => '10',
+            ],
+        ];
+        $response = Cdn::getInstance()->request('GetLivePlayStatData', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
 }
 
 

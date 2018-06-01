@@ -914,6 +914,34 @@ class Cdn extends V4Curl
                     'X-Action' => 'GetHttpHeaderList',
                 ],
             ],
+        ],
+
+        /**
+         * Ip检测
+         */
+        'IpCheck' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'IpCheck',
+                ],
+            ],
+        ],
+
+        /**
+         * 直播获取播放统计历史信息接口需求
+         */
+        'GetLivePlayStatData' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetLivePlayStatData',
+                ],
+            ],
         ]
     ];
 
