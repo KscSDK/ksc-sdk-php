@@ -3,8 +3,8 @@ namespace Ksyun\Tests;
 require('../vendor/autoload.php');
 use Ksyun\Service\Cdn;
 
-$ak = "AKLTawjY7lhxTwiW1EeuvqNQQQ";
-$sk = "OMmHSB1O72pNl4INu53U1WLLi5RWs3TewHYQ1AsN4fgFiE+oK2ufuFP6DLwPSNHADQ==";
+$ak = "your ak";
+$sk = "your sk";
 
 function testGetCdnDomains()
 {
@@ -338,7 +338,7 @@ function testGetIspData()
             'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
             'StartTime' => '2016-11-19T00:00+0800',
             'EndTime' => '2016-11-19T23:00+0800',
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:音视频点播 file:大文件下载
         ],
     ];
     $response = Cdn::getInstance()->request('GetIspData', $params);
