@@ -21,7 +21,7 @@ function testGetCdnDomains()
             'PageNumber' => '1', //取第几页
             'DomainName' => '',  //按域名过滤  默认为空，代表当前用户下所有域名
             'DomainStatus' => 'online', //按域名状态过滤
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载 live:直播类型
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载 live:直播类型
             'FuzzyMatch' => '', //域名过滤是否使用模糊匹配
         ]
     ];
@@ -42,7 +42,7 @@ function testAddCdnDomain()
         ],
         'query' => [
             'DomainName' => 'www.le.com',     //加速域名,可输入泛域名*.le.com
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'CdnProtocol' => 'http',    //客户访问边缘节点的协议。默认http
             'Regions' => 'CN', //加速区域，默认CN， 可以输入多个，以逗号间隔。
             'OriginType' => 'domain',   //源站类型
@@ -72,7 +72,7 @@ function testGetBandwidthData()
             'StartTime' => '2016-11-19T08:00+0800', //查询开始时间
             'EndTime' => '2016-11-20T08:00+0800', //查询结束时间
             'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
             'Regions' => 'CN', //查询区域
             'DataType' => 'origin', //数据类型,边缘或者回源 edge:边缘数据; origin:回源数据
@@ -100,7 +100,7 @@ function testGetFlowData()
             'StartTime' => '2016-11-19T08:00+0800', //查询开始时间
             'EndTime' => '2016-11-20T08:00+0800', //查询结束时间
             'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0', //带宽数据返回类型  0：多域名多区域数据做合并；1：每个域名每个区域的数据分别返回
             'Regions' => 'CN', //查询区域
             'DataType' => 'edge', //数据类型,边缘或者回源 edge:边缘数据; origin:回源数据
@@ -127,7 +127,7 @@ function testGetPvData()
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
             'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'ResultType' => '0',
             'Regions' => 'CN',
             'DataType' => 'edge',
@@ -156,7 +156,7 @@ function testGetHitRateDetailedData()
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
             'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'ResultType' => '0',
             'HitType' => 'flowhitrate', //数据类型,按流量或者请求数统计 flowhitrate:流量命中率;reqhitrate:请求数命中率;
         ],
@@ -177,7 +177,7 @@ function testGetHitRateData()
         ],
         'query' => [
             //'DomainIds'=>'2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
         ],
@@ -203,7 +203,7 @@ function testGetProvinceAndIspFlowData()
             'StartTime' => '2016-11-19T00:00+0800',
             'EndTime' => '2016-11-19T23:00+0800',
             'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'ResultType' => '0',
         ],
     ];
@@ -228,7 +228,7 @@ function testGetProvinceAndIspBandwidthData()
             'StartTime' => '2016-11-19T00:00+0800',
             'EndTime' => '2016-11-19T23:00+0800',
             'Granularity' => '480',
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'ResultType' => '1',
 
         ],
@@ -251,7 +251,7 @@ function testGetHttpCodeData()
             'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
             'StartTime' => '2016-11-19T00:00+0800',
             'EndTime' => '2016-11-19T23:00+0800',
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
         ],
     ];
     $response = Cdn::getInstance()->request('GetHttpCodeData', $params);
@@ -273,7 +273,7 @@ function testGetHttpCodeDetailedData()
             'StartTime' => '2016-11-19T00:00+0800',
             'EndTime' => '2016-11-19T23:00+0800',
             'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'ResultType' => '0', //返回类型为合并返回
         ],
     ];
@@ -295,7 +295,7 @@ function testGetTopUrlData()
             'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
             'StartTime' => '2016-11-19T00:00+0800',
             'EndTime' => '2016-11-19T23:00+0800',
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
             'LimitN' => '5',  //热门Url条数
         ],
     ];
@@ -317,7 +317,7 @@ function testGetAreaData()
             'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
             'StartTime' => '2016-11-19T00:00+0800',
             'EndTime' => '2016-11-19T23:00+0800',
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载
         ],
     ];
     $response = Cdn::getInstance()->request('GetAreaData', $params);
@@ -361,7 +361,7 @@ function testGetUvData()
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
             'Granularity' => '5', //统计粒度，取值为 5（默认）：5分钟粒度
-            'CdnType' => 'download', //产品类型 video:视频下载 file:大文件下载 live:直播加速 只允许输入一种
+            'CdnType' => 'video', //产品类型 video:视频下载 file:大文件下载 live:直播加速 只允许输入一种
             'ResultType' => '0', //0:多域名多计费区域数据做合并 1：每个域名每个计费区域的数据分别返回
         ],
     ];
@@ -382,7 +382,7 @@ function testGetTopReferData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种 video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种 video:视频下载 file:大文件下载 live:直播加速
             'LimitN' => '5',
         ],
     ];
@@ -403,7 +403,7 @@ function testGetTopIpData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
             'LimitN' => '5',
         ],
     ];
@@ -424,7 +424,7 @@ function testGetSrcHttpCodeData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0',
         ],
     ];
@@ -445,7 +445,7 @@ function testGetSrcHttpCodeDetailedData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0',
         ],
     ];
@@ -466,7 +466,7 @@ function testGetProvinceAndIspHitRateDetailedData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0',
         ],
     ];
@@ -487,7 +487,7 @@ function testGetProvinceAndIspHttpCodeData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0',
         ],
     ];
@@ -508,7 +508,7 @@ function testGetProvinceAndIspHttpCodeDetailedData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0',
         ],
     ];
@@ -529,7 +529,7 @@ function testGetProvinceAndIspPvData()
         'query' => [
             'StartTime' => '2016-11-19T08:00+0800',
             'EndTime' => '2016-11-20T08:00+0800',
-            'CdnType' => 'download', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video', //产品类型只允许输入一种,video:视频下载 file:大文件下载 live:直播加速
             'ResultType' => '0',
         ],
     ];
@@ -568,7 +568,7 @@ function testGetBillingData()
         'query' => [
             'StartTime' => '2017-02-01T00:00+0800',
             'EndTime' => '2017-02-28T23:56+0800',
-            'CdnType' => 'download',//产品类型只允许输入一种 video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video',//产品类型只允许输入一种 video:视频下载 file:大文件下载 live:直播加速
             'Regions' => 'CN,AS,NA,AU',
             'BillingMode' => 'monthflow',
         ],
@@ -590,7 +590,7 @@ function testGetPeakBandwidthData()
         'query' => [
             'StartTime' => '2017-02-01T00:00+0800',
             'EndTime' => '2017-02-28T23:56+0800',
-            'CdnType' => 'download',//产品类型只允许输入一种 video:视频下载 file:大文件下载 live:直播加速
+            'CdnType' => 'video',//产品类型只允许输入一种 video:视频下载 file:大文件下载 live:直播加速
             'Regions' => 'CN,AS,NA,AU',
             'ProtocolType' =>'http',
         ],
