@@ -47,6 +47,18 @@ class Cdn extends V4Curl
                 ],
             ],
         ],
+        //新增域名
+        'AddCdnDomainV2' => [
+            'url' => '/2018-01-01/domain/AddCdnDomain',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2018-01-01',
+                    'X-Action' => 'AddCdnDomain',
+                    'content-type' => 'application/json',
+                ],
+            ],
+        ],
         //查询域名基础信息
         'GetCdnDomainBasic' => [
             'url' => '/2016-09-01/domain/GetCdnDomainBasicInfo',
@@ -900,6 +912,34 @@ class Cdn extends V4Curl
                 'headers' => [
                     'X-Version' => '2016-09-01',
                     'X-Action' => 'GetHttpHeaderList',
+                ],
+            ],
+        ],
+
+        /**
+         * Ip检测
+         */
+        'IpCheck' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'IpCheck',
+                ],
+            ],
+        ],
+
+        /**
+         * 直播获取播放统计历史信息接口需求
+         */
+        'GetLivePlayStatData' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'GetLivePlayStatData',
                 ],
             ],
         ]
