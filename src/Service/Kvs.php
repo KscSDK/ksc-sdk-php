@@ -10,10 +10,11 @@ use Ksyun\Base\V4Curl;
 class Kvs extends V4Curl
 {
     const VERSION = '2017-01-01';
+    const REGION = 'cn-beijing-6';
     protected function getConfig()
     {
         return [
-            'host' => 'http://kvs.cn-beijing-6.api.ksyun.com',
+            'host' => 'http://kvs.'.self::REGION.'.api.ksyun.com',
             'timeout' => 5,
             'config' => [
                 'headers' => [
@@ -26,7 +27,7 @@ class Kvs extends V4Curl
         ];
     }
 
-    public function request($api, array $config = [], $region = 'cn-beijing-6')
+    public function request($api, array $config = [], $region = self::REGION)
     {
         $config['v4_credentials']['region'] = $region;
         $config['replace']['region'] = $region;
@@ -154,6 +155,16 @@ class Kvs extends V4Curl
                 ]
             ],
         ],
+        'FetchMetaInfo' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'FetchMetaInfo',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
         'BatchCreateTask' => [
             'url' => '/',
             'method' => 'post',
@@ -210,6 +221,37 @@ class Kvs extends V4Curl
             'config' => [
                 'query' => [
                     'Action' => 'GetInterfaceNumber',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+
+        'FetchObjectMediaProcess' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'FetchObjectMediaProcess',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'ListFetchObjectMediaProcess' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'ListFetchObjectMediaProcess',
+                    'Version' => self::VERSION
+                ]
+            ],
+        ],
+        'GetFetchObjectMediaProcess' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'query' => [
+                    'Action' => 'GetFetchObjectMediaProcess',
                     'Version' => self::VERSION
                 ]
             ],
