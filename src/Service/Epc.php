@@ -10,7 +10,7 @@ class Epc extends V4Curl
     protected function getConfig()
     {
         return [
-            'host' => 'https://epc.{region}.api.ksyun.com',
+            'host' => 'https://epc.api.ksyun.com',
             'config' => [
                 'timeout' => 5.0,
                 'headers' => [
