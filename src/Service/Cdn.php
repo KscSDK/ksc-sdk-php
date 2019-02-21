@@ -942,6 +942,18 @@ class Cdn extends V4Curl
                     'X-Action' => 'GetLivePlayStatData',
                 ],
             ],
+        ],
+
+        //设置时间戳共享秘钥防盗链
+        'SetRequestAuthConfig' => [
+            'url' => '/2016-09-01/domain/SetRequestAuthConfig',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetRequestAuthConfig',
+                ],
+            ],
         ]
     ];
 

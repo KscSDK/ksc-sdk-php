@@ -3,8 +3,8 @@ namespace Ksyun\Tests;
 require('../vendor/autoload.php');
 use Ksyun\Service\Cdn;
 
-$ak = "your ak";
-$sk = "your sk";
+$ak = "ak";
+$sk = "sk";
 
 function testGetCdnDomains()
 {
@@ -600,6 +600,47 @@ function testGetPeakBandwidthData()
     echo (String)$response->getStatusCode();
 }
 
+function testSetRequestAuthConfig(){
+    global $ak;
+    global $sk;
+    $params = [
+        'v4_credentials' =>[
+            'ak' => $ak,
+            'sk' => $sk
+        ],
+        'query' => [
+            'DomainId' => '2D093GC', //待设置域名id
+            'Enable' => 'on',   //打开配置
+            'AuthType' => 'typeB', ////设置类型 typeA, typeB
+            'Key1' => '444444', //主密钥
+            'Key2' => '555555,666666', //副密钥
+            'ExpirationTime' => '2000', //有效期
+        ],
+    ];
+    $response = Cdn::getInstance()->request('SetRequestAuthConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
+function testGetDomainConfigs()
+{
+    global $ak;
+    global $sk;
+    //设置查询条件,可以多个条件组合查询,也可无查询条件查所有
+    $params = [
+        'v4_credentials' =>[
+            'ak' => $ak,
+            'sk' => $sk
+        ],
+        'query'=>[
+            'DomainId' => '2D093GC',
+        ]
+    ];
+    $response = Cdn::getInstance()->request('GetDomainConfigs', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
 
 //testGetCdnDomains();
 //testAddCdnDomain();
@@ -614,7 +655,7 @@ function testGetPeakBandwidthData()
 //testGetHttpCodeDetailedData();
 //testGetTopUrlData();
 //testGetAreaData();
-testGetIspData();
+//testGetIspData();
 //testGetUvData();
 //testGetTopReferData();
 //testGetTopIpData();
@@ -627,3 +668,5 @@ testGetIspData();
 //testGetBillingMode();
 //testGetBillingData();
 //testGetPeakBandwidthData();
+//testSetRequestAuthConfig();
+testGetDomainConfigs();
