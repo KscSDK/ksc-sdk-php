@@ -17,11 +17,11 @@ composer require kscsdk/ksyun_sdk
 ```
 
 ##功能列表
-- [IAM](http://www.ksyun.com/doc/art/id/1663)
-- [KEC](http://www.ksyun.com/doc/art/id/1660)
-- [EIP](http://www.ksyun.com/doc/art/id/1659)
-- [VPC](http://www.ksyun.com/doc/art/id/1661)
-- [SLB](http://www.ksyun.com/doc/art/id/1662)
+- [IAM](https://docs.ksyun.com/documents/1376)
+- [KEC](https://docs.ksyun.com/products/21)
+- [EIP](https://docs.ksyun.com/documents/670)
+- [VPC](https://docs.ksyun.com/products/3)
+- [SLB](https://docs.ksyun.com/documents/1126)
 - [CDN](https://docs.ksyun.com/read/latest/107/_book/index.html)
 - [MONITOR](https://docs.ksyun.com/read/latest/81/_book/index.html)
 - [TAG](https://docs.ksyun.com/read/latest/90/_book/index.html)
