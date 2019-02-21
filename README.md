@@ -18,7 +18,7 @@ composer require kscsdk/ksyun_sdk
 
 ##功能列表
 - [IAM](https://docs.ksyun.com/documents/1376)
-- [KEC](https://docs.ksyun.com/products/21)
+- [KEC](https://docs.ksyun.com/documents/695)
 - [EIP](https://docs.ksyun.com/documents/670)
 - [VPC](https://docs.ksyun.com/products/3)
 - [SLB](https://docs.ksyun.com/documents/1126)
