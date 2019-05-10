@@ -622,6 +622,30 @@ function testSetRequestAuthConfig(){
     echo (String)$response->getStatusCode();
 }
 
+function testSetOriginAdvancedConfig(){
+    global $ak;
+    global $sk;
+    $params = [
+        'v4_credentials' =>[
+            'ak' => $ak,
+            'sk' => $sk
+        ],
+        'query' => [
+            'DomainId' => '2D093GC',//带设置域名id
+            'Enable' => 'on',//设置高级回源配置的开启或关闭 取值: on、off。注意：开启后会关闭掉基础配置中的的回源配置。默认为off。开启时，下述必须项为必填项；关闭时，只更改此标识，忽略后面的项目。
+            'OriginType' => 'ipaddr',//主源站类型，取值：ipaddr、 domain，分别表示：IP源站、域名源站。 主源站的信息也是在创建加速域名时所设置的源站信息。关闭高级回源配置后，则沿用创建加速域名时的回源配置
+            "Origin" => '1.1.1.1',//主源站回源地址，可以是IP或域名；IP支持最多20个，以逗号区分，域名只能输入一个。IP与域名不能同时输入。
+            "OriginPolicy" => 'quality',//回源规则，取值rr、quality。其中，rr: 轮询； quality: 按质量最优的topN来轮询回源。适用于主源站、热备源站
+            "OriginPolivyBestCount" => '1',//取值1-10的整数。适用于主源站、热备源站，当OriginPolicy是quality时，该项必填。
+            "BackupOriginType" => "domain",//热备源站类型，取值：ipaddr、 domain，分别表示：IP源站、域名源站。
+            "BackupOrigin" => "ks.dd.com"//热备源站回源地址，可以是IP或域名；IP支持最多20个，以逗号区分，域名只能输入一个。IP与域名不能同时输入。
+        ],
+    ];
+    $response = Cdn::getInstance()->request('SetOriginAdvancedConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
 function testGetDomainConfigs()
 {
     global $ak;
@@ -669,4 +693,5 @@ function testGetDomainConfigs()
 //testGetBillingData();
 //testGetPeakBandwidthData();
 //testSetRequestAuthConfig();
+//testSetOriginAdvancedConfig();
 testGetDomainConfigs();
