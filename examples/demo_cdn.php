@@ -774,7 +774,7 @@ function testSetErrorPageConfig()
 		],
 		'body'=>$data,
 	];
-	$response=Cdn::getInstance()->request('SetDomainConfigs',$params);
+	$response=Cdn::getInstance()->request('SetErrorPageConfig',$params);
 	echo (String)$response->getBody();
 	echo (String)$response->getStatusCode();
 }
