@@ -3,8 +3,8 @@ namespace Ksyun\Tests;
 require('../vendor/autoload.php');
 use Ksyun\Service\Cdn;
 
-$ak = "AKLTVvg-V7IvSrm-46VlO9AIrA";
-$sk = "OAfVqHJ9rX2TBcftKNp48JVu36MNOZZGqsHfrpyvUrsV4CGrLGZ//ccnzZyNB7DDXg==";
+$ak = "your ak";
+$sk = "your sk";
 
 function testGetCdnDomains()
 {
@@ -600,28 +600,6 @@ function testGetPeakBandwidthData()
     echo (String)$response->getStatusCode();
 }
 
-function testSetRequestAuthConfig(){
-    global $ak;
-    global $sk;
-    $params = [
-        'v4_credentials' =>[
-            'ak' => $ak,
-            'sk' => $sk
-        ],
-        'query' => [
-            'DomainId' => '2D093GC', //待设置域名id
-            'Enable' => 'on',   //打开配置
-            'AuthType' => 'typeB', ////设置类型 typeA, typeB
-            'Key1' => '444444', //主密钥
-            'Key2' => '555555,666666', //副密钥
-            'ExpirationTime' => '2000', //有效期
-        ],
-    ];
-    $response = Cdn::getInstance()->request('SetRequestAuthConfig', $params);
-    echo (String)$response->getBody();
-    echo (String)$response->getStatusCode();
-}
-
 function testSetOriginAdvancedConfig(){
     global $ak;
     global $sk;
@@ -809,8 +787,8 @@ function testSetErrorPageConfig()
 //testSetRequestAuthConfig();
 //testSetOriginAdvancedConfig();
 //testGetDomainConfigs();
-testSetRequestAuthConfig();
+//testSetRequestAuthConfig();
 //testSetForceRedirectConfig();
 //testSetHttp2OptionConfig();
 //testSetPageCompressConfig();
-//testSetErrorPageConfig();
+testSetErrorPageConfig();
