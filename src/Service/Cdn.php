@@ -954,6 +954,52 @@ class Cdn extends V4Curl
                     'X-Action' => 'SetRequestAuthConfig',
                 ],
             ],
+        ],
+		
+		//设置强制跳转
+        'SetForceRedirectConfig' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetForceRedirectConfig',
+                ],
+            ],
+        ],
+		//设置强制跳转
+        'SetHttp2OptionConfig' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetHttp2OptionConfig',
+                ],
+            ],
+        ],
+		//设置智能压缩
+        'SetPageCompressConfig' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetPageCompressConfig',
+                ],
+            ],
+        ],
+		//自定义错误页面
+        'SetErrorPageConfig' => [
+            'url' => '/',
+            'method' => 'post',
+            'config' => [
+                'headers' => [
+                    'X-Version' => '2016-09-01',
+                    'X-Action' => 'SetErrorPageConfig',
+                    'content-type' => 'application/json',
+                ],
+            ],
         ]
     ];
 

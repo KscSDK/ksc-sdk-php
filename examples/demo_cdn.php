@@ -3,8 +3,8 @@ namespace Ksyun\Tests;
 require('../vendor/autoload.php');
 use Ksyun\Service\Cdn;
 
-$ak = "ak";
-$sk = "sk";
+$ak = "AKLTVvg-V7IvSrm-46VlO9AIrA";
+$sk = "OAfVqHJ9rX2TBcftKNp48JVu36MNOZZGqsHfrpyvUrsV4CGrLGZ//ccnzZyNB7DDXg==";
 
 function testGetCdnDomains()
 {
@@ -666,6 +666,120 @@ function testGetDomainConfigs()
 }
 
 
+function testSetRequestAuthConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+    
+        'query' => [
+            'DomainId'=>'2D09555', //域名ID
+            'Enable' => 'on', //配置是否开启或关闭取值：on、off，默认值为off关闭。开启时，下述必须项为必填项；关闭时，只更改此标识，忽略后面的项目
+            'AuthType' => 'TypeA',//防盗链类型，取值：TypeA 、TypeB；默认为TypeA，开启后必填
+            'Key1' => '1aaa',//主享密钥，必须由大小写字母（a-Z）或者数字（0-9）组成，长度在6-32个字符之间。密钥两边需加英文字符双引号””
+            'Key2' => '1222',//备享密钥，必须由大小写字母（a-Z）或者数字（0-9）组成，长度在6-32个字符之间。密钥两边需加英文字符双引号””
+			'ExpirationTime'=>10,//过期时间，单位为“秒”，输入大于等于0的正整数，最大不要超过31536000
+        ]
+    ];
+    $response = Cdn::getInstance()->request('SetRequestAuthConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
+function testSetForceRedirectConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+        'query' => [
+             'DomainId'=>'2D09555', //域名ID
+             'RedirectType' => 'off', //配置强制跳转类型, 取值: off、 https，默认为off 。其中https表示http → https，当选择https时需保证域名已配置证书
+         ],
+    ];
+    $response = Cdn::getInstance()->request('SetForceRedirectConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
+    /**
+     * 设置HTTP 2.0
+     */
+function testSetHttp2OptionConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+        'query' => [
+            'DomainId'=>'2D09555', //域名ID
+            'Enable' => 'off', //配置HTTP 2.0功能的开启或关闭 取值：on、off ，默认为off ；开启需保证域名已配置证书
+        ],
+    ];
+    $response = Cdn::getInstance()->request('SetHttp2OptionConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
+ /**
+     * 设置智能压缩
+     */
+function testSetPageCompressConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+        'query' => [
+            'DomainId'=>'2D09555', //域名ID
+            'Enable' => 'off', //配置智能压缩的开启或关闭 取值：on、off ，默认为off 。
+        ],
+    ];
+    $response = Cdn::getInstance()->request('SetPageCompressConfig', $params);
+    echo (String)$response->getBody();
+	echo (String)$response->getStatusCode();
+}
+    /**
+     * 自定义错误页面
+     */
+function testSetErrorPageConfig()
+{
+		/*参数说明
+		DomainId域名ID
+		ErrorPages由ErrorPage组成的数组，表示自定义错误页面列表。注意：该数组是有序的，如果一个相同状态码在数组里有配置子集，则以最后面的子集为准
+		ErrorPage:
+				ErrorHttpCode错误的状态码
+				CustomPageUrl自定义发生错误后跳转的页面URL
+		*/
+	global $ak;
+	global $sk;
+	$data="{\"DomainId\":\"2D09555\",\"ErrorPages\":[{\"ErrorHttpCode\":\"404\",\"CustomPageUrl\":\"https://www.test.com/error404.html\"},{\"ErrorHttpCode\":\"403\",\"CustomPageUrl\":\"https://www.test.com/error403.html\"}]}";
+	$params=[
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+		],
+		'body'=>$data,
+	];
+	$response=Cdn::getInstance()->request('SetDomainConfigs',$params);
+	echo (String)$response->getBody();
+	echo (String)$response->getStatusCode();
+}
+
+
 //testGetCdnDomains();
 //testAddCdnDomain();
 //testGetBandwidthData();
@@ -694,4 +808,9 @@ function testGetDomainConfigs()
 //testGetPeakBandwidthData();
 //testSetRequestAuthConfig();
 //testSetOriginAdvancedConfig();
-testGetDomainConfigs();
+//testGetDomainConfigs();
+testSetRequestAuthConfig();
+//testSetForceRedirectConfig();
+//testSetHttp2OptionConfig();
+//testSetPageCompressConfig();
+//testSetErrorPageConfig();
