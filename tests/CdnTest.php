@@ -23,7 +23,6 @@ class CdnTest extends \PHPUnit_Framework_TestCase
      * //     *   request($api, $httpConfig)提交请求
      * //     *       $api 为  'GetCdnDomains'
      * //     *       $httpConfig 中通过query字段设置请求参数
-     * //     */
 //    public function testGetCdnDomains()
 //    {
 //        //设置查询条件,可以多个条件组合查询,也可无查询条件查所有
@@ -76,7 +75,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //域名ID，只允许输入单个域名ID
+//                'DomainId' => '2D09555', //域名ID，只允许输入单个域名ID
 //            ],
 //        ];
 //        $response = Cdn::getInstance()->request('GetCdnDomainBasic', $params);
@@ -93,7 +92,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //待更新的域名id
+//                'DomainId' => '2D09555', //待更新的域名id
 //                'Origin' => 'www.ks-cdn.com', //源站域名
 //                'OriginType' => 'domain', //源站类型
 //                'OriginPort' => '80', //源站域名端口号
@@ -115,7 +114,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //域名id
+//                'DomainId' => '2D09555', //域名id
 //                'ActionType' => 'start', //操作接口名  start：启用；stop：停用；
 //            ],
 //        ];
@@ -154,7 +153,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //        */
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //域名id
+//                'DomainId' => '2D09555', //域名id
 //                'ConfigList' => 'cache_expired,ignore_query_string,src_host,referer,test_url,src_advanced',   //查某几项配置,不填代表查询所有
 //            ],
 //        ];
@@ -192,7 +191,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //域名ID
+//                'DomainId' => '2D09555', //域名ID
 //                'Enable' => 'on',   //  过滤参数功能的开启或关闭 on、off ，默认为on
 //            ],
 //        ];
@@ -211,7 +210,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4',  //域名ID
+//                'DomainId' => '2D09555',  //域名ID
 //                'BackOriginHost' => 'www.a.le.com',   //自定义回源域名，默认为空，表示不需要修改回源Host
 //            ],
 //        ];
@@ -229,7 +228,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //待设置域名id
+//                'DomainId' => '2D09555', //待设置域名id
 //                'Enable' => 'on',   //打开配置
 //                'ReferType' => 'block', ////设置refer类型 block：黑名单；allow：白名单
 //                'ReferList' => 'www.baidu.com,www.sina.com', //逗号隔开的域名列表
@@ -250,7 +249,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //待设置域名id
+//                'DomainId' => '2D09555', //待设置域名id
 //                'Enable' => 'on',   //打开配置
 //                'IpType' => 'block', ////设置Ip类型 block：黑名单；allow：白名单
 //                'IpList' => '1.1.1.1', //逗号隔开的Ip列表
@@ -270,7 +269,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        //设置缓存规则 json格式  缓存规则类型有 file_suffix 文件后缀 directory 目录 exact 全路径 url_regex 正则表达式
 //        $cache_rule = array(
-//            'DomainId' => '2D09NS4', //域名ID
+//            'DomainId' => '2D09555', //域名ID
 //            'CacheRules' => array(
 //                array(
 //                    'CacheRuleType' => 'file_suffix',  //缓存规则类型  文件后缀
@@ -302,7 +301,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //域名ID
+//                'DomainId' => '2D09555', //域名ID
 //                'TestUrl' => 'www.le.com/index.html', //测试URL列表，逗号间隔
 //            ],
 //        ];
@@ -324,7 +323,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        //开启高级回源策略后，会关闭掉基础配置中的回源配置 ，使用json格式
 //        $origin_variable = array(
-//            'DomainId' => '2D09NS4', //待设置域名id
+//            'DomainId' => '2D09555', //待设置域名id
 //            'Enable' => 'on', //打开配置
 //            'OriginPolicy' => 'quality', //设置回源策略 rr: 轮询； quality: 按质量最优的topN来轮询回源
 //            'OriginPolicyBestCount' => 1, //当OriginPolicy是quality时，该项必填。取值1-10
@@ -359,7 +358,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainId' => '2D09NS4', //域名ID
+//                'DomainId' => '2D09555', //域名ID
 //                'Remark' => '设置备注信息', //备注信息，默认为空
 //            ],
 //        ];
@@ -384,7 +383,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
 //                'StartTime' => '2016-11-19T08:00+0800', //查询开始时间
 //                'EndTime' => '2016-11-20T08:00+0800', //查询结束时间
 //                'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
@@ -414,7 +413,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
 //                'StartTime' => '2016-11-19T08:00+0800', //查询开始时间
 //                'EndTime' => '2016-11-20T08:00+0800', //查询结束时间
 //                'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
@@ -449,7 +448,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
 //                'StartTime' => '2016-11-19T08:00+0800',
 //                'EndTime' => '2016-11-20T08:00+0800',
 //                'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
@@ -487,7 +486,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
 //                'StartTime' => '2016-11-19T08:00+0800',
 //                'EndTime' => '2016-11-20T08:00+0800',
 //                'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
@@ -519,7 +518,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                //'DomainIds'=>'2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+//                //'DomainIds'=>'2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
 //                'CdnType' => 'video', //产品类型 video:音视频点播 file:大文件下载
 //                'StartTime' => '2016-11-19T08:00+0800',
 //                'EndTime' => '2016-11-20T08:00+0800',
@@ -547,7 +546,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名，
 //                //'Provinces'=>'', //省份区域名称 多个省份区域用逗号（半角）分隔，缺省为全部省份区域
 //                //'Isps'=>'', //运营商名称 多个运营商用逗号（半角）分隔，缺省为全部运营商
 //                'StartTime' => '2016-11-19T00:00+0800',
@@ -579,7 +578,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                //'Provinces'=>'', //省份区域名称 多个省份区域用逗号（半角）分隔，缺省为全部省份区域
 //                //'Isps'=>'', //运营商名称 多个运营商用逗号（半角）分隔，缺省为全部运营商
 //                'StartTime' => '2016-11-19T00:00+0800',
@@ -608,7 +607,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                'StartTime' => '2016-11-19T00:00+0800',
 //                'EndTime' => '2016-11-19T23:00+0800',
 //                'CdnType' => 'video', //产品类型 video:音视频点播 file:大文件下载
@@ -633,7 +632,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                'StartTime' => '2016-11-19T00:00+0800',
 //                'EndTime' => '2016-11-19T23:00+0800',
 //                'Granularity' => '240', //统计粒度，取值为 5（默认）：5分钟粒度
@@ -659,7 +658,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                'StartTime' => '2016-11-19T00:00+0800',
 //                'EndTime' => '2016-11-19T23:00+0800',
 //                'CdnType' => 'video', //产品类型 video:音视频点播 file:大文件下载
@@ -687,7 +686,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                'StartTime' => '2016-11-19T00:00+0800',
 //                'EndTime' => '2016-11-19T23:00+0800',
 //                'CdnType' => 'video', //产品类型 video:音视频点播 file:大文件下载
@@ -713,7 +712,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                'DomainIds' => '2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                'DomainIds' => '2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                'StartTime' => '2016-11-19T00:00+0800',
 //                'EndTime' => '2016-11-19T23:00+0800',
 //                'CdnType' => 'video', //产品类型 video:音视频点播 file:大文件下载
@@ -796,7 +795,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $params = [
 //            'query' => [
-//                //'DomainIds'=>'2D09NS4', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                //'DomainIds'=>'2D09555', //域名ID，支持批量域名查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                'Regions' => 'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
 //                'StartTime' => '2016-11-22T09:14+0800',
 //                'EndTime' => '2016-11-24T10:20+0800',
@@ -855,7 +854,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //        $params = [
 //            'query' => [
 //                'StartTime' => '2016-11-22T09:14+0800',
-//                //'DomainIds'=>'2D09NS4', //域名ID，支持批量域名过滤查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+//                //'DomainIds'=>'2D09555', //域名ID，支持批量域名过滤查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
 //                'Regions' => 'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
 //                'ResultType' => '0',
 //                'LimitN' => '5',
@@ -1825,30 +1824,30 @@ class CdnTest extends \PHPUnit_Framework_TestCase
 //        return $this->assertEquals($response->getStatuscode(), 200);
 //    }
 
-//    public function testAddCdnDomainV2()
-//    {
-//        $domain = [
-//                'DomainName' => 'www.adfasdfa.com',     //加速域名,可输入泛域名*.le.com
-//                'CdnType' => 'video', //产品类型只允许输入一种,video:音视频点播 file:大文件下载
-//                'CdnProtocol' => 'http',    //客户访问边缘节点的协议。默认http
-//                'Regions' => 'CN', //加速区域，默认CN， 可以输入多个，以逗号间隔。
-//                'OriginType' => 'domain',   //源站类型
-//                'OriginProtocol' => 'http', //回源协议
-//                'Origin' => 'www.ksyun.com',    //源站域名
-//                'OriginPort' => '80', //源站域名端口号
-//                'SearchUrl' => 'www.le.backsource.com/test.html',//泛域名时，必输,非泛域名时填写无效
-//        ];
-//
-//        $data = json_encode($domain);
-//        $params = [
-//            'body' => $data,
-//            'headers' => [
-//                'Content-Type' => 'application/json',
-//            ],
-//        ];
-//        $response = Cdn::getInstance()->request('AddCdnDomainV2', $params);
-//        return $this->assertEquals($response->getStatusCode(), 200);
-//    }
+      public function testAddCdnDomainV2()
+      {
+          $domain = [
+                  'DomainName' => 'www.adfasdfa.com',       //加速域名,可输入泛域名*.le.com
+                  'CdnType' => 'video',   //产品类型只允许输入一种,video:音视频点播 file:大文件下载
+                  'CdnProtocol' => 'http',      //客户访问边缘节点的协议。默认http
+                  'Regions' => 'CN',   //加速区域，默认CN， 可以输入多个，以逗号间隔。
+                  'OriginType' => 'domain',     //源站类型
+                  'OriginProtocol' => 'http',   //回源协议
+                  'Origin' => 'www.ksyun.com',      //源站域名
+                  'OriginPort' => '80',   //源站域名端口号
+                  'SearchUrl' => 'www.le.backsource.com/test.html',  //泛域名时，必输,非泛域名时填写无效
+          ];
+  
+          $data = json_encode($domain);
+          $params = [
+              'body' => $data,
+              'headers' => [
+                  'Content-Type' => 'application/json',
+              ],
+          ];
+          $response = Cdn::getInstance()->request('AddCdnDomainV2', $params);
+          return $this->assertEquals($response->getStatusCode(), 200);
+      }
 
     /**
      * Ip检测
@@ -1872,7 +1871,7 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $params = [
             'query' => [
                 'StartTime' => '2018-05-30T09:10+0800',
-                 //'DomainIds'=>'2D09NS4', //域名ID，支持批量域名过滤查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
+                 //'DomainIds'=>'2D09555', //域名ID，支持批量域名过滤查询，多个域名ID用逗号（半角）分隔; 缺省为当前产品类型下的全部域名
                 'Regions' => 'CN', //计费区域名称 多个区域用逗号（半角）分隔，缺省为 CN
                 'ResultType' => '0',
                 'LimitN' => '10',
@@ -1881,6 +1880,90 @@ class CdnTest extends \PHPUnit_Framework_TestCase
         $response = Cdn::getInstance()->request('GetLivePlayStatData', $params);
         return $this->assertEquals($response->getStatuscode(), 200);
     }
+	
+    /**
+     * 设置时间戳+共享密钥防盗链
+     */
+    public function testSetRequestAuthConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId'=>'2D09555', //域名ID
+                'Enable' => 'on', //配置是否开启或关闭取值：on、off，默认值为off关闭。开启时，下述必须项为必填项；关闭时，只更改此标识，忽略后面的项目
+                'AuthType' => 'TypeA',//防盗链类型，取值：TypeA 、TypeB；默认为TypeA，开启后必填
+                'Key1' => '1aaa',//主享密钥，必须由大小写字母（a-Z）或者数字（0-9）组成，长度在6-32个字符之间。密钥两边需加英文字符双引号””
+                'Key2' => '1222',//备享密钥，必须由大小写字母（a-Z）或者数字（0-9）组成，长度在6-32个字符之间。密钥两边需加英文字符双引号””
+				'ExpirationTime'=>10,//过期时间，单位为“秒”，输入大于等于0的正整数，最大不要超过31536000
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetRequestAuthConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 设置强制跳转
+     */
+	public function testSetForceRedirectConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId'=>'2D09555', //域名ID
+                'RedirectType' => 'off', //配置强制跳转类型, 取值: off、 https，默认为off 。其中https表示http → https，当选择https时需保证域名已配置证书
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetForceRedirectConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 设置HTTP 2.0
+     */
+	public function testSetHttp2OptionConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId'=>'2D09555', //域名ID
+                'Enable' => 'off', //配置HTTP 2.0功能的开启或关闭 取值：on、off ，默认为off ；开启需保证域名已配置证书
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetHttp2OptionConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+
+    /**
+     * 设置智能压缩
+     */
+	public function testSetPageCompressConfig()
+    {
+        $params = [
+            'query' => [
+                'DomainId'=>'2D09555', //域名ID
+                'Enable' => 'off', //配置智能压缩的开启或关闭 取值：on、off ，默认为off 。
+            ],
+        ];
+        $response = Cdn::getInstance()->request('SetPageCompressConfig', $params);
+        return $this->assertEquals($response->getStatuscode(), 200);
+    }
+    /**
+     * 自定义错误页面
+     */
+	public function testSetErrorPageConfig()
+		{
+		/*参数说明
+		DomainId域名ID
+		ErrorPages由ErrorPage组成的数组，表示自定义错误页面列表。注意：该数组是有序的，如果一个相同状态码在数组里有配置子集，则以最后面的子集为准
+		ErrorPage:
+				ErrorHttpCode错误的状态码
+				CustomPageUrl自定义发生错误后跳转的页面URL
+		*/
+		$data="{\"DomainId\":\"2D09555\",\"ErrorPages\":[{\"ErrorHttpCode\":\"404\",\"CustomPageUrl\":\"https://www.test.com/error404.html\"},{\"ErrorHttpCode\":\"403\",\"CustomPageUrl\":\"https://www.test.com/error403.html\"}]}";
+		$params=[
+			'body'=>$data,
+		];
+		$response=Cdn::getInstance()->request('SetDomainConfigs',$params);
+		return$this->assertEquals($response->getStatuscode(),200);
+	}
+
 }
 
 
