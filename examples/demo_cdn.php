@@ -3,8 +3,8 @@ namespace Ksyun\Tests;
 require('../vendor/autoload.php');
 use Ksyun\Service\Cdn;
 
-$ak = "ak";
-$sk = "sk";
+$ak = "your ak";
+$sk = "your sk";
 
 function testGetCdnDomains()
 {
@@ -600,7 +600,7 @@ function testGetPeakBandwidthData()
     echo (String)$response->getStatusCode();
 }
 
-function testSetRequestAuthConfig(){
+function testSetOriginAdvancedConfig(){
     global $ak;
     global $sk;
     $params = [
@@ -609,15 +609,17 @@ function testSetRequestAuthConfig(){
             'sk' => $sk
         ],
         'query' => [
-            'DomainId' => '2D093GC', //待设置域名id
-            'Enable' => 'on',   //打开配置
-            'AuthType' => 'typeB', ////设置类型 typeA, typeB
-            'Key1' => '444444', //主密钥
-            'Key2' => '555555,666666', //副密钥
-            'ExpirationTime' => '2000', //有效期
+            'DomainId' => '2D093GC',//带设置域名id
+            'Enable' => 'on',//设置高级回源配置的开启或关闭 取值: on、off。注意：开启后会关闭掉基础配置中的的回源配置。默认为off。开启时，下述必须项为必填项；关闭时，只更改此标识，忽略后面的项目。
+            'OriginType' => 'ipaddr',//主源站类型，取值：ipaddr、 domain，分别表示：IP源站、域名源站。 主源站的信息也是在创建加速域名时所设置的源站信息。关闭高级回源配置后，则沿用创建加速域名时的回源配置
+            "Origin" => '1.1.1.1',//主源站回源地址，可以是IP或域名；IP支持最多20个，以逗号区分，域名只能输入一个。IP与域名不能同时输入。
+            "OriginPolicy" => 'quality',//回源规则，取值rr、quality。其中，rr: 轮询； quality: 按质量最优的topN来轮询回源。适用于主源站、热备源站
+            "OriginPolivyBestCount" => '1',//取值1-10的整数。适用于主源站、热备源站，当OriginPolicy是quality时，该项必填。
+            "BackupOriginType" => "domain",//热备源站类型，取值：ipaddr、 domain，分别表示：IP源站、域名源站。
+            "BackupOrigin" => "ks.dd.com"//热备源站回源地址，可以是IP或域名；IP支持最多20个，以逗号区分，域名只能输入一个。IP与域名不能同时输入。
         ],
     ];
-    $response = Cdn::getInstance()->request('SetRequestAuthConfig', $params);
+    $response = Cdn::getInstance()->request('SetOriginAdvancedConfig', $params);
     echo (String)$response->getBody();
     echo (String)$response->getStatusCode();
 }
@@ -639,6 +641,120 @@ function testGetDomainConfigs()
     $response = Cdn::getInstance()->request('GetDomainConfigs', $params);
     echo (String)$response->getBody();
     echo (String)$response->getStatusCode();
+}
+
+
+function testSetRequestAuthConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+    
+        'query' => [
+            'DomainId'=>'2D09555', //域名ID
+            'Enable' => 'on', //配置是否开启或关闭取值：on、off，默认值为off关闭。开启时，下述必须项为必填项；关闭时，只更改此标识，忽略后面的项目
+            'AuthType' => 'TypeA',//防盗链类型，取值：TypeA 、TypeB；默认为TypeA，开启后必填
+            'Key1' => '1aaa',//主享密钥，必须由大小写字母（a-Z）或者数字（0-9）组成，长度在6-32个字符之间。密钥两边需加英文字符双引号””
+            'Key2' => '1222',//备享密钥，必须由大小写字母（a-Z）或者数字（0-9）组成，长度在6-32个字符之间。密钥两边需加英文字符双引号””
+			'ExpirationTime'=>10,//过期时间，单位为“秒”，输入大于等于0的正整数，最大不要超过31536000
+        ]
+    ];
+    $response = Cdn::getInstance()->request('SetRequestAuthConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
+function testSetForceRedirectConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+        'query' => [
+             'DomainId'=>'2D09555', //域名ID
+             'RedirectType' => 'off', //配置强制跳转类型, 取值: off、 https，默认为off 。其中https表示http → https，当选择https时需保证域名已配置证书
+         ],
+    ];
+    $response = Cdn::getInstance()->request('SetForceRedirectConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
+    /**
+     * 设置HTTP 2.0
+     */
+function testSetHttp2OptionConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+        'query' => [
+            'DomainId'=>'2D09555', //域名ID
+            'Enable' => 'off', //配置HTTP 2.0功能的开启或关闭 取值：on、off ，默认为off ；开启需保证域名已配置证书
+        ],
+    ];
+    $response = Cdn::getInstance()->request('SetHttp2OptionConfig', $params);
+    echo (String)$response->getBody();
+    echo (String)$response->getStatusCode();
+}
+
+ /**
+     * 设置智能压缩
+     */
+function testSetPageCompressConfig()
+{
+	global $ak;
+	global $sk;
+	$params = [
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+        ],
+        'query' => [
+            'DomainId'=>'2D09555', //域名ID
+            'Enable' => 'off', //配置智能压缩的开启或关闭 取值：on、off ，默认为off 。
+        ],
+    ];
+    $response = Cdn::getInstance()->request('SetPageCompressConfig', $params);
+    echo (String)$response->getBody();
+	echo (String)$response->getStatusCode();
+}
+    /**
+     * 自定义错误页面
+     */
+function testSetErrorPageConfig()
+{
+		/*参数说明
+		DomainId域名ID
+		ErrorPages由ErrorPage组成的数组，表示自定义错误页面列表。注意：该数组是有序的，如果一个相同状态码在数组里有配置子集，则以最后面的子集为准
+		ErrorPage:
+				ErrorHttpCode错误的状态码
+				CustomPageUrl自定义发生错误后跳转的页面URL
+		*/
+	global $ak;
+	global $sk;
+	$data="{\"DomainId\":\"2D09555\",\"ErrorPages\":[{\"ErrorHttpCode\":\"404\",\"CustomPageUrl\":\"https://www.test.com/error404.html\"},{\"ErrorHttpCode\":\"403\",\"CustomPageUrl\":\"https://www.test.com/error403.html\"}]}";
+	$params=[
+		'v4_credentials' =>[
+			'ak' => $ak,
+			'sk' => $sk
+		],
+		'body'=>$data,
+	];
+	$response=Cdn::getInstance()->request('SetErrorPageConfig',$params);
+	echo (String)$response->getBody();
+	echo (String)$response->getStatusCode();
 }
 
 
@@ -669,4 +785,10 @@ function testGetDomainConfigs()
 //testGetBillingData();
 //testGetPeakBandwidthData();
 //testSetRequestAuthConfig();
-testGetDomainConfigs();
+//testSetOriginAdvancedConfig();
+//testGetDomainConfigs();
+//testSetRequestAuthConfig();
+//testSetForceRedirectConfig();
+//testSetHttp2OptionConfig();
+//testSetPageCompressConfig();
+testSetErrorPageConfig();
